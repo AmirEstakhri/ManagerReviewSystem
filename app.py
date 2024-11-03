@@ -4,6 +4,7 @@ from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
 
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Required to use session in Flask
 
@@ -61,6 +62,8 @@ def home():
             buttons += " | <a href='/manager_review'><button>Manager Review</button></a>"
             buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  # Add PDF download button for manager
             buttons += " | <a href='/submitted_forms'><button>View Submitted Forms</button></a>"  # Link to view submitted forms
+            buttons += " | <a href='/search'><button>Search</button></a>"  # Add search button for all users
+
 
         
         return welcome_message + verification_message + buttons
@@ -325,16 +328,18 @@ def download_pdf():
     c.save()
 
     return send_file(pdf_path, as_attachment=True)
-# Route to show submitted forms, edited forms, and verified forms
+
+
+# Route to show submitted forms, edited forms, verified forms, and high priority forms
 @app.route('/submitted_forms')
 def submitted_forms():
     if 'user' not in session:
         return redirect(url_for('login'))
 
-    # Create separate lists for each status
     submitted_list = [submission for submission in submitted_data]  # All submitted forms
     edited_list = [submission for submission in submitted_data if submission.get('editing_time')]  # Edited forms
     verified_list = [submission for submission in submitted_data if submission.get('status') == 'Verified']  # Verified forms
+    high_priority_list = [submission for submission in submitted_data if submission.get('priority') == 'High']  # High priority forms
 
     # HTML structure to display the forms
     response = "<h1>Submitted Forms</h1>"
@@ -343,6 +348,24 @@ def submitted_forms():
     response += f"<h2>Total Submitted Forms: {len(submitted_list)}</h2>"
     response += f"<h2>Total Edited Forms: {len(edited_list)}</h2>"
     response += f"<h2>Total Verified Forms: {len(verified_list)}</h2>"
+    response += f"<h2>Total High Priority Forms: {len(high_priority_list)}</h2>"  # Count of high priority forms
+
+    # Calculate average time between submission and verification for verified forms
+    total_time_diff = 0
+    count_verified = 0
+    
+    for submission in verified_list:
+        submission_time = datetime.strptime(submission['submission_date'], "%Y-%m-%d %H:%M:%S")
+        verification_time = datetime.strptime(submission['verification_date'], "%Y-%m-%d %H:%M:%S")
+        time_diff = verification_time - submission_time
+        total_time_diff += time_diff.total_seconds()  # Convert to seconds
+        count_verified += 1
+
+    # Calculate average if there are verified forms
+    average_time = (total_time_diff / count_verified) / 60 if count_verified > 0 else 0  # Average in minutes
+
+    # Display average time
+    response += f"<h2>Average Time from Submission to Verification: {average_time:.2f} minutes</h2>"
 
     # Display submitted forms
     response += "<h2>All Submitted Forms:</h2>"
@@ -359,9 +382,51 @@ def submitted_forms():
     for submission in verified_list:
         response += f"<p><strong>Subject:</strong> {submission['name']} | Verification Date: {submission['verification_date']}</p>"
     
+    # Display high priority forms
+    response += "<h2>High Priority Forms:</h2>"
+    if high_priority_list:
+        for submission in high_priority_list:
+            response += f"<p><strong>Subject:</strong> {submission['name']} | Priority: {submission['priority']} | Submission Date: {submission['submission_date']}</p>"
+    else:
+        response += "<p>No high priority forms submitted.</p>"
+    
     response += "<br><a href='/'>Go Home</a>"
 
     return response
+# Route for search functionality
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        selected_tags = request.form.get('tags')
+        selected_categories = request.form.get('categories')
+
+        filtered_data = [
+            submission for submission in submitted_data
+            if (selected_tags in submission['field1'] if selected_tags else True) and
+               (selected_categories in submission['field2'] if selected_categories else True)
+        ]
+        
+        # Display search results
+        data_display = "<h1>Search Results</h1><ul>"
+        for submission in filtered_data:
+            data_display += f"<li>{submission['name']} - Tags: {submission['field1']} - Categories: {submission['field2']}</li>"
+        data_display += "</ul>"
+        return data_display
+
+    return '''
+    <h1>Search</h1>
+    <form method="post">
+        <label for="tags">Tags:</label>
+        <input type="text" id="tags" name="tags"><br><br>
+        <label for="categories">Categories:</label>
+        <input type="text" id="categories" name="categories"><br><br>
+        <input type="submit" value="Search">
+    </form>
+    '''
+
 
 if __name__ == '__main__':
     app.run(debug=True)
