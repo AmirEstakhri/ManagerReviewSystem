@@ -4,6 +4,11 @@ from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
 
+# Define the list to store submitted form data
+submitted_data = []
+
+# New dictionary to hold the version history for each submission
+version_history = {}
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Required to use session in Flask
@@ -62,16 +67,17 @@ def home():
             buttons += " | <a href='/manager_review'><button>Manager Review</button></a>"
             buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  # Add PDF download button for manager
             buttons += " | <a href='/submitted_forms'><button>View Submitted Forms</button></a>"  # Link to view submitted forms
-            buttons += " | <a href='/search'><button>Search</button></a>"  # Add search button for all users
-
-
         
+        # Add search button for all users
+        buttons += " | <a href='/search'><button>Search</button></a>"  
+
         return welcome_message + verification_message + buttons
     else:
         return '''
         <h1>Welcome to the Home Page!</h1>
         <a href="/login"><button>Login</button></a>
         '''
+
 
 
 
@@ -266,6 +272,13 @@ def edit(submission_index):
 
     if request.method == 'POST':
         updated_data = request.form.to_dict()
+        
+        # Save the previous state to version history
+        if submission_index not in version_history:
+            version_history[submission_index] = []
+        version_history[submission_index].append((submitted_data[submission_index], datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        
+        # Update the submission
         submitted_data[submission_index].update(updated_data)
         submitted_data[submission_index]['editing_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Save edit date
         return redirect(url_for('manager_review'))
@@ -304,6 +317,19 @@ def edit(submission_index):
     <a href='/manager_review'><button>Cancel</button></a>
     '''
 
+# New Route to View Version History
+@app.route('/version_history/<int:submission_index>')
+def view_version_history(submission_index):
+    if submission_index not in version_history:
+        return "<h1>No version history found for this submission.</h1>"
+
+    history = version_history[submission_index]
+    history_display = "<h1>Version History</h1><ul>"
+    for version, edit_time in history:
+        history_display += f"<li>Edited on {edit_time}: {version}</li>"
+    history_display += "</ul><a href='/manager_review'><button>Back to Review</button></a>"
+
+    return history_display
 
 # Route to download PDF
 # Route to download PDF
