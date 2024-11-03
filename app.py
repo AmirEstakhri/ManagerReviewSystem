@@ -60,6 +60,8 @@ def home():
         elif session['user']['role'] == 'manager':
             buttons += " | <a href='/manager_review'><button>Manager Review</button></a>"
             buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  # Add PDF download button for manager
+            buttons += " | <a href='/submitted_forms'><button>View Submitted Forms</button></a>"  # Link to view submitted forms
+
         
         return welcome_message + verification_message + buttons
     else:
@@ -323,7 +325,43 @@ def download_pdf():
     c.save()
 
     return send_file(pdf_path, as_attachment=True)
+# Route to show submitted forms, edited forms, and verified forms
+@app.route('/submitted_forms')
+def submitted_forms():
+    if 'user' not in session:
+        return redirect(url_for('login'))
 
+    # Create separate lists for each status
+    submitted_list = [submission for submission in submitted_data]  # All submitted forms
+    edited_list = [submission for submission in submitted_data if submission.get('editing_time')]  # Edited forms
+    verified_list = [submission for submission in submitted_data if submission.get('status') == 'Verified']  # Verified forms
+
+    # HTML structure to display the forms
+    response = "<h1>Submitted Forms</h1>"
+    
+    # Display counts for each category
+    response += f"<h2>Total Submitted Forms: {len(submitted_list)}</h2>"
+    response += f"<h2>Total Edited Forms: {len(edited_list)}</h2>"
+    response += f"<h2>Total Verified Forms: {len(verified_list)}</h2>"
+
+    # Display submitted forms
+    response += "<h2>All Submitted Forms:</h2>"
+    for submission in submitted_list:
+        response += f"<p><strong>Subject:</strong> {submission['name']} | Status: {submission['status']} | Submission Date: {submission['submission_date']}</p>"
+    
+    # Display edited forms
+    response += "<h2>Edited Forms:</h2>"
+    for submission in edited_list:
+        response += f"<p><strong>Subject:</strong> {submission['name']} | Edited Date: {submission['editing_time']}</p>"
+    
+    # Display verified forms
+    response += "<h2>Verified Forms:</h2>"
+    for submission in verified_list:
+        response += f"<p><strong>Subject:</strong> {submission['name']} | Verification Date: {submission['verification_date']}</p>"
+    
+    response += "<br><a href='/'>Go Home</a>"
+
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
