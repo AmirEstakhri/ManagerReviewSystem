@@ -59,6 +59,7 @@ def home():
             buttons += " | <a href='/admin_review'><button>Admin Review</button></a>"
         elif session['user']['role'] == 'manager':
             buttons += " | <a href='/manager_review'><button>Manager Review</button></a>"
+            buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  # Add PDF download button for manager
         
         return welcome_message + verification_message + buttons
     else:
@@ -66,6 +67,7 @@ def home():
         <h1>Welcome to the Home Page!</h1>
         <a href="/login"><button>Login</button></a>
         '''
+
 
 
 # Login route
@@ -251,71 +253,76 @@ def verify(index):
 
 
 # Route to edit submissions
-@app.route('/edit/<int:index>', methods=['GET', 'POST'])
-def edit(index):
+# Route for editing submissions
+@app.route('/edit/<int:submission_index>', methods=['GET', 'POST'])
+def edit(submission_index):
     if 'user' not in session:
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        data = request.form.to_dict()
-        if 0 <= index < len(submitted_data):
-            submitted_data[index].update(data)
-            return redirect(url_for('manager_review'))
+        updated_data = request.form.to_dict()
+        submitted_data[submission_index].update(updated_data)
+        submitted_data[submission_index]['editing_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Save edit date
+        return redirect(url_for('manager_review'))
 
-    submission = submitted_data[index]
+    # Pre-fill form with existing data for editing
+    existing_data = submitted_data[submission_index]
     return f'''
     <h1>Edit Submission</h1>
     <form method="post">
         <label for="name">Subject:</label>
-        <input type="text" id="name" name="name" value="{submission['name']}"><br><br>
+        <input type="text" id="name" name="name" value="{existing_data['name']}"><br><br>
         <label for="field1">Tags:</label>
-        <input type="text" id="field1" name="field1" value="{submission['field1']}"><br><br>
+        <input type="text" id="field1" name="field1" value="{existing_data['field1']}"><br><br>
         <label for="field2">Categories:</label>
-        <input type="text" id="field2" name="field2" value="{submission['field2']}"><br><br>
+        <input type="text" id="field2" name="field2" value="{existing_data['field2']}"><br><br>
         <label for="field3">Sender:</label>
-        <input type="text" id="field3" name="field3" value="{submission['field3']}"><br><br>
+        <input type="text" id="field3" name="field3" value="{existing_data['field3']}"><br><br>
         <label for="field4">Sender's Signature:</label>
-        <input type="text" id="field4" name="field4" value="{submission['field4']}"><br><br>
+        <input type="text" id="field4" name="field4" value="{existing_data['field4']}"><br><br>
         <label for="field5">Recipient:</label>
-        <input type="text" id="field5" name="field5" value="{submission['field5']}"><br><br>
+        <input type="text" id="field5" name="field5" value="{existing_data['field5']}"><br><br>
         <label for="field6">Recipient's Signature:</label>
-        <input type="text" id="field6" name="field6" value="{submission['field6']}"><br><br>
+        <input type="text" id="field6" name="field6" value="{existing_data['field6']}"><br><br>
         <label for="field7">Registration Number:</label>
-        <input type="text" id="field7" name="field7" value="{submission['field7']}"><br><br>
+        <input type="text" id="field7" name="field7" value="{existing_data['field7']}"><br><br>
         <label for="field8">Letter Content:</label>
-        <input type="text" id="field8" name="field8" value="{submission['field8']}"><br><br>
+        <input type="text" id="field8" name="field8" value="{existing_data['field8']}"><br><br>
         <label for="field9">Attachment Number (Optional):</label>
-        <input type="text" id="field9" name="field9" value="{submission['field9']}"><br><br>
+        <input type="text" id="field9" name="field9" value="{existing_data['field9']}"><br><br>
         <label for="field10">Letter Content:</label>
-        <input type="text" id="field10" name="field10" value="{submission['field10']}"><br><br>
+        <input type="text" id="field10" name="field10" value="{existing_data['field10']}"><br><br>
         <label for="field11">Select Follower:</label>
-        <input type="text" id="field11" name="field11" value="{submission['field11']}"><br><br>
-        <label for="priority">Priority:</label>
-        <select id="priority" name="priority">
-            <option value="Low" {'selected' if submission["priority"] == 'Low' else ''}>Low</option>
-            <option value="Medium" {'selected' if submission["priority"] == 'Medium' else ''}>Medium</option>
-            <option value="High" {'selected' if submission["priority"] == 'High' else ''}>High</option>
-        </select><br><br>
+        <input type="text" id="field11" name="field11" value="{existing_data['field11']}"><br><br>
         <input type="submit" value="Update">
     </form>
+    <a href='/manager_review'><button>Cancel</button></a>
     '''
 
 
 # Route to download PDF
-@app.route('/download_pdf', methods=['GET'])
+# Route to download PDF
+@app.route('/download_pdf')
 def download_pdf():
-    # Create a PDF document
-    pdf_file = 'submission_report.pdf'
-    c = canvas.Canvas(pdf_file, pagesize=letter)
-    c.drawString(100, 750, "Submission Report")
-    y_position = 730
+    if 'user' not in session:
+        return redirect(url_for('login'))
 
-    for submission in submitted_data:
-        c.drawString(100, y_position, f"Subject: {submission['name']}, Status: {submission['status']}, Priority: {submission['priority']}")
-        y_position -= 20
+    pdf_filename = 'submission_report.pdf'
+    pdf_path = os.path.join(os.getcwd(), pdf_filename)
+
+    c = canvas.Canvas(pdf_path, pagesize=letter)
+    c.drawString(100, 750, "Submission Report")
+    c.drawString(100, 730, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+    y = 700
+    for i, submission in enumerate(submitted_data):
+        edit_date = submission.get('editing_time', 'Not Edited')
+        c.drawString(100, y, f"Entry {i + 1}: {submission['name']}, Status: {submission['status']}, Priority: {submission['priority']}, Edited on: {edit_date}")
+        y -= 20  # Move down the page for each entry
 
     c.save()
-    return send_file(pdf_file, as_attachment=True)
+
+    return send_file(pdf_path, as_attachment=True)
 
 
 if __name__ == '__main__':
