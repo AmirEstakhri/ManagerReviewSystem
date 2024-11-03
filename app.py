@@ -35,7 +35,8 @@ field_labels = {
     "field8_truncated": "Letter Content (First 100 Characters)",
     "verification_date": "Verification Date",
     "status": "Status",
-    "editing_time": "Editing Time"
+    "editing_time": "Editing Time",
+    "priority": "Priority"  # Add priority to the labels
 }
 
 # Home page route
@@ -66,6 +67,7 @@ def home():
         <a href="/login"><button>Login</button></a>
         '''
 
+
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -87,11 +89,13 @@ def login():
     </form>
     '''
 
+
 # Logout route
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('home'))
+
 
 # Form page route with role-based restriction
 @app.route('/form', methods=['GET', 'POST'])
@@ -101,6 +105,7 @@ def form():
 
     if request.method == 'POST':
         data = request.form.to_dict()
+        data["priority"] = request.form.get('priority')  # Save the priority
         data["submission_date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         data["status"] = "Pending Review"  # Initial status
         data["verification_date"] = None  # Initially no verification date
@@ -146,9 +151,16 @@ def form():
         <input type="text" id="field10" name="field10"><br><br>
         <label for="field11">Select Follower:</label>
         <input type="text" id="field11" name="field11"><br><br>
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select><br><br>
         <input type="submit" value="Submit">
     </form>
     '''
+
 
 # Success page route with link to view PDF
 @app.route('/success')
@@ -160,29 +172,52 @@ def success():
     <a href="/form"><button>Create a New Form</button></a>
     <br><br>
     <a href="/download_pdf"><button>Show PDF File</button></a>
-     <br><br>
+    <br><br>
     <a href="/"><button>Home</button></a>
     '''
 
+
 # Route for Manager to review submissions
-@app.route('/manager_review', methods=['GET'])
+@app.route('/manager_review', methods=['GET', 'POST'])
 def manager_review():
     if 'user' not in session or session['user']['role'] != 'manager':
         return redirect(url_for('login'))
 
+    # Get the selected priority from the form
+    selected_priority = request.form.get('priority') if request.method == 'POST' else None
+
+    # Filter submissions based on selected priority
+    filtered_data = [submission for submission in submitted_data if not selected_priority or submission['priority'] == selected_priority]
+
+    # Create the filter form
+    priority_filter_form = '''
+    <form method="post">
+        <label for="priority">Filter by Priority:</label>
+        <select id="priority" name="priority">
+            <option value="">All</option>
+            <option value="Low" {'selected' if selected_priority == 'Low' else ''}>Low</option>
+            <option value="Medium" {'selected' if selected_priority == 'Medium' else ''}>Medium</option>
+            <option value="High" {'selected' if selected_priority == 'High' else ''}>High</option>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+    '''
+
     reviews = ""
     
-    for i, submission in enumerate(submitted_data):
+    for i, submission in enumerate(filtered_data):
         reviews += f"""
-        <p><strong>Entry {i + 1}:</strong> {submission['name']} | Status: {submission['status']} 
-        <form action='/verify/{i}' method='post' style='display:inline;'>
+        <p><strong>Entry {i + 1}:</strong> {submission['name']} | Status: {submission['status']} | Priority: {submission['priority']}
+        <form action='/verify/{submitted_data.index(submission)}' method='post' style='display:inline;'>
             <input type='submit' value='Verify'>
         </form>
-        <a href='/edit/{i}'><button>Edit</button></a>
+        <a href='/edit/{submitted_data.index(submission)}'><button>Edit</button></a>
         </p>
         """
 
-    return f"<h1>Manager Review</h1>{reviews}<a href='/'>Go Home</a>"
+    return f"<h1>Manager Review</h1>{priority_filter_form}{reviews}<a href='/'>Go Home</a>"
+
+
 
 # Route for Admin to review submissions
 @app.route('/admin_review')
@@ -193,79 +228,95 @@ def admin_review():
     reviews = ""
     for i, submission in enumerate(submitted_data):
         if submission['status'] == "Pending Review":
-            reviews += f"<p><strong>Entry {i + 1}:</strong> {submission['status']} <a href='/verify/{i}'><button>Verify</button></a></p>"
+            reviews += f"<p><strong>Entry {i + 1}:</strong> {submission['status']} | Priority: {submission['priority']} <a href='/verify/{i}'><button>Verify</button></a></p>"
     
     return f"<h1>Admin Review</h1>{reviews}<a href='/'>Go Home</a>"
 
+
 # Route for Manager to verify submissions
-@app.route('/verify/<int:submission_index>', methods=['POST'])
-def verify(submission_index):
+@app.route('/verify/<int:index>', methods=['POST'])
+def verify(index):
     if 'user' not in session or session['user']['role'] != 'manager':
         return redirect(url_for('login'))
 
-    if submission_index < len(submitted_data):
-        submission = submitted_data[submission_index]
+    if 0 <= index < len(submitted_data):
+        submission = submitted_data[index]
+        submission['status'] = "Verified"
         submission['verification_date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        submission['status'] = 'Verified'
-
-        # Set message for normal users
-        session['verification_message'] = f"Your submission '{submission['name']}' has been verified by the manager."
+        
+        # Notify the normal user about the verification (simulated)
+        print(f"Manager: {session['user']['username']} has verified the form submitted by {submission['field3']}.")
 
     return redirect(url_for('manager_review'))
 
-# Edit page route for manager
-@app.route('/edit/<int:submission_index>', methods=['GET', 'POST'])
-def edit(submission_index):
-    if 'user' not in session or session['user']['role'] != 'manager':
-        return redirect(url_for('login'))
-    
-    if request.method == 'POST':
-        data = request.form.to_dict()
-        data["editing_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        data["verification_date"] = None
-        data["status"] = "Pending Review"
 
-        submitted_data[submission_index].update(data)
-        
-        return redirect(url_for('manager_review'))
-
-    submission = submitted_data[submission_index]
-    edit_form = ""
-    
-    for field, label in field_labels.items():
-        edit_form += f"""
-        <label for="{field}">{label}:</label>
-        <input type="text" id="{field}" name="{field}" value="{submission.get(field, '')}"><br><br>
-        """
-    
-    edit_form += "<input type='submit' value='Submit'>"
-    
-    return f"<form method='post'>{edit_form}</form>"
-
-# Route to download the submitted form data as a PDF
-@app.route('/download_pdf')
-def download_pdf():
+# Route to edit submissions
+@app.route('/edit/<int:index>', methods=['GET', 'POST'])
+def edit(index):
     if 'user' not in session:
         return redirect(url_for('login'))
 
-    pdf_path = "submitted_data.pdf"
-    c = canvas.Canvas(pdf_path, pagesize=letter)
+    if request.method == 'POST':
+        data = request.form.to_dict()
+        if 0 <= index < len(submitted_data):
+            submitted_data[index].update(data)
+            return redirect(url_for('manager_review'))
 
-    # Write submitted data to PDF
-    y = 750
-    for i, data in enumerate(submitted_data):
-        c.drawString(100, y, f"Entry {i + 1}:")
-        y -= 20
-        for field, value in data.items():
-            label = field_labels.get(field, field)
-            c.drawString(100, y, f"{label}: {value}")
-            y -= 20
-        y -= 30  # Space between entries
+    submission = submitted_data[index]
+    return f'''
+    <h1>Edit Submission</h1>
+    <form method="post">
+        <label for="name">Subject:</label>
+        <input type="text" id="name" name="name" value="{submission['name']}"><br><br>
+        <label for="field1">Tags:</label>
+        <input type="text" id="field1" name="field1" value="{submission['field1']}"><br><br>
+        <label for="field2">Categories:</label>
+        <input type="text" id="field2" name="field2" value="{submission['field2']}"><br><br>
+        <label for="field3">Sender:</label>
+        <input type="text" id="field3" name="field3" value="{submission['field3']}"><br><br>
+        <label for="field4">Sender's Signature:</label>
+        <input type="text" id="field4" name="field4" value="{submission['field4']}"><br><br>
+        <label for="field5">Recipient:</label>
+        <input type="text" id="field5" name="field5" value="{submission['field5']}"><br><br>
+        <label for="field6">Recipient's Signature:</label>
+        <input type="text" id="field6" name="field6" value="{submission['field6']}"><br><br>
+        <label for="field7">Registration Number:</label>
+        <input type="text" id="field7" name="field7" value="{submission['field7']}"><br><br>
+        <label for="field8">Letter Content:</label>
+        <input type="text" id="field8" name="field8" value="{submission['field8']}"><br><br>
+        <label for="field9">Attachment Number (Optional):</label>
+        <input type="text" id="field9" name="field9" value="{submission['field9']}"><br><br>
+        <label for="field10">Letter Content:</label>
+        <input type="text" id="field10" name="field10" value="{submission['field10']}"><br><br>
+        <label for="field11">Select Follower:</label>
+        <input type="text" id="field11" name="field11" value="{submission['field11']}"><br><br>
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority">
+            <option value="Low" {'selected' if submission["priority"] == 'Low' else ''}>Low</option>
+            <option value="Medium" {'selected' if submission["priority"] == 'Medium' else ''}>Medium</option>
+            <option value="High" {'selected' if submission["priority"] == 'High' else ''}>High</option>
+        </select><br><br>
+        <input type="submit" value="Update">
+    </form>
+    '''
+
+
+# Route to download PDF
+@app.route('/download_pdf', methods=['GET'])
+def download_pdf():
+    # Create a PDF document
+    pdf_file = 'submission_report.pdf'
+    c = canvas.Canvas(pdf_file, pagesize=letter)
+    c.drawString(100, 750, "Submission Report")
+    y_position = 730
+
+    for submission in submitted_data:
+        c.drawString(100, y_position, f"Subject: {submission['name']}, Status: {submission['status']}, Priority: {submission['priority']}")
+        y_position -= 20
 
     c.save()
+    return send_file(pdf_file, as_attachment=True)
 
-    return send_file(pdf_path, as_attachment=True)
 
-# Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)
