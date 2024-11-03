@@ -66,7 +66,6 @@ def home():
         <a href="/login"><button>Login</button></a>
         '''
 
-
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -88,13 +87,11 @@ def login():
     </form>
     '''
 
-
 # Logout route
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('home'))
-
 
 # Form page route with role-based restriction
 @app.route('/form', methods=['GET', 'POST'])
@@ -153,7 +150,6 @@ def form():
     </form>
     '''
 
-
 # Success page route with link to view PDF
 @app.route('/success')
 def success():
@@ -167,7 +163,6 @@ def success():
      <br><br>
     <a href="/"><button>Home</button></a>
     '''
-
 
 # Route for Manager to review submissions
 @app.route('/manager_review', methods=['GET'])
@@ -189,7 +184,6 @@ def manager_review():
 
     return f"<h1>Manager Review</h1>{reviews}<a href='/'>Go Home</a>"
 
-
 # Route for Admin to review submissions
 @app.route('/admin_review')
 def admin_review():
@@ -203,7 +197,6 @@ def admin_review():
     
     return f"<h1>Admin Review</h1>{reviews}<a href='/'>Go Home</a>"
 
-
 # Route for Manager to verify submissions
 @app.route('/verify/<int:submission_index>', methods=['POST'])
 def verify(submission_index):
@@ -216,79 +209,63 @@ def verify(submission_index):
         submission['status'] = 'Verified'
 
         # Set message for normal users
-        session['verification_message'] = f"Your submission '{submission['name']}' has been verified."
-    
+        session['verification_message'] = f"Your submission '{submission['name']}' has been verified by the manager."
+
     return redirect(url_for('manager_review'))
 
-
-# Route for editing submissions
+# Edit page route for manager
 @app.route('/edit/<int:submission_index>', methods=['GET', 'POST'])
 def edit(submission_index):
-    if 'user' not in session:
+    if 'user' not in session or session['user']['role'] != 'manager':
         return redirect(url_for('login'))
-
+    
     if request.method == 'POST':
-        updated_data = request.form.to_dict()
-        submitted_data[submission_index].update(updated_data)
+        data = request.form.to_dict()
+        data["editing_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data["verification_date"] = None
+        data["status"] = "Pending Review"
+
+        submitted_data[submission_index].update(data)
+        
         return redirect(url_for('manager_review'))
 
-    # Pre-fill form with existing data for editing
-    existing_data = submitted_data[submission_index]
-    return f'''
-    <h1>Edit Submission</h1>
-    <form method="post">
-        <label for="name">Subject:</label>
-        <input type="text" id="name" name="name" value="{existing_data['name']}"><br><br>
-        <label for="field1">Tags:</label>
-        <input type="text" id="field1" name="field1" value="{existing_data['field1']}"><br><br>
-        <label for="field2">Categories:</label>
-        <input type="text" id="field2" name="field2" value="{existing_data['field2']}"><br><br>
-        <label for="field3">Sender:</label>
-        <input type="text" id="field3" name="field3" value="{existing_data['field3']}"><br><br>
-        <label for="field4">Sender's Signature:</label>
-        <input type="text" id="field4" name="field4" value="{existing_data['field4']}"><br><br>
-        <label for="field5">Recipient:</label>
-        <input type="text" id="field5" name="field5" value="{existing_data['field5']}"><br><br>
-        <label for="field6">Recipient's Signature:</label>
-        <input type="text" id="field6" name="field6" value="{existing_data['field6']}"><br><br>
-        <label for="field7">Registration Number:</label>
-        <input type="text" id="field7" name="field7" value="{existing_data['field7']}"><br><br>
-        <label for="field8">Letter Content:</label>
-        <input type="text" id="field8" name="field8" value="{existing_data['field8']}"><br><br>
-        <label for="field9">Attachment Number (Optional):</label>
-        <input type="text" id="field9" name="field9" value="{existing_data['field9']}"><br><br>
-        <label for="field10">Letter Content:</label>
-        <input type="text" id="field10" name="field10" value="{existing_data['field10']}"><br><br>
-        <label for="field11">Select Follower:</label>
-        <input type="text" id="field11" name="field11" value="{existing_data['field11']}"><br><br>
-        <input type="submit" value="Update">
-    </form>
-    <a href='/manager_review'><button>Cancel</button></a>
-    '''
+    submission = submitted_data[submission_index]
+    edit_form = ""
+    
+    for field, label in field_labels.items():
+        edit_form += f"""
+        <label for="{field}">{label}:</label>
+        <input type="text" id="{field}" name="{field}" value="{submission.get(field, '')}"><br><br>
+        """
+    
+    edit_form += "<input type='submit' value='Submit'>"
+    
+    return f"<form method='post'>{edit_form}</form>"
 
-
-# Route to download PDF
+# Route to download the submitted form data as a PDF
 @app.route('/download_pdf')
 def download_pdf():
     if 'user' not in session:
         return redirect(url_for('login'))
 
-    pdf_filename = 'submission_report.pdf'
-    pdf_path = os.path.join(os.getcwd(), pdf_filename)
-
+    pdf_path = "submitted_data.pdf"
     c = canvas.Canvas(pdf_path, pagesize=letter)
-    c.drawString(100, 750, "Submission Report")
-    c.drawString(100, 730, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    y = 700
-    for i, submission in enumerate(submitted_data):
-        c.drawString(100, y, f"Entry {i + 1}: {submission['name']}, Status: {submission['status']}")
-        y -= 20  # Move down the page for each entry
+    # Write submitted data to PDF
+    y = 750
+    for i, data in enumerate(submitted_data):
+        c.drawString(100, y, f"Entry {i + 1}:")
+        y -= 20
+        for field, value in data.items():
+            label = field_labels.get(field, field)
+            c.drawString(100, y, f"{label}: {value}")
+            y -= 20
+        y -= 30  # Space between entries
 
     c.save()
 
     return send_file(pdf_path, as_attachment=True)
 
-
+# Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)
