@@ -1,0 +1,9 @@
+<h1>Versions for Submission {{ submission.id }}</h1>
+<ul>
+    {% for version in versions %}
+        <li>
+            {{ version.timestamp }}: {{ version.content }}
+            <a href="{{ url_for('revert_to_version', version_id=version.id) }}">Revert</a>
+        </li>
+    {% endfor %}
+</ul>

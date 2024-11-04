@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Submission  # Import your database and model
 
 import os
-from models import Form, db  # Importing db from models
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -78,17 +78,19 @@ def home():
             buttons += " | <a href='/admin_review'><button>Admin Review</button></a>"
         elif session['user']['role'] == 'manager':
             buttons += " | <a href='/manager_review'><button>Manager Review</button></a>"
-            buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  
-            buttons += " | <a href='/submitted_forms'><button>View Submitted Forms</button></a>"  
-            buttons += " | <a href='/search'><button>Search</button></a>"  
+            buttons += " | <a href='/download_pdf'><button>Download PDF</button></a>"  # Add PDF download button for manager
+            buttons += " | <a href='/submitted_forms'><button>View Submitted Forms</button></a>"  # Link to view submitted forms
+            buttons += " | <a href='/search'><button>Search</button></a>"  # Add search button for all users
 
-        buttons += " | <a href='/search'><button>Search</button></a>"  
+
+        
         return welcome_message + verification_message + buttons
     else:
         return '''
         <h1>Welcome to the Home Page!</h1>
         <a href="/login"><button>Login</button></a>
         '''
+
 
 
 
@@ -268,47 +270,48 @@ def edit_submission(submission_id):
         return redirect(url_for('manager_review'))  # Change to the actual view you want to redirect to
 
     if request.method == 'POST':
-        print(request.form)  # Debugging line
+        updated_data = request.form.to_dict()
+        submitted_data[submission_index].update(updated_data)
+        submitted_data[submission_index]['editing_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Save edit date
+        return redirect(url_for('manager_review'))
 
-        # Check and update each field as necessary
-        submission.name = request.form.get('name', submission.name)  # Update name
-        submission.field1 = request.form.get('field1', submission.field1)  # Update field1
-        submission.field2 = request.form.get('field2', submission.field2)  # Update field2
-        submission.field3 = request.form.get('field3', submission.field3)  # Update field3
-        submission.field4 = request.form.get('field4', submission.field4)  # Update field4
-        submission.field5 = request.form.get('field5', submission.field5)  # Update field5
-        submission.field6 = request.form.get('field6', submission.field6)  # Update field6
-        submission.field7 = request.form.get('field7', submission.field7)  # Update field7
-        submission.field8 = request.form.get('field8', submission.field8)  # Update field8
-        submission.field9 = request.form.get('field9', submission.field9)  # Update field9
-        submission.field10 = request.form.get('field10', submission.field10)  # Update field10
-        submission.field11 = request.form.get('field11', submission.field11)  # Update field11
-        submission.priority = request.form.get('priority', submission.priority)  # Update priority
-        submission.submission_date = request.form.get('submission_date', submission.submission_date)  # Update submission_date
-        submission.status = request.form.get('status', submission.status)  # Update status
-        submission.verification_date = request.form.get('verification_date', submission.verification_date)  # Update verification_date
-        submission.editing_time = request.form.get('editing_time', submission.editing_time)  # Update editing_time
+    # Pre-fill form with existing data for editing
+    existing_data = submitted_data[submission_index]
+    return f'''
+    <h1>Edit Submission</h1>
+    <form method="post">
+        <label for="name">Subject:</label>
+        <input type="text" id="name" name="name" value="{existing_data['name']}"><br><br>
+        <label for="field1">Tags:</label>
+        <input type="text" id="field1" name="field1" value="{existing_data['field1']}"><br><br>
+        <label for="field2">Categories:</label>
+        <input type="text" id="field2" name="field2" value="{existing_data['field2']}"><br><br>
+        <label for="field3">Sender:</label>
+        <input type="text" id="field3" name="field3" value="{existing_data['field3']}"><br><br>
+        <label for="field4">Sender's Signature:</label>
+        <input type="text" id="field4" name="field4" value="{existing_data['field4']}"><br><br>
+        <label for="field5">Recipient:</label>
+        <input type="text" id="field5" name="field5" value="{existing_data['field5']}"><br><br>
+        <label for="field6">Recipient's Signature:</label>
+        <input type="text" id="field6" name="field6" value="{existing_data['field6']}"><br><br>
+        <label for="field7">Registration Number:</label>
+        <input type="text" id="field7" name="field7" value="{existing_data['field7']}"><br><br>
+        <label for="field8">Letter Content:</label>
+        <input type="text" id="field8" name="field8" value="{existing_data['field8']}"><br><br>
+        <label for="field9">Attachment Number (Optional):</label>
+        <input type="text" id="field9" name="field9" value="{existing_data['field9']}"><br><br>
+        <label for="field10">Letter Content:</label>
+        <input type="text" id="field10" name="field10" value="{existing_data['field10']}"><br><br>
+        <label for="field11">Select Follower:</label>
+        <input type="text" id="field11" name="field11" value="{existing_data['field11']}"><br><br>
+        <input type="submit" value="Update">
+    </form>
+    <a href='/manager_review'><button>Cancel</button></a>
+    '''
 
-        # Commit the changes to the database
-        db.session.commit()  
-        flash('Submission updated successfully!', 'success')
-        return redirect(url_for('manager_review'))  # Change to the actual view you want to redirect to
 
-    return render_template('edit_submission.html', submission=submission)
-
-
-
-@app.route('/version_history/<int:submission_index>')
-def view_version_history(submission_index):
-    if submission_index not in version_history:
-        return "<h1>No version history found for this submission.</h1>"
-    history = version_history[submission_index]
-    history_display = "<h1>Version History</h1><ul>"
-    for version, edit_time in history:
-        history_display += f"<li>Edited on {edit_time}: {version}</li>"
-    history_display += "</ul><a href='/manager_review'><button>Back to Review</button></a>"
-    return history_display
-
+# Route to download PDF
+# Route to download PDF
 @app.route('/download_pdf')
 def download_pdf():
     if 'user' not in session:
