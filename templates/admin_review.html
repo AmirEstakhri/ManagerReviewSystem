@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Review</title>
+</head>
+<body>
+    <h1>Admin Review</h1>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>Entry {{ review.index }}:</strong>
+                    Status: {{ review.status }} | Priority: {{ review.priority }}
+                    <a href="{{ url_for('verify_submission', submission_id=review.id) }}">
+                        <button>Verify</button>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No submissions pending review.</p>
+    {% endif %}
+    <a href="/">Go Home</a>
+</body>
+</html>

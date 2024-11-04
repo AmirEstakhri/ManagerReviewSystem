@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Review</title>
+</head>
+<body>
+    <h1>Manager Review</h1>
+    <form method="post">
+        <label for="priority">Filter by Priority:</label>
+        <select id="priority" name="priority">
+            <option value="">All</option>
+            <option value="Low" {% if selected_priority == 'Low' %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if selected_priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="High" {% if selected_priority == 'High' %}selected{% endif %}>High</option>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+
+    <ul>
+        {% for submission in submissions %}
+            <li>
+                <strong>Entry {{ loop.index }}:</strong> 
+                Name: {{ submission.name }} | 
+                Status: {{ submission.status }} | 
+                Priority: {{ submission.priority }}
+                <form action="{{ url_for('verify_submission', submission_id=submission.id) }}" method="post" style="display:inline;">
+                    <input type="submit" value="Verify">
+                </form>
+                <a href="{{ url_for('edit_submission', submission_id=submission.id) }}"><button>Edit</button></a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Go Home</a>
+</body>
+</html>

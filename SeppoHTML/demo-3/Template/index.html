@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <title>Seppo - Demo 3</title>
+        <!-- Meta Tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="CocoBasic">       
+        <meta name="description" content="Template by CocoBasic">
+        <meta name="keywords" content="HTML, CSS, JavaScript, PHP">
+        <link rel="shortcut icon" href="images/favicon.ico">    
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+        <!-- CSS Plugins -->
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/prettyPhoto.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+        <!-- Main CSS Files -->
+        <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="css/style.css">        
+    </head>
+    <body>
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+        <!-- - - - -->
+
+        <!-- Start Header -->
+        <header>
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li><a href="#" data-scroll="home" class="active">Home</a></li>
+                        <li><a href="#" data-scroll="about">About</a></li>
+                        <li><a href="#" data-scroll="portfolio">Portfolio</a></li>
+                        <li><a href="#" data-scroll="cover-letter">Cover Letter</a></li>
+                        <li><a href="#" data-scroll="skills">Skills</a></li>
+                        <li><a href="#" data-scroll="education">Education</a></li>
+                        <li><a href="#" data-scroll="facts">Facts</a></li>
+                        <li><a href="#" data-scroll="experience">Experience</a></li>
+                        <li><a href="#" data-scroll="contact">Contact</a></li>
+                        <li><a href="blog.html" class="new-page-link">Blog</a></li>
+                    </ul>
+                </nav>
+                <button class="menu-toggler">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="side-left">
+                    <a class="logo" href="index.html">ANNA PETERSON</a>
+                    <ul class="social-side-left">
+                        <li><a href="https://www.linkedin.com/">LI.</a></li>
+                        <li><a href="https://twitter.com/">TW.</a></li>
+                        <li><a href="https://www.linkedin.com/">IN.</a></li>
+                        <li><a href="https://www.facebook.com/">FB.</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+        <!-- Start Home -->
+        <section class="home" id="home">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="image declaration-part">
+                        <img class="desktop-home-image" src="images/main_image.jpg" alt="home image">
+                        <img class="mobile-home-image" src="images/phone_image.jpg" alt="home image">
+                    </div>
+                    <div class="home-content content-part">
+                        <div class="text">
+                            <h1>
+                                Hello<br>
+                                I’m Anna<br>
+                                Peterson
+                            </h1>
+                            <p>
+                                A full stack allaround designer that tristique est placerat in massa consectetur quisque lobortis vitae faucibus diam consequat maecenas turpis metus sit diam purus leo in varius ac quam est lorem ipsum.
+                            </p>
+                            <img src="images/zigzag.png" class="section-moving-shape" alt="zigzag shape">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Home -->
+        <!-- Start About -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="main-heading color-1 declaration-part">
+                        <h2>About</h2>
+                    </div>
+                    <div class="about-field content-part">
+                        <div class="about-content comman-padding">
+                            <div class="text">
+                                <p class="main-bold-p">
+                                    Dolor sit amet, consectetur adipiscing elit viverra tristique placerat in massa consectetur
+                                </p>
+                                <p class="main-p">
+                                    Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu vitae faucibus diam consequat maecenas turpis metus sit diam purus leo in varius ac quam nunc amet tristique volutpat.
+                                </p>
+                            </div>
+                            <div class="features">
+                                <div class="box">
+                                    <img src="images/icon_preciese_v2.png" alt="pixel preciese">
+                                    <span>PIXEL PRECISE</span>
+                                </div>
+                                <div class="box">
+                                    <img src="images/icon_secure_v2.png" alt="secure">
+                                    <span>SECURE</span>
+                                </div>
+                                <div class="box">
+                                    <img src="images/icon_responsive_v2.png" alt="responsive">
+                                    <span>RESPONSIVE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End About -->
+        <!-- Start Portfolio -->
+        <section class="portfolio" id="portfolio">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="portfolio-field content-part">
+                        <div id="portfolio-wrapper" class="relative">                            
+                            <div class="portfolio-load-content-holder"></div>
+                            <div class="grid" id="portfolio-grid">                                                            
+                                <div class="grid-sizer"></div>
+
+                                <div id="p-item-1" class="grid-item element-item p-one">
+                                    <a class="item-link ajax-portfolio" href="portfolio-1.html" data-id="1">
+                                        <img src="images/portfolio1.jpg" alt="Portfolio 1">
+                                        <div class="portfolio-text-holder">
+                                            <div class="portfolio-text-wrapper">
+                                                <p class="portfolio-text">Home</p>
+                                                <p class="portfolio-cat">Text</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div id="p-item-2" class="grid-item element-item p-one-half">
+                                    <a class="item-link ajax-portfolio" href="portfolio-2.html" data-id="2">
+                                        <img src="images/portfolio2.jpg" alt="Portfolio 2">
+                                        <div class="portfolio-text-holder">
+                                            <div class="portfolio-text-wrapper">
+                                                <p class="portfolio-text">Stairways</p>
+                                                <p class="portfolio-cat">Text</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div id="p-item-3" class="grid-item element-item p-one-half">
+                                    <a class="item-link" href="images/blog_img_04.jpg" data-rel="prettyPhoto[portfolio]">
+                                        <img src="images/portfolio3.jpg" alt="Portfolio 3">
+                                        <div class="portfolio-text-holder">
+                                            <div class="portfolio-text-wrapper">
+                                                <p class="portfolio-text">Sneakers</p>
+                                                <p class="portfolio-cat">Image</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="grid-item element-item p-one-half">
+                                    <a class="item-link" href="https://vimeo.com/199192931" data-rel="prettyPhoto[portfolio]">
+                                        <img src="images/portfolio4.jpg" alt="Portfolio 4">
+                                        <div class="portfolio-text-holder">
+                                            <div class="portfolio-text-wrapper">
+                                                <p class="portfolio-text">Design</p>
+                                                <p class="portfolio-cat">Video</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                
+                            </div>                
+                        </div>                                                       
+                    </div>
+                    <div class="main-heading color-2 declaration-part">
+                        <h2>Portfolio</h2>
+                    </div>
+                </div>
+                <img src="images/triangle.png" class="section-moving-shape" alt="triangle shape">
+            </div>
+        </section>
+        <!-- End Portfolio -->
+        <!-- Start Cover Letter -->
+        <section class="cover-letter" id="cover-letter">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="main-heading color-3 declaration-part">
+                        <h2>
+                            Cover<br>
+                            Letter
+                        </h2>
+                    </div>
+                    <div class="cover-field content-part">
+                        <div class="cover-content comman-padding">
+                            <div class="text">
+                                <p class="main-bold-p">
+                                    Dolor sit amet, consectetur adipiscing elit viverra tristique placerat in massa consectetur quisque nunc ac fames lorem ipsum dolormo
+                                </p>
+                                <p class="main-p">
+                                    Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu. Vitae faucibus diam consequat maecenas. Turpis metus sit diam purus leo in varius ac quam. Nunc amet tristique volutpat adipiscing vulputate phasellus. Volutpat faucibus praesent ac lobortis aliquam dolor. Eget enim aliquam euismod mauris in vitae viverra blandit lectus diam feugiat mattis metus, parturient ipsum id nibh tortor tincidunt quam facilisi nunc faucib.
+                                </p>
+                                <p class="main-p">
+                                    Vitae faucibus diam consequat maecenas. Turpis metus sit diam purus leo in varius ac quam. Nunc amet tristique volutpat piscing vulputate phasellus lorem ipsum poterius holutiko lorem ipsum.
+                                </p>
+                            </div>
+                            <div class="signature">
+                                <img src="images/icon_signature_v2.png" alt="signature">
+                            </div>             
+                        </div>
+                    </div>
+                </div>
+                <img src="images/zigzag.png" class="section-moving-shape cover-shape-1" alt="zigzag shape">
+                <img src="images/square.png" class="section-moving-shape cover-shape-2" alt="square shape">
+            </div>
+        </section>
+        <!-- End Cover Letter -->
+        <!-- Start Skills -->
+        <section class="skills" id="skills">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="skills-field content-part">
+                        <div class="skills-content comman-padding">
+                            <div class="text">
+                                <p class="main-bold-p">
+                                    Consectetur adipiscing elit viverra tristique placerat in massa lorem ipsum volos terutosiu
+                                </p>
+                                <p class="main-p">
+                                    Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu. Vitae faucibus diam consequat maecenas turpis metus sit diam purus leo in varius ac quam kolosium peteronos malidivos.
+                                </p>
+                            </div>
+                            <div class="progress-box">
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        PHOTOSHOP
+                                        <span class="bar-percent" data-progress="62%"></span>
+                                    </div>
+                                    <span class="value">62%</span>
+                                </div>
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        ILLUSTRATOR
+                                        <span class="bar-percent" data-progress="84%"></span>
+                                    </div>
+                                    <span class="value">84%</span>
+                                </div>
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        MARKETING
+                                        <span class="bar-percent" data-progress="78%"></span>
+                                    </div>
+                                    <span class="value">78%</span>
+                                </div>
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        SUPER MARIO
+                                        <span class="bar-percent" data-progress="92%"></span>
+                                    </div>
+                                    <span class="value">92%</span>
+                                </div>
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        FIGMA
+                                        <span class="bar-percent" data-progress="85%"></span>
+                                    </div>
+                                    <span class="value" data-progress="85%">85%</span>
+                                </div>
+                                <div class="prog-bar">
+                                    <div class="bar">
+                                        DIGITAL PAINTING
+                                        <span class="bar-percent" data-progress="69%"></span>
+                                    </div>
+                                    <span class="value">69%</span>
+                                </div>
+                            </div>
+                            <img src="images/circle.png" class="section-moving-shape" alt="circle shape">
+                        </div>
+                    </div>
+                    <div class="main-heading color-1 declaration-part">
+                        <h2>Skills</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Skills -->
+        <section class="education" id="education">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="main-heading color-2 declaration-part">
+                        <h2>Education</h2>
+                    </div>
+                    <div class="education-field content-part">
+                        <div class="education-content comman-padding">
+                            <div class="edu-holder">
+                                <div class="edu-box">
+                                    <span class="date">2015</span>
+                                    <span class="circle"></span>
+                                    <p class="text main-p">
+                                        <b>Start</b>
+                                        <br>
+                                        Nunc amet tristique volutpat adipiscing vulputate phasellus eget enim aliquam euismod lorem ispum teoro muniote lore.
+                                    </p>
+                                </div>
+                                <div class="edu-box">
+                                    <span class="date">2016</span>
+                                    <span class="circle"></span>
+                                    <p class="text main-p">
+                                        <b>Basic Level</b>
+                                        <br>
+                                        Turpis metus sit diam purus leo in varius ac quam nunc amet tristique volutpat adipisc vulputate phasellus eget enim aliquam euismod mauris in vitae viverra kolomisu.
+                                    </p>
+                                </div>
+                                <div class="edu-box">
+                                    <span class="date">2017</span>
+                                    <span class="circle"></span>
+                                    <p class="text main-p">
+                                        <b>Master Level</b>
+                                        <br>
+                                        Placerat in massa consectetur quisque nunc ac fames lectus in libero aliquet estlo.
+                                    </p>
+                                </div>
+                                <div class="edu-box">
+                                    <span class="date">2018</span>
+                                    <span class="circle"></span>
+                                    <p class="text main-p">
+                                        <b>Pro Level</b>
+                                        <br>
+                                        Eget enim aliquam euismod mauris in vitae viverra blandit lectus faucibus diam consequat maecenas turpis metus sitomo.
+                                    </p>
+                                </div>
+                            </div>
+                            <img class="section-moving-shape" src="images/triangle.png" alt="triangle shape">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start Facts -->
+        <section class="facts" id="facts">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="facts-field content-part">
+                        <div class="facts-content comman-padding">
+                            <p class="text">
+                                Dolor sit amet, consectetur adipiscing elit viverra tristique placerat in massa consectetur
+                            </p>
+                            <div class="counter-area">
+                                <div class="counter-box">
+                                    <i class="fas fa-coffee"></i>
+                                    <span class="value counter-number-1" data-count="13">5</span>
+                                    <span class="title">Cups of Coffee</span>
+                                </div>
+                                <div class="counter-box">
+                                    <i class="fas fa-cloud-download-alt"></i>
+                                    <span class="value counter-number-2" data-count="250">150</span>
+                                    <span class="title">GB Download</span>
+                                </div>
+                                <div class="counter-box">
+                                    <i class="fas fa-code"></i>
+                                    <div>
+                                        <span class="value counter-number-3" data-count="3.3">1.1</span>
+                                        <span class="value">K</span>
+                                    </div>               
+                                    <span class="title">Lines of Code</span>
+                                </div>
+                                <div class="counter-box">
+                                    <i class="fas fa-images"></i>
+                                    <span class="value counter-number-4" data-count="743">500</span>
+                                    <span class="title">Photos / Week</span>
+                                </div>
+                            </div>
+                            <img class="section-moving-shape" src="images/zigzag.png" alt="zigzag shape">
+                        </div>
+                    </div>
+                    <div class="main-heading color-1 declaration-part">
+                        <h2>Facts</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Facts -->
+        <!-- Start Experience -->
+        <section class="experience" id="experience">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="main-heading color-3 declaration-part">
+                        <h2>Experience</h2>
+                    </div>
+                    <div class="experience-field content-part">
+                        <div class="experience-content comman-padding">
+                            <div class="text">
+                                <p class="bolder-p">
+                                    Dolor sit amet, consectetur adipiscing elit viverra tristique placerat in massa consectetur
+                                </p>
+                                <p class="main-p">
+                                    Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu. Vitae faucibus diam consequat maecenas. Turpis metus sit diam purus leo in varius ac quam. Nunc amet tristique volutpat adipiscing vulputate phasellus. Volutpat faucibus praesent acolo.
+                                </p>
+                            </div>
+                            <div class="faq-accordion">
+                                <div class="exp-box">
+                                    <div class="title">
+                                        <span>Photography Assistant</span>
+                                        <i class="fas fa-caret-down"></i>
+                                    </div>
+                                    <div class="slide-text">
+                                        <p class="intro">2012 – 2014</p>
+                                        <p class="info main-p">
+                                            In sodales suscipit velit sagittis tristique aliquam consectetur eros at viverra aliquet suspendisse potenti lorem ipsum dolo colomose positive aratovi del nenosico.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="exp-box">
+                                    <div class="title">
+                                        <span>Junior Designer</span>
+                                        <i class="fas fa-caret-down"></i>
+                                    </div>
+                                    <div class="slide-text">
+                                        <p class="intro">2014 – 2016</p>
+                                        <p class="info main-p">
+                                            Nulla tristique nulla eget nibh lobortis porta quisque posuere iaculis maximus. Aliquam quis hendrerit dui lore.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="exp-box">
+                                    <div class="title">
+                                        <span>Senior Designer</span>
+                                        <i class="fas fa-caret-down"></i>
+                                    </div>
+                                    <div class="slide-text">
+                                        <p class="intro">2016 – 2017</p>
+                                        <p class="info main-p">
+                                            Proin mollis sapien quis elit aliquam, vitae placerat neque aliquam suspendisse dapibus elit nec pretium gravida. Sed gravida, libero ac tristique tristique, elit quam dignom.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="exp-box">
+                                    <div class="title">
+                                        <span>Team Leader</span>
+                                        <i class="fas fa-caret-down"></i>
+                                    </div>
+                                    <div class="slide-text">
+                                        <p class="intro">2017 – 2020</p>
+                                        <p class="info main-p">
+                                            Ksem, non porta lorem dolor eget augue aliquam eu ante tincidunt, tincidunt nibh quis, accumsan metus doloe.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="section-moving-shape" src="images/zigzag.png" alt="zigzag shape">
+        </section>
+        <!-- End Experience -->
+        <!-- Start Contact -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="main-flex-section">
+                    <div class="contact-field content-part">
+                        <div class="contact-content comman-padding">
+                            <div class="text">
+                                <p class="bolder-p">
+                                    Dolor sit amet, consectetur adipiscing elit viverra tristique placerat in massa Consectetur
+                                </p>
+                                <p class="main-p">
+                                    Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu. Vitae faucibus diam consequat maecenas. Turpis metus sit diam purus leo in varius ac quam. Nunc amet tristique volutpat adipiscing vulputate phasellus. Volutpat faucibus praesent acolo.
+                                </p>
+                            </div>
+                            <div class="form-field">
+                                <div class="contact-form">
+                                    <div class="name">
+                                        <input id="name" type="text" name="name">
+                                        <span class="input-default-text">Name</span>
+                                    </div>
+                                    <div class="email">
+                                        <input id="contact-email" type="email" name="email">
+                                        <span class="input-default-text">Email</span>
+                                    </div>
+                                    <div class="subject">
+                                        <input id="subject" type="text" name="subject">
+                                        <span class="input-default-text">Subject</span>
+                                    </div>
+                                    <div class="message">
+                                        <textarea id="message" name="message"></textarea>
+                                        <span class="input-default-text">Message</span>
+                                    </div>
+                                    <input type="submit" value="Send Message">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-heading color-2 declaration-part">
+                        <h2>Contact</h2>
+                        <img class="section-moving-shape" src="images/square.png" alt="zigzag shape">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Contact -->
+        <!-- Start Footer -->
+        <footer>
+            <div class="container">
+                <ul class="foot-social">
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                    <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fas fa-rss"></i></a></li>
+                </ul>
+                <div class="copyright-holder">                   
+                    &copy; 2023 Seppo HTML5 Theme by <a href="https://www.cocobasic.com/">CocoBasic</a>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+        <!-- JS Files -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.appear.js"></script>        
+        <script src='js/jquery.fitvids.js'></script>                
+        <script src='js/isotope.pkgd.js'></script>                
+        <script src='js/jquery.prettyPhoto.js'></script>                
+        <script src="js/imagesloaded.pkgd.js"></script>
+        <script src='js/owl.carousel.min.js'></script>                                                         
+        <script src="js/main.js"></script>        
+    </body>
+</html>

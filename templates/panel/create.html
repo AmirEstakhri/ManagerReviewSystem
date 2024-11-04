@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>فرم نامه</title>
+    <style>
+       
+    </style>
+</head>
+<body class="create" dir="rtl">
+    <header class="o_navbar">
+        <nav class="o_main_navbar"><a href="#" class="o_menu_toggle" style="position: relative;"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 14 14">
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_0">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="0"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="0"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="0"></rect>
+                    </g>
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_1">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="5"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="5"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="5"></rect>
+                    </g>
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_2">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="10"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="10"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="10"></rect>
+                    </g>
+                </svg></a><a class="dropdown-item o_menu_brand d-none d-md-block"> دبیرخانه </a>
+            <div class="o_menu_sections d-none d-md-flex flex-grow-1 flex-shrink-1" role="menu"><a
+                    class="dropdown-item o_nav_entry">داشبورد</a>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle"><span>نامه
+                            ها</span></button></div>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button
+                        class="dropdown-toggle"><span>کاربران</span></button></div>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle"><span
+                            data-section="800">تاییدیه ها</span></button></div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <form>
+            <div class="form-container">
+                <div class="form-group">
+                    <input type="text" id="subject" placeholder=" ">
+                    <label for="subject">موضوع</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="recipient" placeholder=" ">
+                    <label for="recipient">انتخاب گیرنده</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="sender" placeholder=" ">
+                    <label for="sender">انتخاب فرستنده</label>
+                </div>
+
+                <div class="form-group">
+                    <select id="category">
+                        <option value="" disabled selected></option>
+                        <option value="category1">دسته 1</option>
+                        <option value="category2">دسته 2</option>
+                    </select>
+                    <label for="category">دسته‌بندی</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="postNumber" placeholder=" ">
+                    <label for="postNumber">شماره پست</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="tags" placeholder=" ">
+                    <label for="tags">تگ‌ها</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="followers" placeholder=" ">
+                    <label for="followers">دنبال کنندگان</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="reference" placeholder=" ">
+                    <label for="reference">ارجاع</label>
+                </div>
+
+                <div class="form-group full-width description-wrapper">
+                    <label for="description" class="top-20">توضیحات:</label>
+                    <div class="description-toolbar">
+                        <i class="icon">🔍</i>
+                        <i class="icon">📍</i>
+                        <i class="icon">⚙</i>
+                        <i class="icon">🖼</i>
+                        <i class="icon">📎</i>
+                    </div>
+                    <textarea id="description" placeholder=" "></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit">ثبت</button>
+                <button type="button">تاییدیه جدید</button>
+            </div>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>تایید کننده</th>
+                    <th>تاییدیه برای</th>
+                    <th>شماره نامه</th>
+                    <th>فرستنده ارجاع</th>
+                    <th>وضعیت نامه</th>
+                    <th>تاریخ ارجاع</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>ابوالفضل جوکار</td>
+                    <td>بررسی شکایات بهداشت</td>
+                    <td>5184184</td>
+                    <td>بهداشت</td>
+                    <td><span class="status-label approved">تایید</span></td>
+                    <td>1403/07/10</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>شخص دیگر</td>
+                    <td>بررسی موضوع دیگر</td>
+                    <td>5184185</td>
+                    <td>بخش دیگر</td>
+                    <td><span class="status-label rejected">لغو</span></td>
+                    <td>1403/07/11</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

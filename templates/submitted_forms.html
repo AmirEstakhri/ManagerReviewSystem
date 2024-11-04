@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Forms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Submitted Forms</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Field 1</th>
+                    <th>Field 2</th>
+                    <th>Field 3</th>
+                    <th>Field 4</th>
+                    <th>Field 5</th>
+                    <th>Field 6</th>
+                    <th>Field 7</th>
+                    <th>Field 8</th>
+                    <th>Field 9</th>
+                    <th>Field 10</th>
+                    <th>Field 11</th>
+                    <th>Priority</th>
+                    <th>Submission Date</th>
+                    <th>Status</th>
+                    <th>Verification Date</th>
+                    <th>Editing Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                <tr>
+                    <td>{{ submission.id }}</td>
+                    <td>{{ submission.name }}</td>
+                    <td>{{ submission.field1 }}</td>
+                    <td>{{ submission.field2 }}</td>
+                    <td>{{ submission.field3 }}</td>
+                    <td>{{ submission.field4 }}</td>
+                    <td>{{ submission.field5 }}</td>
+                    <td>{{ submission.field6 }}</td>
+                    <td>{{ submission.field7 }}</td>
+                    <td>{{ submission.field8 }}</td>
+                    <td>{{ submission.field9 }}</td>
+                    <td>{{ submission.field10 }}</td>
+                    <td>{{ submission.field11 }}</td>
+                    <td>{{ submission.priority }}</td>
+                    <td>{{ submission.submission_date }}</td>
+                    <td>{{ submission.status }}</td>
+                    <td>{{ submission.verification_date }}</td>
+                    <td>{{ submission.editing_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

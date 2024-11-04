@@ -1,0 +1,101 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Document</title>
+</head>
+
+<body class="o_web_client">
+    <header class="o_navbar">
+        <nav class="o_main_navbar"><a href="#" class="o_menu_toggle" style="position: relative;"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 14 14">
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_0">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="0"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="0"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="0"></rect>
+                    </g>
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_1">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="5"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="5"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="5"></rect>
+                    </g>
+                    <g xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="o_menu_toggle_row_2">
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="0" y="10"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="5" y="10"></rect>
+                        <rect xmlns="http://www.w3.org/2000/svg" width="4" height="4" x="10" y="10"></rect>
+                    </g>
+                </svg></a><a class="dropdown-item o_menu_brand d-none d-md-block"> home(dabirkjhane) </a>
+            <div class="o_menu_sections d-none d-md-flex flex-grow-1 flex-shrink-1" role="menu"><a
+                    class="dropdown-item o_nav_entry">dashbord</a>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle"><span>form
+                            ها</span></button></div>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button
+                        class="dropdown-toggle"><span>users</span></button></div>
+                <div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle"><span
+                            data-section="800"> verfiyeds</span></button></div>
+            </div>
+        </nav>
+    </header>
+    <div class="o_action_manager">
+        <div class="o_action o_view_controller o_list_view">
+            <div class="o_control_panel">
+                <div class="o_cp_top">
+                    <div class="o_cp_top_left">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active d-flex align-items-center"><span
+                                    class="text-truncate">forms</span></li>
+                        </ol>
+                    </div>
+                    <div class="o_cp_top_right">
+                        <div class="o_cp_searchview d-flex flex-grow-1">
+                            <div class="o_searchview pb-1 align-self-center border-bottom flex-grow-1"><i class="o_searchview_icon oi oi-search" title="sreach..."></i>
+                                <div class="o_searchview_input_container"><input type="text" class="o_searchview_input"placeholder="serach..."></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="o_cp_bottom_left">
+                    <div class="o_cp_buttons">
+                        <div class="o_list_buttons d-flex"><button class="btn btn-primary o_list_button_add"> new form </button><button class="btn btn-secondary fa fa-download o_list_export_xlsx"></button></div>
+                    </div>
+                </div>
+            </div>
+            <div<div class="o_list_renderer o_renderer table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Form ID</th>
+                    <th>Submitted By</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Submission Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in forms %}
+                <tr>
+                    <td>{{ form.id }}</td>
+                    <td>{{ form.submitted_by }}</td>
+                    <td>{{ form.priority }}</td>
+                    <td>{{ form.status }}</td>
+                    <td>{{ form.submission_date }}</td>
+                    <td>
+                        <a href="{{ url_for('view_form', form_id=form.id) }}">View</a> |
+                        <a href="{{ url_for('edit_form', form_id=form.id) }}">Edit</a> |
+                        <a href="{{ url_for('delete_form', form_id=form.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="assets/js/index.js"></script>
+
+</html>

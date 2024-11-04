@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Submission</title>
+</head>
+<body>
+    <h1>Edit Submission</h1>
+    <form action="{{ url_for('edit_submission', submission_id=submission.id) }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ submission.name }}" required><br>
+
+        <label for="field1">Field 1:</label>
+        <input type="text" name="field1" value="{{ submission.field1 }}"><br>
+
+        <label for="field2">Field 2:</label>
+        <input type="text" name="field2" value="{{ submission.field2 }}"><br>
+
+        <label for="field3">Field 3:</label>
+        <input type="text" name="field3" value="{{ submission.field3 }}"><br>
+
+        <label for="field4">Field 4:</label>
+        <input type="text" name="field4" value="{{ submission.field4 }}"><br>
+
+        <label for="field5">Field 5:</label>
+        <input type="text" name="field5" value="{{ submission.field5 }}"><br>
+
+        <label for="field6">Field 6:</label>
+        <input type="text" name="field6" value="{{ submission.field6 }}"><br>
+
+        <label for="field7">Field 7:</label>
+        <input type="text" name="field7" value="{{ submission.field7 }}"><br>
+
+        <label for="field8">Field 8:</label>
+        <textarea name="field8">{{ submission.field8 }}</textarea><br>
+
+        <label for="field9">Field 9:</label>
+        <input type="text" name="field9" value="{{ submission.field9 }}"><br>
+
+        <label for="field10">Field 10:</label>
+        <input type="text" name="field10" value="{{ submission.field10 }}"><br>
+
+        <label for="field11">Field 11:</label>
+        <input type="text" name="field11" value="{{ submission.field11 }}"><br>
+
+        <label for="priority">Priority:</label>
+        <input type="text" name="priority" value="{{ submission.priority }}"><br>
+
+        <label for="status">Status:</label>
+        <input type="text" name="status" value="{{ submission.status }}"><br>
+
+        <button type="submit">Update Submission</button>
+    </form>
+    <a href="{{ url_for('manager_review') }}">Cancel</a>
+</body>
+</html>

@@ -1,0 +1,355 @@
+/*
+    Template Name    : Seppo - Corporate One Page HTML Template - Demo 6
+    Author           : CocoBasic
+    Version          : 1.0        
+*/
+
+/* -------------------- Table of Content -------------------- */
+/*
+1. Globals Styles
+2. Typography
+3. Setup
+4. Header
+5. Coming Section
+6. Shapes
+7. Responsive Part
+        7.1 Large Screens [900, 1200]px
+        7.2 Medium Screens [600, 900]px
+        7.3 Small Screens [0, 600]px	
+*/
+
+
+/* ===================================
+         1. Globals Styles
+====================================== */
+
+:root {
+    --main-color: #dca45a;
+    --main-color-hover: #a07237;
+    --main-font: 'Playfair Display', serif;
+    --second-font: 'Montserrat', sans-serif;
+}
+.main-color {
+    color: var(--main-color);
+}
+
+
+/* ===================================
+         2. Typography
+====================================== */
+
+h1 {
+    font-size: 46px;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: left;
+    vertical-align: top;
+}
+h2 {
+    font-style: 48px;
+    font-weight: 800;
+    line-height: 2;
+}
+h3 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+h4 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 30px;
+}
+.caption {
+    font-family: var(--second-font);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* ===================================
+         3. Setup
+====================================== */
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html {
+    overflow-x: hidden;
+}
+body {
+    position: relative;
+    font-family: var(--main-font);
+    font-size: 16px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+    background-color: #faf2e7;
+    box-shadow: inset 0px 0px 0px 24px #fff;
+    overflow: hidden;
+}
+.doc-loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background-color: #fff;
+}
+
+
+/* ===================================
+         4. Header
+====================================== */
+
+header {
+    padding: 16px 0;
+}
+.header-logo {
+    display: block;
+    width: 86px;
+    height: 49px;
+}
+.header-logo img {
+    display: block;
+    height: 100%;
+}
+
+
+/* ===================================
+         5. Coming Section
+====================================== */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 24px;
+    margin: 0 auto;
+}
+.coming-holder {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.coming-text {
+    width: calc(50%);
+    overflow: hidden;
+}
+.coming-text h1 {
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+.coming-text h1 span {
+    font-weight: 600;
+}
+@keyframes wavy-motion {
+    from {
+        background-position-x: 0%;
+    }
+    to {
+        background-position-x: 801px;
+    }
+}
+.coming-text .caption {
+    padding-top: 16px;
+}
+.coming-text .count-down {
+    font-family: var(--second-font);
+    display: block;
+    padding-top: 30px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 55px;
+    letter-spacing: 5px;
+}
+.coming-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 60px;
+}
+.coming-form input {
+    font-family: var(--second-font);
+    padding: 19px;
+    flex-grow: 1;
+    margin: 0 16px 0 3px;
+    border: none;
+    outline: none;
+    border: 1px solid var(--main-color);
+    border-radius: 50px;
+    background-color: #fff;
+    transition: 0.5s;
+    z-index: 1;
+}
+.coming-form input::placeholder {
+    font-family: var(--second-font);
+    color: #868686;
+}
+.coming-form input:focus {
+    border-color: var(--main-color);
+    box-shadow: 0px 0px 0px 2px var(--main-color);
+}
+.btn-filled {
+    font-family: var(--second-font);
+    padding: 19px 32px;
+    border-radius: 50px;
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: 0.5s ease;
+    z-index: 1;
+}
+.btn-filled:hover {
+    background-color: var(--main-color-hover);
+}
+.coming-image {
+    width: calc(40%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.coming-image .img-box {
+    position: relative;
+    margin-bottom: 32px;
+}
+.coming-image .img-box::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -30px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--main-color);
+    border-radius: 500px;
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+.coming-image img {
+    position: relative;
+    max-width: 100%;
+    border-radius: 500px;
+}
+
+
+/* ===================================
+         6. Shapes
+====================================== */
+
+.img-box::after {
+    content: "";
+    position: absolute;
+    right: -270px;
+    top: -135px;
+    width: 640px;
+    height: 970px;
+    border: 1px solid var(--main-color);
+    border-radius: 1000px;
+    pointer-events: none;
+    user-select: none;
+}
+.bubbles-shape {
+    position: absolute;
+    left: -100px;
+    top: 500px;
+    z-index: -1;
+}
+
+
+/* ===================================
+         7. Responsive
+====================================== */
+
+/* Large Screens */
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 36px;
+        line-height: 45px;
+    }
+    .coming-text .count-down {
+        font-size: 30px;
+    }
+    .coming-text .subtitle {
+        font-size: 28px;
+        letter-spacing: 25px;
+    }
+}
+
+/* Medium Screens */
+@media (max-width: 900px) {
+    body {
+        padding: 16px;
+        box-shadow: inset 0px 0px 0px 16px #fff;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .coming-text h1 {
+        padding-top: 30px;
+    }
+    .coming-holder {
+        flex-direction: column;
+    }
+    .coming-holder > div {
+        width: 100%;
+    }
+    .coming-text {
+        padding-bottom: 40px;
+    }
+}
+
+/* Small Screens */
+@media (max-width: 600px) {
+    body {
+        padding: 8px;
+        box-shadow: inset 0px 0px 0px 8px #fff;
+    }
+    h1 {
+        font-size: 30px;
+        line-height: 38px;
+    }
+    .container {
+        padding: 0 25px;
+    }
+    .coming-holder {
+        padding-top: 30px;
+    }
+    .coming-text .count-down {
+        font-size: 16px;
+    }
+    .coming-text .subtitle {
+        font-size: 22px;
+        letter-spacing: 10px;
+    }
+    .coming-form {
+        flex-direction: column;
+    }
+    .coming-form > * {
+        width: 100%;
+        margin: unset;
+        margin: 16px 0;
+    }
+    .coming-form input {
+        margin: 0 !important;
+    }
+    .bg-shape-1 {
+        width: 100%;
+    }
+    .bg-shape-2 {
+        display: none;
+    }
+}
