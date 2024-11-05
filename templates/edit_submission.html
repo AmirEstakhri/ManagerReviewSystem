@@ -5,68 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Submission</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #343a40;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Edit Submission</h1>
         <form action="{{ url_for('edit_submission', submission_id=submission.id) }}" method="POST">
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
+                <label for="name" class="form-label">Name/Subject:</label>
                 <input type="text" class="form-control" name="name" value="{{ submission.name }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="field1" class="form-label">Field 1:</label>
+                <label for="field1" class="form-label">Tags:</label>
                 <input type="text" class="form-control" name="field1" value="{{ submission.field1 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field2" class="form-label">Field 2:</label>
+                <label for="field2" class="form-label">Categories:</label>
                 <input type="text" class="form-control" name="field2" value="{{ submission.field2 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field3" class="form-label">Field 3:</label>
-                <input type="text" class="form-control" name="field3" value="{{ submission.field3 }}">
+                <label for="field3" class="form-label">Sender:</label>
+                <input type="text" class="form-control" name="field3" value="{{ submission.field3 }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label for="field4" class="form-label">Field 4:</label>
+                <label for="field4" class="form-label">Sender's Signature:</label>
                 <input type="text" class="form-control" name="field4" value="{{ submission.field4 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field5" class="form-label">Field 5:</label>
-                <input type="text" class="form-control" name="field5" value="{{ submission.field5 }}">
+                <label for="field5" class="form-label">Recipient:</label>
+                <input type="text" class="form-control" name="field5" value="{{ submission.field5 }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label for="field6" class="form-label">Field 6:</label>
+                <label for="field6" class="form-label">Recipient's Signature:</label>
                 <input type="text" class="form-control" name="field6" value="{{ submission.field6 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field7" class="form-label">Field 7:</label>
+                <label for="field7" class="form-label">Registration Number:</label>
                 <input type="text" class="form-control" name="field7" value="{{ submission.field7 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field8" class="form-label">Field 8:</label>
+                <label for="field8" class="form-label">Letter Content:</label>
                 <textarea class="form-control" name="field8" rows="4">{{ submission.field8 }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label for="field9" class="form-label">Field 9:</label>
+                <label for="field9" class="form-label">Attachment Number:</label>
                 <input type="text" class="form-control" name="field9" value="{{ submission.field9 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field10" class="form-label">Field 10:</label>
+                <label for="field10" class="form-label">Letter Content:</label>
                 <input type="text" class="form-control" name="field10" value="{{ submission.field10 }}">
             </div>
 
             <div class="mb-3">
-                <label for="field11" class="form-label">Field 11:</label>
+                <label for="field11" class="form-label">Select Follower:</label>
                 <input type="text" class="form-control" name="field11" value="{{ submission.field11 }}">
             </div>
 

@@ -93,13 +93,22 @@
         </select>
 
         <label for="field3">Sender:</label>
-        <input type="text" id="field3" name="field3" required>
+        <input type="text" id="field3" name="field3" value="{{ user['username'] }}" readonly required>  <!-- Automatically fills with username -->
 
         <label for="field4">Sender's Signature:</label>
         <input type="text" id="field4" name="field4">
 
         <label for="field5">Recipient:</label>
-        <input type="text" id="field5" name="field5" required>
+        <select id="field5" name="field5" required>
+            <option value="" disabled selected>Select a recipient</option>
+            {% if managers %}
+            {% for manager in managers %}
+                <option value="{{ manager }}">{{ manager }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="" disabled>No managers available</option>
+        {% endif %}
+        </select>
 
         <label for="field6">Recipient's Signature:</label>
         <input type="text" id="field6" name="field6">

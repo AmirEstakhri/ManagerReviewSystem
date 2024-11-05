@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Submission ,FormVersion # Import your database and model
 import os
+from flask_login import current_user
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -31,6 +32,8 @@ version_history = {}
 
 users = {
     "manager_user": {"username": "manager_user", "role": "manager"},
+    "manager_user1": {"username": "manager_user1", "role": "manager"},
+
     "admin_user": {"username": "admin_user", "role": "admin"},
     "normal_user": {"username": "normal_user", "role": "normal"}
 }
@@ -91,30 +94,43 @@ def logout():
 from datetime import datetime
 from flask import flash
 
-
 @app.route('/form', methods=['GET', 'POST'])
 def form():
-    if 'user' not in session:
+    # Check if the user is logged in
+    user = session.get('user')
+    if not user:
         return redirect(url_for('login'))
 
     allowed_tags = {"needs", "packs", "updates", "reports"}
     allowed_categories = {"IT", "HR", "CEO"}
 
+    # Prepare a list of manager usernames for the recipient selection
+    manager_users = [manager['username'] for manager in users.values() if manager['role'] == 'manager']
+
     if request.method == 'POST':
+        # Extract form data
         tag = request.form.get('field1')
         category = request.form.get('field2')
+        recipient = request.form.get('field5')
 
+        # Validate tag and category
         if tag not in allowed_tags or category not in allowed_categories:
             flash("Invalid tag or category selected.", "error")
             return redirect(url_for('form'))
 
+        # Validate recipient selection
+        if recipient not in manager_users:
+            flash("Invalid recipient selected.", "error")
+            return redirect(url_for('form'))
+
+        # Create a new Submission object
         new_form = Submission(
             name=request.form.get('name'),
             field1=tag,
             field2=category,
-            field3=request.form.get('field3'),
+            field3=user['username'],  # Automatically use the logged-in username
             field4=request.form.get('field4'),
-            field5=request.form.get('field5'),
+            field5=recipient,  # Use the selected recipient
             field6=request.form.get('field6'),
             field7=request.form.get('field7'),
             field8=request.form.get('field8'),
@@ -125,12 +141,14 @@ def form():
             status='Pending',
         )
 
+        # Add the new form to the session and commit
         db.session.add(new_form)
         db.session.commit()
 
         return redirect(url_for('success'))
 
-    return render_template('form.html')
+    # Render the form template with user information and manager list
+    return render_template('form.html', user=user, managers=manager_users)
 
 
 
@@ -138,14 +156,8 @@ def form():
 def success():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return '''
-    <h1>Form Submitted Successfully!</h1>
-    <a href="/form"><button>Create a New Form</button></a>
-    <br><br>
-    <a href="/download_pdf"><button>Show PDF File</button></a>
-    <br><br>
-    <a href="/"><button>Home</button></a>
-    '''
+    return render_template('success.html')
+
 @app.route('/index')
 def index():
     return render_template('index.html')
@@ -169,6 +181,7 @@ def manager_review():
 
     # Render the manager_review template with submissions and the selected priority
     return render_template('manager_review.html', submissions=submissions, selected_priority=selected_priority)
+
 
 
 @app.route('/admin_review')
