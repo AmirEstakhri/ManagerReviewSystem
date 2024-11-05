@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lavia{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .navbar {
+            background-color: #ffcc00; /* Yellow background for the navbar */
+        }
+        .navbar-brand {
+            color: #cc0000; /* Dark red color for the brand */
+        }
+        .navbar-nav .nav-link {
+            color: #cc0000; /* Dark red color for the nav links */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #a30000; /* Darker red on hover */
+        }
+        .search-bar {
+            margin-top: 10px;
+        }
+        .search-bar .form-control {
+            border: 1px solid #cc0000; /* Red border for the search input */
+        }
+        .search-bar .btn {
+            background-color: #cc0000; /* Red background for the search button */
+            color: white; /* White text for the button */
+        }
+        .search-bar .btn:hover {
+            background-color: #a30000; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">lavia</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">Logged Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}"></a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                </ul>
+                <form class="d-flex search-bar" method="get" action="{{ url_for('search') }}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        <!-- Main content will be inserted here -->
+        {% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

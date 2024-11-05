@@ -80,17 +80,9 @@ def login():
             session['user'] = user
             return redirect(url_for('home'))
         else:
-            return "<h1>Invalid Username</h1><a href='/login'><button>Try Again</button></a>"
+            return render_template('login.html', error="Invalid Username")
 
-    return '''
-    <h1>Login</h1>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br><br>
-        <input type="submit" value="Login">
-    </form>
-    '''
-
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -208,7 +200,6 @@ def admin_review():
 
 
 
-from flask import flash
 
 @app.route('/verify_submission/<int:submission_id>', methods=['POST'])
 def verify_submission(submission_id):
@@ -360,7 +351,7 @@ def download_pdf():
         c.drawString(120, y - 135, f"Letter Content: {submission['Letter Content']}")
         c.drawString(120, y - 150, f"Attachment Number: {submission['Attachment Number']}")
         c.drawString(120, y - 165, f"Letter Content: {submission['Letter Content']}")
-        c.drawString(120, y - 180, f"Select Follower: {submission['Select Follower']}")
+        c.drawString(120, y - 180, f"Field 11: {submission['Select Follower']}")
         c.drawString(120, y - 195, f"Priority: {submission['priority']}")
         c.drawString(120, y - 210, f"Submission Date: {submission['submission_date']}")
         c.drawString(120, y - 225, f"Status: {submission['status']}")

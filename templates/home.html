@@ -5,9 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .logo-image {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #007bff; /* Bootstrap primary color */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); /* Glow effect */
+            transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for hover effect */
+        }
+        
+        .logo-image:hover {
+            transform: scale(1.05); /* Scale up on hover */
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.7); /* Brighten glow on hover */
+        }
+        
+        .image-container {
+            display: flex;
+            justify-content: center; /* Center the image horizontally */
+            align-items: center; /* Center the image vertically */
+            margin-top: 20px; /* Space above the image */
+        }
+
+        /* Fade-in effect */
+        .fade-in {
+            opacity: 0; /* Initial state: hidden */
+            transition: opacity 1s ease-in-out; /* Transition effect */
+        }
+        .fade-in.show {
+            opacity: 1; /* Final state: visible */
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5 text-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">home</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                </ul>
+                <form class="d-flex search-bar" method="get" action="{{ url_for('search') }}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 text-center fade-in" id="content">
         <h1>Welcome to the Home Page!</h1>
         {% if user %}
             <h2>hi, {{ user['username'] }}!</h2>
@@ -30,6 +81,21 @@
             <p>Please <a href="/login">Login</a></p>
         {% endif %}
     </div>
+    
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='images/Lavia_Logo.png') }}" alt="Manager Review" class="logo-image">
+    </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Wait for the DOM to load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add the 'show' class to the content after a brief delay
+            const content = document.getElementById('content');
+            setTimeout(() => {
+                content.classList.add('show'); // Trigger the fade-in effect
+            }, 100); // Delay to allow the fade-in to be noticeable
+        });
+    </script>
 </body>
 </html>

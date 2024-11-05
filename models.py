@@ -63,6 +63,8 @@ class Submission(db.Model):
     status = db.Column(db.String(50))
     verification_date = db.Column(db.String(20), nullable=True)
     editing_time = db.Column(db.String(20), nullable=True)
+    
+
 
 
     def __repr__(self):

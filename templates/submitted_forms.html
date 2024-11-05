@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submitted Forms</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Submitted Forms{% endblock %}
+
+{% block content %}
     <div class="container mt-5">
         <!-- Display total number of forms -->
         <h1 class="mb-4">Submitted Forms (Total: {{ submissions | length }})</h1>
@@ -36,7 +32,6 @@
                     <th>Registration Number</th>
                     <th>Letter Content</th>
                     <th>Attachment Number</th>
-                    <th>Letter Content</th>
                     <th>Select Follower</th>
                     <th>Priority</th>
                     <th>Submission Date</th>
@@ -73,7 +68,4 @@
 
         <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

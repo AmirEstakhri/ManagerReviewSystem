@@ -26,9 +26,24 @@
         th {
             background-color: #f2f2f2;
         }
+        .btn-home {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-home:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+    <a href="{{ url_for('home') }}" class="btn-home">Go Home</a>
+
     <h1>Search Results</h1>
     
     <form method="POST" action="{{ url_for('search') }}">
@@ -80,5 +95,6 @@
     {% else %}
         <p>No results found.</p>
     {% endif %}
+
 </body>
 </html>
