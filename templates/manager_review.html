@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Manager Review</title>
+    <script>
+        function showVerifiedPopup(submissionId) {
+            alert('Verified');
+            document.getElementById(`status-${submissionId}`).innerText = 'Verified';
+        }
+    </script>
 </head>
 <body>
     <h1>Manager Review</h1>
@@ -22,11 +28,19 @@
             <li>
                 <strong>Entry {{ loop.index }}:</strong> 
                 Name: {{ submission.name }} | 
-                Status: {{ submission.status }} | 
+                Status: <span id="status-{{ submission.id }}">{{ submission.status }}</span> | 
                 Priority: {{ submission.priority }}
-                <form action="{{ url_for('verify_submission', submission_id=submission.id) }}" method="post" style="display:inline;">
+                
+                <!-- View button -->
+                <a href="{{ url_for('submitted_forms') }}#submission-{{ submission.id }}"><button>View</button></a>
+                
+                <!-- Verify button with pop-up functionality -->
+                <form action="{{ url_for('verify_submission', submission_id=submission.id) }}" method="post" style="display:inline;" 
+                      onsubmit="showVerifiedPopup({{ submission.id }})">
                     <input type="submit" value="Verify">
                 </form>
+                
+                <!-- Edit button -->
                 <a href="{{ url_for('edit_submission', submission_id=submission.id) }}"><button>Edit</button></a>
             </li>
         {% endfor %}

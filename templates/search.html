@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    
+    <form method="POST" action="{{ url_for('search') }}">
+        <input type="text" name="name" placeholder="Search by name" required>
+        <select name="tags">
+            <option value="">Select Tag</option>
+            <option value="needs">Needs</option>
+            <option value="packs">Packs</option>
+            <option value="updates">Updates</option>
+            <option value="reports">Reports</option>
+        </select>
+        <select name="categories">
+            <option value="">Select Category</option>
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="CEO">CEO</option>
+        </select>
+        <input type="date" name="date">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if filtered_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Tags</th>
+                    <th>Categories</th>
+                    <th>Sender</th>
+                    <th>Recipient</th>
+                    <th>Submission Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in filtered_data %}
+                <tr>
+                    <td>{{ submission.name }}</td>
+                    <td>{{ submission.field1 }}</td>
+                    <td>{{ submission.field2 }}</td>
+                    <td>{{ submission.field3 }}</td>
+                    <td>{{ submission.field5 }}</td>
+                    <td>{{ submission.submission_date }}</td>
+                    <td>{{ submission.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

@@ -2,55 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Submission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Edit Submission</h1>
-    <form action="{{ url_for('edit_submission', submission_id=submission.id) }}" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="{{ submission.name }}" required><br>
+    <div class="container mt-5">
+        <h1 class="mb-4">Edit Submission</h1>
+        <form action="{{ url_for('edit_submission', submission_id=submission.id) }}" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" value="{{ submission.name }}" required>
+            </div>
 
-        <label for="field1">Field 1:</label>
-        <input type="text" name="field1" value="{{ submission.field1 }}"><br>
+            <div class="mb-3">
+                <label for="field1" class="form-label">Field 1:</label>
+                <input type="text" class="form-control" name="field1" value="{{ submission.field1 }}">
+            </div>
 
-        <label for="field2">Field 2:</label>
-        <input type="text" name="field2" value="{{ submission.field2 }}"><br>
+            <div class="mb-3">
+                <label for="field2" class="form-label">Field 2:</label>
+                <input type="text" class="form-control" name="field2" value="{{ submission.field2 }}">
+            </div>
 
-        <label for="field3">Field 3:</label>
-        <input type="text" name="field3" value="{{ submission.field3 }}"><br>
+            <div class="mb-3">
+                <label for="field3" class="form-label">Field 3:</label>
+                <input type="text" class="form-control" name="field3" value="{{ submission.field3 }}">
+            </div>
 
-        <label for="field4">Field 4:</label>
-        <input type="text" name="field4" value="{{ submission.field4 }}"><br>
+            <div class="mb-3">
+                <label for="field4" class="form-label">Field 4:</label>
+                <input type="text" class="form-control" name="field4" value="{{ submission.field4 }}">
+            </div>
 
-        <label for="field5">Field 5:</label>
-        <input type="text" name="field5" value="{{ submission.field5 }}"><br>
+            <div class="mb-3">
+                <label for="field5" class="form-label">Field 5:</label>
+                <input type="text" class="form-control" name="field5" value="{{ submission.field5 }}">
+            </div>
 
-        <label for="field6">Field 6:</label>
-        <input type="text" name="field6" value="{{ submission.field6 }}"><br>
+            <div class="mb-3">
+                <label for="field6" class="form-label">Field 6:</label>
+                <input type="text" class="form-control" name="field6" value="{{ submission.field6 }}">
+            </div>
 
-        <label for="field7">Field 7:</label>
-        <input type="text" name="field7" value="{{ submission.field7 }}"><br>
+            <div class="mb-3">
+                <label for="field7" class="form-label">Field 7:</label>
+                <input type="text" class="form-control" name="field7" value="{{ submission.field7 }}">
+            </div>
 
-        <label for="field8">Field 8:</label>
-        <textarea name="field8">{{ submission.field8 }}</textarea><br>
+            <div class="mb-3">
+                <label for="field8" class="form-label">Field 8:</label>
+                <textarea class="form-control" name="field8" rows="4">{{ submission.field8 }}</textarea>
+            </div>
 
-        <label for="field9">Field 9:</label>
-        <input type="text" name="field9" value="{{ submission.field9 }}"><br>
+            <div class="mb-3">
+                <label for="field9" class="form-label">Field 9:</label>
+                <input type="text" class="form-control" name="field9" value="{{ submission.field9 }}">
+            </div>
 
-        <label for="field10">Field 10:</label>
-        <input type="text" name="field10" value="{{ submission.field10 }}"><br>
+            <div class="mb-3">
+                <label for="field10" class="form-label">Field 10:</label>
+                <input type="text" class="form-control" name="field10" value="{{ submission.field10 }}">
+            </div>
 
-        <label for="field11">Field 11:</label>
-        <input type="text" name="field11" value="{{ submission.field11 }}"><br>
+            <div class="mb-3">
+                <label for="field11" class="form-label">Field 11:</label>
+                <input type="text" class="form-control" name="field11" value="{{ submission.field11 }}">
+            </div>
 
-        <label for="priority">Priority:</label>
-        <input type="text" name="priority" value="{{ submission.priority }}"><br>
+            <div class="mb-3">
+                <label for="priority" class="form-label">Priority:</label>
+                <input type="text" class="form-control" name="priority" value="{{ submission.priority }}">
+            </div>
 
-        <label for="status">Status:</label>
-        <input type="text" name="status" value="{{ submission.status }}"><br>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label>
+                <input type="text" class="form-control" name="status" value="{{ submission.status }}">
+            </div>
 
-        <button type="submit">Update Submission</button>
-    </form>
-    <a href="{{ url_for('manager_review') }}">Cancel</a>
+            <button type="submit" class="btn btn-primary">Update Submission</button>
+            <a href="{{ url_for('manager_review') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

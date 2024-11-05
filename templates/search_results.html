@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        /* Inline CSS Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .results-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .results-list li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 3px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        {% if submissions %}
+            <ul class="results-list">
+                {% for submission in submissions %}
+                    <li>
+                        <strong>Name:</strong> {{ submission.name }}<br>
+                        <strong>Tags:</strong> {{ submission.tags if submission.tags else "Does not have" }}<br>
+                        <strong>Categories:</strong> {{ submission.categories if submission.categories else "Does not have" }}<br>
+                        <strong>Date:</strong> {{ submission.date if submission.date else "Does not have" }}<br>
+                        <strong>Subject:</strong> {{ submission.subject if submission.subject else "Does not have" }}<br>
+                        <strong>Sender's Signature:</strong> {{ submission.sender_signature if submission.sender_signature else "Does not have" }}<br>
+                        <strong>Sender:</strong> {{ submission.sender if submission.sender else "Does not have" }}<br>
+                        <strong>Recipient:</strong> {{ submission.recipient if submission.recipient else "Does not have" }}<br>
+                        <strong>Letter Content:</strong> {{ submission.letter_content if submission.letter_content else "Does not have" }}<br>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found for the provided search criteria.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

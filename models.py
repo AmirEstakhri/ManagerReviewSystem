@@ -46,19 +46,19 @@ class Form(db.Model):
 
 class Submission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    field1 = db.Column(db.String(100))
-    field2 = db.Column(db.String(100))
-    field3 = db.Column(db.String(100))
-    field4 = db.Column(db.String(100))
-    field5 = db.Column(db.String(100))
-    field6 = db.Column(db.String(100))
-    field7 = db.Column(db.String(100))
-    field8 = db.Column(db.Text)
-    field9 = db.Column(db.String(100))
-    field10 = db.Column(db.String(100))
-    field11 = db.Column(db.String(100))
-    priority = db.Column(db.String(20))
+    name = db.Column(db.String(100))    #subject
+    field1 = db.Column(db.String(100))  #Tags
+    field2 = db.Column(db.String(100))  #Categories
+    field3 = db.Column(db.String(100))  #Sender
+    field4 = db.Column(db.String(100))  #Sender's Signature<
+    field5 = db.Column(db.String(100))  #Recipient
+    field6 = db.Column(db.String(100))  #Recipient's Signature
+    field7 = db.Column(db.String(100))  #Registration Number
+    field8 = db.Column(db.Text)         #Letter Content
+    field9 = db.Column(db.String(100))  #Attachment Number
+    field10 = db.Column(db.String(100)) #Letter Content
+    field11 = db.Column(db.String(100)) #Select Follower
+    priority = db.Column(db.String(20)) #Priority
     submission_date = db.Column(db.String(20))
     status = db.Column(db.String(50))
     verification_date = db.Column(db.String(20), nullable=True)
@@ -66,4 +66,14 @@ class Submission(db.Model):
 
 
     def __repr__(self):
-        return f'<Submission {self.id}, Name: {self.name}, Email: {self.email}, Date: {self.date_submitted}>'
+        return f'<Submission {self.id}, Name: {self.name}, >'
+
+class FormVersion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
+    version_data = db.Column(db.JSON, nullable=False)  # Stores the form data as JSON
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    submission = db.relationship('Submission', backref=db.backref('versions', lazy=True))
+    
+    

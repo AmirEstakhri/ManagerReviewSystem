@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5 text-center">
+        <h1>Welcome to the Home Page!</h1>
+        {% if user %}
+            <h2>hi, {{ user['username'] }}!</h2>
+            {% if verification_message %}
+                <p class="alert alert-info">{{ verification_message }}</p>
+            {% endif %}
+            <div>
+                <a href="/form" class="btn btn-primary">Go to Form</a>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+                {% if user['role'] == 'admin' %}
+                    <a href="/admin_review" class="btn btn-info">Admin Review</a>
+                {% elif user['role'] == 'manager' %}
+                    <a href="/manager_review" class="btn btn-info">Manager Review</a>
+                    <a href="/download_pdf" class="btn btn-info">Download PDF</a>
+                    <a href="/submitted_forms" class="btn btn-info">View Submitted Forms</a>
+                    <a href="/search" class="btn btn-info">Search</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Please <a href="/login">Login</a></p>
+        {% endif %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

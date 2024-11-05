@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+
+            input[type="submit"] {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Fill out the Form</h1>
+    <form method="post" action="{{ url_for('form') }}">
+        <label for="name">Subject:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="field1">Tags:</label>
+        <select id="field1" name="field1">
+            <option value="needs">Needs</option>
+            <option value="packs">Packs</option>
+            <option value="updates">Updates</option>
+            <option value="reports">Reports</option>
+        </select>
+
+        <label for="field2">Categories:</label>
+        <select id="field2" name="field2">
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="CEO">CEO</option>
+        </select>
+
+        <label for="field3">Sender:</label>
+        <input type="text" id="field3" name="field3" required>
+
+        <label for="field4">Sender's Signature:</label>
+        <input type="text" id="field4" name="field4">
+
+        <label for="field5">Recipient:</label>
+        <input type="text" id="field5" name="field5" required>
+
+        <label for="field6">Recipient's Signature:</label>
+        <input type="text" id="field6" name="field6">
+
+        <label for="field7">Registration Number:</label>
+        <input type="text" id="field7" name="field7">
+
+        <label for="field8">Letter Content:</label>
+        <textarea id="field8" name="field8" rows="4" cols="50"></textarea>
+
+        <label for="field9">Attachment Number (Optional):</label>
+        <input type="text" id="field9" name="field9">
+
+        <label for="field11">Select Follower:</label>
+        <input type="text" id="field11" name="field11">
+
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

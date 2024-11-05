@@ -8,23 +8,36 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Submitted Forms</h1>
+        <!-- Display total number of forms -->
+        <h1 class="mb-4">Submitted Forms (Total: {{ submissions | length }})</h1>
+        
+        <!-- Sorting filter by verification status -->
+        <form method="get" class="mb-4">
+            <label for="verificationFilter" class="form-label">Filter by Verification Status:</label>
+            <select name="status_filter" id="verificationFilter" class="form-select" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="Verified" {% if status_filter == 'Verified' %}selected{% endif %}>Verified</option>
+                <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Not Verified</option>
+            </select>
+        </form>
+
+        <!-- Submitted Forms Table -->
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Field 1</th>
-                    <th>Field 2</th>
-                    <th>Field 3</th>
-                    <th>Field 4</th>
-                    <th>Field 5</th>
-                    <th>Field 6</th>
-                    <th>Field 7</th>
-                    <th>Field 8</th>
-                    <th>Field 9</th>
-                    <th>Field 10</th>
-                    <th>Field 11</th>
+                    <th>Name/Subject</th>
+                    <th>Tags</th>
+                    <th>Categories</th>
+                    <th>Sender</th>
+                    <th>Sender's Signature</th>
+                    <th>Recipient</th>
+                    <th>Recipient's Signature</th>
+                    <th>Registration Number</th>
+                    <th>Letter Content</th>
+                    <th>Attachment Number</th>
+                    <th>Letter Content</th>
+                    <th>Select Follower</th>
                     <th>Priority</th>
                     <th>Submission Date</th>
                     <th>Status</th>
@@ -51,12 +64,13 @@
                     <td>{{ submission.priority }}</td>
                     <td>{{ submission.submission_date }}</td>
                     <td>{{ submission.status }}</td>
-                    <td>{{ submission.verification_date }}</td>
-                    <td>{{ submission.editing_time }}</td>
+                    <td>{{ submission.verification_date or 'Not Verified' }}</td>
+                    <td>{{ submission.editing_time or 'Not Edited' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
     </div>
     
