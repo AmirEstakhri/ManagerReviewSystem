@@ -19,7 +19,7 @@
             transform: scale(1.05); /* Scale up on hover */
             box-shadow: 0 0 25px rgba(0, 123, 255, 0.7); /* Brighten glow on hover */
         }
-        
+
         .image-container {
             display: flex;
             justify-content: center; /* Center the image horizontally */
@@ -32,6 +32,7 @@
             opacity: 0; /* Initial state: hidden */
             transition: opacity 1s ease-in-out; /* Transition effect */
         }
+
         .fade-in.show {
             opacity: 1; /* Final state: visible */
         }
@@ -83,7 +84,32 @@
     </div>
     
     <div class="image-container">
-        <img src="{{ url_for('static', filename='images/Lavia_Logo.png') }}" alt="Manager Review" class="logo-image">
+        <img src="{{ url_for('static', filename='images/Lavia_Logo.png') }}" alt="lavia" class="logo-image">
+    </div>
+
+    <!-- Popup Modal -->
+    <div class="modal fade" id="unverifiedFormsModal" tabindex="-1" aria-labelledby="unverifiedFormsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="unverifiedFormsModalLabel">Attention</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if unverified_forms %}
+                        You have unverified forms that need your attention!
+                    {% else %}
+                        No unverified forms at the moment.
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    {% if unverified_forms %}
+                        <a href="/submitted_forms" class="btn btn-primary">View Submitted Forms</a>
+                    {% endif %}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -95,6 +121,14 @@
             setTimeout(() => {
                 content.classList.add('show'); // Trigger the fade-in effect
             }, 100); // Delay to allow the fade-in to be noticeable
+
+            // Show the modal after 5 seconds if there are unverified forms
+            if ({{ unverified_forms|length }} > 0) {
+                setTimeout(() => {
+                    var myModal = new bootstrap.Modal(document.getElementById('unverifiedFormsModal'));
+                    myModal.show();
+                }, 5000); // Show after 5 seconds
+            }
         });
     </script>
 </body>

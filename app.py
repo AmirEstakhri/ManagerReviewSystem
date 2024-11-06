@@ -64,13 +64,16 @@ field_labels = {
 def home():
     if 'user' in session:
         verification_message = session.get('verification_message', None)
+        unverified_forms = Submission.query.filter_by(status='Pending').all()  # Fetch unverified forms
+
         if verification_message:
             # Clear the message after displaying it
             session.pop('verification_message', None)
 
-        return render_template('home.html', user=session['user'], verification_message=verification_message)
+        return render_template('home.html', user=session['user'], verification_message=verification_message, unverified_forms=unverified_forms)
     else:
-        return render_template('home.html', user=None)
+        unverified_forms = []  # Initialize to an empty list for non-logged-in users
+        return render_template('home.html', user=None, unverified_forms=unverified_forms)
 
 
 
