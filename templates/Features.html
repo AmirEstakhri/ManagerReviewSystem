@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='homecss/homescroll.css') }}">
+</head>
+<div 
+<body>
+    <div >
+    
+    <header>
+        <ul>
+            <a href="{{ url_for('home') }}" ><li class="active">Home</li></a>
+            <li>Contact</li>
+            <li>Info</li>
+            <li>Category</li>
+        </ul>
+    </header>
+    
+    <div class="slider">
+        <div class="title">MRS Features!
+        </div>
+        
+        <!-- Image Slider -->
+    <div  class"background">
+         
+        <div class="images">
+            <div class="item" style="--i: 1;">
+                <img src="{{ url_for('static', filename='homecss/FORM.PNG') }}">
+            </div>
+            <div class="item" style="--i: 2;">
+                <img src="{{ url_for('static', filename='homecss/verification.png') }}">
+            </div>
+            <div class="item" style="--i: 3;">
+                <img src="{{ url_for('static', filename='homecss/AccessControl.png') }}">
+            </div>
+            <div class="item" style="--i: 4;">
+                <img src="{{ url_for('static', filename='homecss/Notifications.png') }}">
+            </div>
+            <div class="item" style="--i: 5;">
+                <img src="{{ url_for('static', filename='homecss/SERACH.jpg') }}">
+            </div>
+            <div class="item" style="--i: 6;">
+                <img src="{{ url_for('static', filename='homecss/VersionControl.png') }}">
+            </div>
+
+        </div>
+        
+        
+        <!-- Content Items -->
+        <div class="content">
+            <div class="item active">
+                <h1>Form Submission & Categorization</h1>
+                <div class="des">
+                    Users can submit forms with customizable fields, tags, and priorities, classified into categories like 'IT,' 'HR,' and 'CEO.'
+                </div>
+                <button>See more</button>
+            </div>
+            <div class="item">
+                <h1>Manager Review & Verification</h1>
+                <div class="des">
+                    Assigned managers review, verify, and change the form status from 'Pending' to 'Verified.' Each verification records the manager’s identity.
+                </div>
+                <button>See more</button>
+            </div>
+            <div class="item">
+                <h1>Access Control</h1>
+                <div class="des">
+                    Role-based access lets only assigned managers see submissions initially, with options to grant access to additional managers.
+
+
+                </div>
+                <button>See more</button>
+            </div>
+            <div class="item">
+                <h1>Dashboard Notifications</h1>
+                <div class="des">
+                    Notifications alert managers of pending verifications and unverified forms.
+                </div>
+                <button>See more</button>
+            </div>
+            <div class="item">
+                <h1>Search and Filter</h1>
+                <div class="des">
+                    Forms can be searched by fields such as subject, sender, recipient, priority, and date, allowing quick retrieval.
+                </div>
+                <button>See more</button>
+            </div>
+            <div class="item">
+                <h1>Form Version Control</h1>
+                <div class="des">
+                    Changes to forms are saved as versions, letting users view past states and revert to earlier versions as needed.
+                </div>
+                <button>See more</button>
+            </div>
+           
+           
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="prev"><</button>
+        <button id="next">></button>
+    </div>
+    
+    
+    
+    <script src="{{ url_for('static', filename='homecss/home.js') }}"></script>
+</div>
+
+
+</body>
+</html>

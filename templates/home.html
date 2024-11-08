@@ -36,6 +36,10 @@
         .fade-in.show {
             opacity: 1; /* Final state: visible */
         }
+        body {
+            background : rgba(255, 240, 255); /*  
+        }
+    
     </style>
 </head>
 <body>
@@ -79,12 +83,22 @@
                 {% endif %}
             </div>
         {% else %}
-            <p>Please <a href="/login">Login</a></p>
+        
+        <div class="container mt-5">
+            <div class="login-card">
+                <h2 >ur not inside your account!</h2>
+                <p class="mb-4">To continue, please log in to your account.</p>
+                <a class="nav-link" href="{{ url_for('login') }}">     <button type="button" class="btn btn-outline-warning" href="/login" > login</button> </a>
+                <div style="position: absolute; left:850px ; top:250px;">
+                <br>
+                <a class="nav-link" href="{{ url_for('login') }}"> <image src="{{url_for('static' , filename='image/loginicon.jpg')}}" alt="loging" href="/login" class="btn btn- Login" width"170" height="70" ></image> </a>
+            </div>
+        </div>
         {% endif %}
     </div>
     
     <div class="image-container">
-        <img src="{{ url_for('static', filename='images/Lavia_Logo.png') }}" alt="lavia" class="logo-image">
+        <img src="{{ url_for('static', filename='image/Lavia_Logo.png') }}" alt="lavia" class="logo-image">
     </div>
 
     <!-- Popup Modal -->
@@ -127,7 +141,7 @@
                 setTimeout(() => {
                     var myModal = new bootstrap.Modal(document.getElementById('unverifiedFormsModal'));
                     myModal.show();
-                }, 5000); // Show after 5 seconds
+                }, 5000); // Show after 5 sbeconds
             }
         });
     </script>

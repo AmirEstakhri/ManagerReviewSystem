@@ -32,10 +32,10 @@ version_history = {}
 
 users = {
     "manager_user": {"username": "manager_user", "role": "manager"},
-    "manager_user1": {"username": "manager_user1", "role": "manager"},
+    "manager_user1": {"username": "manager_user1", "role": "manager"},  
 
-    "admin_user": {"username": "admin_user", "role": "admin"},
-    "normal_user": {"username": "normal_user", "role": "normal"}
+    "admin_user": {"username": "admin_user", "role": "admin"}, 
+    "normal_user": {"username": "normal_user", "role": "normal"} 
 }
 
 field_labels = {
@@ -76,6 +76,17 @@ def home():
         return render_template('home.html', user=None, unverified_forms=unverified_forms)
 
 
+@app.route('/user')
+def user ():
+    if 'user' in session:
+        return render_template('user.html', user=session['user'])
+    else:
+       return render_template('home.html')
+
+
+@app.route('/test1')
+def test1():   
+              return render_template('test1.html')      
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -153,7 +164,9 @@ def form():
     # Render the form template with user information and manager list
     return render_template('form.html', user=user, managers=manager_users)
 
-
+@app.route('/Features')
+def test():
+    return render_template('/Features.html')
 
 @app.route('/success')
 def success():
@@ -161,13 +174,8 @@ def success():
         return redirect(url_for('login'))
     return render_template('success.html')
 
-@app.route('/index')
+@app.route('/index',methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-
-@app.route('/manager_review', methods=['GET', 'POST'])
-def manager_review():
-    # Ensure the user is logged in and has the "manager" role
     if 'user' not in session or session['user']['role'] != 'manager':
         return redirect(url_for('login'))
 
@@ -182,8 +190,37 @@ def manager_review():
     # Retrieve all (or filtered) submissions
     submissions = query.all()
 
-    # Render the manager_review template with submissions and the selected priority
-    return render_template('manager_review.html', submissions=submissions, selected_priority=selected_priority)
+    return render_template('index.html')
+@app.route('/manager_review', methods=['GET', 'POST'])
+def manager_review():
+    # Ensure the user is logged in and has the "manager" role
+    if 'user' not in session or session['user']['role'] != 'manager':
+        return redirect(url_for('login'))
+
+    # Count the number of unverified forms
+    unverified_count = Submission.query.filter_by(status='Pending').count()
+    high_priority_count = Submission.query.filter_by(priority='High').count()
+
+
+    # Get selected priority from the form, if provided
+    selected_priority = request.form.get('priority') if request.method == 'POST' else None
+
+    # Query the database with filtering applied directly
+    query = Submission.query
+    if selected_priority:
+        query = query.filter_by(priority=selected_priority)
+    
+    # Retrieve all (or filtered) submissions
+    submissions = query.all()
+    
+    # Render the manager_review template with submissions, unverified count, and the selected priority
+    return render_template('manager_review.html', 
+                           submissions=submissions, selected_priority=selected_priority,
+                           unverified_count=unverified_count,
+                            high_priority_count=high_priority_count
+                           
+                           )
+
 
 
 
@@ -421,7 +458,10 @@ def search():
     return render_template('search.html', filtered_data=filtered_data)
 
 
+    
 
+
+  
 if __name__ == '__main__':
     with app.app_context():
         print("App context is active.")

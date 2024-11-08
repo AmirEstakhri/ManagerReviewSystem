@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Website</title>
+    
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='homecss/homescroll.css') }}">
+    
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #000; /* Black background */
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            color: #fff;
+            border-bottom: 2px solid #D4AF37; /* Gold underline */
+        }
+
+        header ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        header ul li {
+            margin: 0 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        header ul li.active {
+            color: #D4AF37; /* Gold for active item */
+        }
+
+        /* Main Content Section */
+        .main-content {
+            padding: 40px 10%;
+            text-align: center;
+        }
+
+        .main-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Feature Sections */
+        .feature {
+            background-color: #111; /* Darker background for each feature */
+            padding: 40px 10%;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #D4AF37; /* Gold color for headings */
+        }
+
+        .feature p {
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .feature button {
+            background-color: #D4AF37; /* Gold button */
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feature button:hover {
+            background-color: #b38c26; /* Darker gold on hover */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid #D4AF37;
+        }
+
+        footer p {
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="active">Home</li>
+            <li>Contact</li>
+            <li>Info</li>
+            <li>Category</li>
+        </ul>
+    </header>
+
+    <div class="main-content">
+        <h1>Welcome to Our Luxury Website</h1>
+        <p>Experience the finest designs, curated specifically for those who appreciate luxury and elegance.</p>
+        <p>Explore our features and learn about what we offer.</p>
+    </div>
+
+    <!-- Feature Sections -->
+    <div class="feature">
+        <h2>Form Submission & Categorization</h2>
+        <p>Users can submit forms with customizable fields, tags, and priorities, classified into categories like 'IT,' 'HR,' and 'CEO.'</p>
+        <button>See more</button>
+    </div>
+
+    <div class="feature">
+        <h2>Manager Review & Verification</h2>
+        <p>Assigned managers review, verify, and change the form status from 'Pending' to 'Verified.' Each verification records the manager’s identity.</p>
+        <button>See more</button>
+    </div>
+
+    <div class="feature">
+        <h2>Access Control</h2>
+        <p>Role-based access lets only assigned managers see submissions initially, with options to grant access to additional managers.</p>
+        <button>See more</button>
+    </div>
+
+    <div class="feature">
+        <h2>Dashboard Notifications</h2>
+        <p>Notifications alert managers of pending verifications and unverified forms.</p>
+        <button>See more</button>
+    </div>
+
+    <div class="feature">
+        <h2>Search and Filter</h2>
+        <p>Forms can be searched by fields such as subject, sender, recipient, priority, and date, allowing quick retrieval.</p>
+        <button>See more</button>
+    </div>
+
+    <div class="feature">
+        <h2>Form Version Control</h2>
+        <p>Changes to forms are saved as versions, letting users view past states and revert to earlier versions as needed.</p>
+        <button>See more</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Luxury Website. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
