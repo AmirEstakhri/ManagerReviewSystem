@@ -60,20 +60,6 @@ field_labels = {
 }
 
 
-@app.route("/homev2")
-def homev2():
-    if 'user' in session:
-        verification_message = session.get('verification_message', None)
-        unverified_forms = Submission.query.filter_by(status='Pending').all()  # Fetch unverified forms
-
-        if verification_message:
-            # Clear the message after displaying it
-            session.pop('verification_message', None)
-
-        return render_template('homev2.html', user=session['user'], verification_message=verification_message, unverified_forms=unverified_forms)
-    else:
-        unverified_forms = []  # Initialize to an empty list for non-logged-in users
-        return render_template('homev2.html', user=None, unverified_forms=unverified_forms)
 
 # Home page route
 @app.route('/')
@@ -86,10 +72,10 @@ def home():
             # Clear the message after displaying it
             session.pop('verification_message', None)
 
-        return render_template('home.html', user=session['user'], verification_message=verification_message, unverified_forms=unverified_forms)
+        return render_template('homev2.html', user=session['user'], verification_message=verification_message, unverified_forms=unverified_forms)
     else:
         unverified_forms = []  # Initialize to an empty list for non-logged-in users
-        return render_template('home.html', user=None, unverified_forms=unverified_forms)
+        return render_template('homev2.html', user=None, unverified_forms=unverified_forms)
 
 
 @app.route('/user')
@@ -179,6 +165,10 @@ def form():
 
     # Render the form template with user information and manager list
     return render_template('form.html', user=user, managers=manager_users)
+
+
+
+
 
 @app.route('/Features')
 def test():
@@ -391,6 +381,7 @@ def get_submitted_forms():
     return submitted_forms
 
 
+
 @app.route('/download_pdf')
 def download_pdf():
     if 'user' not in session:
@@ -403,39 +394,48 @@ def download_pdf():
     c.drawString(100, 750, "Submission Report")
     c.drawString(100, 730, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    submissions = get_submitted_forms()  # Use the newly defined function
+    submissions = get_submitted_forms()
 
     y = 700
     for i, submission in enumerate(submissions.values()):
         edit_date = submission.get('editing_time', 'Not Edited')
-        c.drawString(100, y, f"Entry {i + 1}:")
-        c.drawString(120, y - 15, f"Name/Subject: {submission['Name/Subject']}")
-        c.drawString(120, y - 30, f"Tags: {submission['Tags']}")
-        c.drawString(120, y - 45, f"Categories: {submission['Categories']}")
-        c.drawString(120, y - 60, f"Sender: {submission['Sender']}")
-        c.drawString(120, y - 75, f"Senders Signature: {submission['Senders Signature']}")
-        c.drawString(120, y - 90, f"Recipient: {submission['Recipient']}")
-        c.drawString(120, y - 105, f"Recipients Signature: {submission['Recipients Signature']}")
-        c.drawString(120, y - 120, f"Registration Number: {submission['Registration Number']}")
-        c.drawString(120, y - 135, f"Letter Content: {submission['Letter Content']}")
-        c.drawString(120, y - 150, f"Attachment Number: {submission['Attachment Number']}")
-        c.drawString(120, y - 165, f"Letter Content: {submission['Letter Content']}")
-        c.drawString(120, y - 180, f"Field 11: {submission['Select Follower']}")
-        c.drawString(120, y - 195, f"Priority: {submission['priority']}")
-        c.drawString(120, y - 210, f"Submission Date: {submission['submission_date']}")
-        c.drawString(120, y - 225, f"Status: {submission['status']}")
-        c.drawString(120, y - 240, f"Verification Date: {submission['verification_date']}")
-        c.drawString(120, y - 255, f"Edited on: {edit_date}")
-        
-        y -= 270  # Move down the page for each entry
 
-        # Check if we need to start a new page if space is running out
+        # Draw header for each entry
+        c.drawString(100, y, f"form ID {i + 1}:")
+        
+        # Using a tuple of field names and values for clarity
+        fields = [
+            ("Name/Subject", submission.get('Name/Subject', '')),
+            ("Tags", submission.get('Tags', '')),
+            ("Categories", submission.get('Categories', '')),
+            ("Sender", submission.get('Sender', '')),
+            ("Senders Signature", submission.get('Senders Signature', '')),
+            ("Recipient", submission.get('Recipient', '')),
+            ("Recipients Signature", submission.get('Recipients Signature', '')),
+            ("Registration Number", submission.get('Registration Number', '')),
+            ("Letter Content", submission.get('Letter Content', '')),
+            ("Attachment Number", submission.get('Attachment Number', '')),
+            ("Select Follower", submission.get('Select Follower', '')),
+            ("Priority", submission.get('priority', '')),
+            ("Submission Date", submission.get('submission_date', '')),
+            ("Status", submission.get('status', '')),
+            ("Verification Date", submission.get('verification_date', '')),
+            ("Edited on", edit_date)
+        ]
+
+        # Add fields with consistent spacing
+        for label, value in fields:
+            y -= 40
+            c.drawString(120, y, f"{label}: {value}")
+
+        y -= 500  # Add extra space between entries
+
+        # Check if we need to start a new page
         if y < 50:
-            c.showPage()  # Create a new page
-            y = 750  # Reset y position for new page
+            c.showPage()
+            y = 750
 
     c.save()
-
     return send_file(pdf_path, as_attachment=True)
 
 

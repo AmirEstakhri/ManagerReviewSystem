@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Dashcode - HTML Template</title>
+    <title>submited form</title>
   
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/logo/favicon.svg') }}">
@@ -34,10 +34,10 @@
     <div class="sidebar-wrapper group">
       <div id="bodyOverlay" class="w-screen h-screen fixed top-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm z-10 hidden"></div>
       <div class="logo-segment">
-        <a class="flex items-center" href="index.html">
-          <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="logo">
+        <a class="flex items-center" href="/">
+          <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="back to home">
           <img src="assets/images/logo/logo-c-white.svg" class="white_logo" alt="logo">
-          <span class="ltr:ml-3 rtl:mr-3 text-xl font-Inter font-bold text-slate-900 dark:text-white">DashCode</span>
+          <span class="ltr:ml-3 rtl:mr-3 text-xl font-Inter font-bold text-slate-900 dark:text-white">mrs</span>
         </a>
         <!-- Sidebar Type Button -->
         <div id="sidebar_type" class="cursor-pointer text-slate-900 dark:text-white text-lg">
@@ -54,29 +54,16 @@
         <ul class="sidebar-menu">
           <li class="sidebar-menu-title">MENU</li>
           <li class="">
-            <a href="" class="navItem active">
+            <a href="#" class="navItem active">
               <span class="flex items-center">
             <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
-            <span>Home</span>
+            <span>menu</span>
               </span>
             </a>
           </li>
         </ul>
         <!-- Upgrade Your Business Plan Card Start -->
-        <div class="bg-slate-900 mb-10 mt-24 p-4 relative text-center rounded-2xl text-white" id="sidebar_bottom_wizard">
-          <img src="assets/images/svg/rabit.svg" alt="" class="mx-auto relative -mt-[73px]">
-          <div class="max-w-[160px] mx-auto mt-6">
-            <div class="widget-title font-Inter mb-1">Unlimited Access</div>
-            <div class="text-xs font-light font-Inter">
-              Upgrade your system to business plan
-            </div>
-          </div>
-          <div class="mt-6">
-            <button class="bg-white hover:bg-opacity-80 text-slate-900 text-sm font-Inter rounded-md w-full block py-2 font-medium">
-              Upgrade
-            </button>
-          </div>
-        </div>
+        
         <!-- Upgrade Your Business Plan Card Start -->
       </div>
     </div>
@@ -227,15 +214,16 @@
                 <a href="index.html" class="mobile-logo xl:hidden inline-block">
                   <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="logo">
                   <img src="assets/images/logo/logo-c-white.svg" class="white_logo" alt="logo">
-                </a>
+                </a >
                 <button class="smallDeviceMenuController hidden md:inline-block xl:hidden">
                   <iconify-icon class="leading-none bg-transparent relative text-xl top-[2px] text-slate-900 dark:text-white" icon="heroicons-outline:menu-alt-3"></iconify-icon>
                 </button>
                 <button class="flex items-center xl:text-sm text-lg xl:text-slate-400 text-slate-800 dark:text-slate-300 px-1
-        rtl:space-x-reverse search-modal" data-bs-toggle="modal" data-bs-target="#searchModal">
+        rtl:space-x-reverse search-modal" data-bs-toggle="modal" data-bs-target="#searchModal" >
                   <iconify-icon icon="heroicons-outline:search"></iconify-icon>
                   <span class="xl:inline-block hidden ml-3">Search...
-    </span>
+                    
+    </span>   
                 </button>
 
               </div>
@@ -271,7 +259,7 @@
                     <!-- has dropdown -->
 
 
-
+                 
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
@@ -369,7 +357,7 @@
 
                     <!-- has dropdown -->
 
-
+                    
 
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
@@ -1710,60 +1698,37 @@
       inline-flex items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="lg:h-8 lg:w-8 h-7 w-7 rounded-full flex-1 ltr:mr-[10px] rtl:ml-[10px]">
                       <img src="assets/images/all-img/user.png" alt="user" class="block w-full h-full object-cover rounded-full">
-                    </div>
-                    <span class="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">Albert Flores</span>
+                    </div> {% if user %}
+
+                    <span class="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">{{ user['username'] }} </span>
+                     {% endif %}
                     <svg class="w-[16px] h-[16px] dark:text-white hidden lg:inline-block text-base inline-block ml-[10px] rtl:mr-[10px]" aria-hidden="true" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </button>
                   <!-- Dropdown menu -->
+               
+                   
                   <div class="dropdown-menu z-10 hidden bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-700 !top-[23px] rounded-md
       overflow-hidden">
                     <ul class="py-1 text-sm text-slate-800 dark:text-slate-200">
                       <li>
-                        <a href="index.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+                        <a href="/manager_review" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
             dark:text-white font-normal">
                           <iconify-icon icon="heroicons-outline:user" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Dashboard</span>
+                          <span class="font-Inter">Manager Review</span>
                         </a>
                       </li>
                       <li>
-                        <a href="chat.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+                        <a href="/download_pdf" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
             dark:text-white font-normal">
                           <iconify-icon icon="heroicons-outline:chat" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Chat</span>
+                          <span class="font-Inter">Download PDF</span>
                         </a>
                       </li>
+                      
                       <li>
-                        <a href="email.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                          <iconify-icon icon="heroicons-outline:mail" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Email</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="todo.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                          <iconify-icon icon="heroicons-outline:clipboard-check" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Todo</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="settings.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                          <iconify-icon icon="heroicons-outline:cog" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="pricing.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                          <iconify-icon icon="heroicons-outline:credit-card" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                          <span class="font-Inter">Price</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="signin-one.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+                        <a href="/logout" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
             dark:text-white font-normal">
                           <iconify-icon icon="heroicons-outline:login" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
                           <span class="font-Inter">Logout</span>
@@ -1850,6 +1815,8 @@
                         <th style="padding: 10px; border: 1px solid #ddd;">Submission Date</th>
                         <th style="padding: 10px; border: 1px solid #ddd;">  Status </th >
                         <th style="padding: 10px; border: 1px solid #ddd;">verfied Time</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">edit Time</th>
+
                     </tr>
                 </thead>
                 <tbody>

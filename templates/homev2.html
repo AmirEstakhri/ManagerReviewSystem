@@ -12,13 +12,24 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homev2/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homev2/css/custom.css') }}">
    
+    
   
     
     
 </head>
 <body>
+    
+    {% if verification_message %}
+    <div class="alert alert-info">{{ verification_message }}</div>
+{% endif %}
 
+<!-- Modal Structure -->
 
+  
+    
+        <!-- Notification for manager if unverfiyed form  -->
+    
+    
 <div id="header-holder">
     <nav id="nav" class="navbar navbar-full">
         <div class="container-fluid">
@@ -31,7 +42,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="index.html"><img src="images/logo.svg" alt="Hustbee"></a>
+                            <a class="navbar-brand" href="#"><img src="images/logo.svg" alt="MRS"></a>
                         </div>
 
                         <div style="height: 1px;" role="main" aria-expanded="false" class="navbar-collapse collapse navbar-collapse-centered" id="bs">
@@ -96,7 +107,12 @@
 
                             <ul class="nav navbar-nav navbar-right other-navbar">
                                 <li class="nav-item">
+                                    {% if user %}
                                     <a class="nav-link btn-client-area" href="{{ url_for('logout') }}"><img src="images/lock.svg" alt="">Logout</a>
+                                    {% else %}
+                                    <a class="nav-link btn-client-area" href="{{ url_for('login') }}"><img src="images/lock.svg" alt="">login</a>
+                                    {% endif %}
+
                                     {% if user %}
                                     <h5 style="font-size: 1.5em; color: #333; font-weight: bold; 
                                     background-color: #f0f8ff; padding: 10px 15px; 
@@ -133,29 +149,29 @@
                                 
                                 <div class="col-sm-5">
                                     <span style="position: relative; overflow: hidden;">
-                                        <video src="{{ url_for('static', filename='videos/form.mp4') }}" 
-                                               alt="" 
-                                               autoplay muted loop 
-                                               style="position: fixed; 
-                                                      top: 1px;  /* Adjust the vertical position */
-                                                      right: 30px; /* Adjust the horizontal position from the right */
-                                                      z-index: 4; 
-                                                      width: 300px; /* Initial width of the video */
-                                                      height: auto; /* Maintain aspect ratio */
-                                                      transform: scale(1); /* Set initial scale */
-                                                      border-radius: 25px; /* Rounded corners */
-                                                      transition: transform 0.3s ease; /* Smooth transition when zooming */
-                                                      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                                                      border-style: dashed;
-                                                        border-color: gray;
+                                        <a href="{{ url_for('form') }}"> <!-- Link to the form page -->
+                                            <video src="{{ url_for('static', filename='videos/form.mp4') }}" 
+                                                   alt="" 
+                                                   autoplay muted loop 
+                                                   style="position: fixed; 
+                                                          top: 1px;  /* Adjust the vertical position */
+                                                          right: 30px; /* Adjust the horizontal position from the right */
+                                                          z-index: 4; 
+                                                          width: 300px; /* Initial width of the video */
+                                                          height: auto; /* Maintain aspect ratio */
+                                                          transform: scale(1); /* Set initial scale */
+                                                          border-radius: 25px; /* Rounded corners */
+                                                          transition: transform 0.3s ease; /* Smooth transition when zooming */
+                                                          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                                          border-style: dashed;
+                                                          border-color: gray;
                                                           border-width: 2px;
-
-
-
-                                                      animation: float 4s ease-in-out infinite;">
-                                            Your browser does not support the video tag.
-                                        </video>
+                                                          animation: float 4s ease-in-out infinite;">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </a>
                                     </span>
+                                    
                                     <div class="img-holder">
                                        
                                     </div>
@@ -163,7 +179,7 @@
                                 <div class="col-sm-7">
                                     <div class="b-text">Create your<br>FORM.</div>
                                     <div class="m-text"> you will get  Notifications about your fomr status. <span class="bold"><br> Start WITH JUST  1 click &#128071;</span></div>
-                                    <a href="#" class="hbtn hbtn-primary hbtn-lg">go to form </a>
+                                    <a href="/form" class="hbtn hbtn-primary hbtn-lg">go to form </a>
                                 </div>
                             </div>
                         </div>
@@ -175,6 +191,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="features container-fluid">
     <div class="container">
         <div class="row rtl-row">
@@ -241,7 +259,7 @@
                         </div>
                     </div>
                     <div class="pricing-button">
-                        <a href="webhosting.html">Get Started!</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
@@ -262,7 +280,7 @@
                         
                     </div>
                     <div class="pricing-button">
-                        <a href="wordpresshosting.html">See Plans</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
@@ -285,7 +303,7 @@
                         </div>
                     </div>
                     <div class="pricing-button">
-                        <a href="cloudhosting.html">Know more</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
@@ -309,7 +327,7 @@
                         </div>
                     </div>
                     <div class="pricing-button">
-                        <a href="vpshosting.html">Get Started!</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
@@ -332,7 +350,7 @@
                         </div>
                     </div>
                     <div class="pricing-button">
-                        <a href="dedicatedhosting.html">See Plans</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
@@ -356,14 +374,13 @@
                         </div>
                     </div>
                     <div class="pricing-button">
-                        <a href="domains.html">Know more</a>
+                        <a href="Features">Know more</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </div>
 
 <div class="footer container-fluid">
@@ -375,7 +392,8 @@
                     <h4>Company</h4>
                     <ul>
                         <li><a href="about.html">About us</a></li>
-                        <li><a href="blog.html">Press & Media</a></li>
+            
+            <li><a href="blog.html">Press & Media</a></li>
                         <li><a href="blog.html">News & Blog</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                         <li><a href="#">Careers</a></li>
@@ -465,8 +483,44 @@
     document.querySelector('video').addEventListener('mouseout', function() {
         this.style.transform = 'scale(1)';  // Reset to the original size
     });
+    
 </script>
 
+<!-- Modal Structure with Inline CSS -->
+<div id="verificationModal" class="modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); z-index: 1000; width: 300px; border-radius: 8px;">
+    <div class="modal-content" style="text-align: center;">
+      <h4>Form Verification</h4>
+      <p id="verificationMessage"></p>
+    </div>
+    <div class="modal-footer" style="text-align: center; padding-top: 10px;">
+      <button class="modal-close btn btn-info" style="background-color: #2196F3; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Close</button>
+    </div>
+  </div>
+  
+  <script>
+    // Wait for the page to load
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if there is a verification message
+        {% if verification_message %}
+            // Show the modal with the message
+            var verificationMessage = "{{ verification_message }}";
+            document.getElementById('verificationMessage').innerText = verificationMessage;
+            document.getElementById('verificationModal').style.display = 'block';
+        {% endif %}
+
+        // Close the modal when the close button is clicked
+        document.querySelector('.modal-close').addEventListener('click', function() {
+            document.getElementById('verificationModal').style.display = 'none';
+        });
+
+        // Close the modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('verificationModal')) {
+                document.getElementById('verificationModal').style.display = 'none';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
