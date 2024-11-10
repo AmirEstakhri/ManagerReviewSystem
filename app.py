@@ -196,7 +196,7 @@ def index():
     # Retrieve all (or filtered) submissions
     submissions = query.all()
 
-    return render_template('index.html')
+    return render_template('index.html')@app.route('/manager_review', methods=['GET', 'POST'])
 @app.route('/manager_review', methods=['GET', 'POST'])
 def manager_review():
     # Ensure the user is logged in and has the "manager" role
@@ -207,26 +207,27 @@ def manager_review():
     unverified_count = Submission.query.filter_by(status='Pending').count()
     high_priority_count = Submission.query.filter_by(priority='High').count()
 
-
     # Get selected priority from the form, if provided
     selected_priority = request.form.get('priority') if request.method == 'POST' else None
 
     # Query the database with filtering applied directly
     query = Submission.query
+
+    # Apply the selected priority filter if provided
     if selected_priority:
         query = query.filter_by(priority=selected_priority)
-    
+
     # Retrieve all (or filtered) submissions
     submissions = query.all()
-    
-    # Render the manager_review template with submissions, unverified count, and the selected priority
-    return render_template('manager_review.html', 
-                           submissions=submissions, selected_priority=selected_priority,
-                           unverified_count=unverified_count,
-                            high_priority_count=high_priority_count
-                           
-                           )
 
+    # Render the manager_review template with submissions, unverified count, and the selected priority
+    return render_template(
+        'manager_review.html',
+        submissions=submissions,
+        selected_priority=selected_priority,
+        unverified_count=unverified_count,
+        high_priority_count=high_priority_count
+    )
 
 
 
@@ -425,7 +426,7 @@ def download_pdf():
 
         # Add fields with consistent spacing
         for label, value in fields:
-            y -= 40
+            y -= 34
             c.drawString(120, y, f"{label}: {value}")
 
         y -= 500  # Add extra space between entries
