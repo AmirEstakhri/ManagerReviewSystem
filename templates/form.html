@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             position: relative;
-            overflow: hidden; /* Prevents scrolling */
+            overflow: auto; /* Allows scrolling */
         }
 
         h1 {
@@ -33,7 +33,8 @@
             margin: auto;
             position: relative;
             z-index: 3;
-            top: 150px;
+            top: 10px;
+            scale: 0.95;
         }
 
         label {
@@ -87,7 +88,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;  /* Ensures video covers the whole screen without distortion */
+            object-fit: cover;
             z-index: 1;
         }
 
@@ -103,7 +104,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            z-index: 2;
+            z-index: 4;
         }
 
         .spinner {
@@ -119,15 +120,14 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
     </style>
 </head>
 <body>
     <h1>Fill out the Form</h1>
     
-    <!-- Loading screen -->
     <div id="loading-screen">
         <div class="spinner"></div>
-        Loading video...
     </div>
 
     <!-- Video full screen -->
@@ -135,66 +135,73 @@
         <source src="{{ url_for('static', filename='videos/whitebg.mp4') }}" type="video/mp4">
     </video>
 
-    <!-- The Form -->
-    <form method="post" action="{{ url_for('form') }}" >
-        <label for="name">Subject:</label>
-        <input type="text" id="name" name="name" required>
+    <!-- The Form --><form method="post" action="{{ url_for('form') }}">
+    <label for="name">Subject:</label>
+    <input type="text" id="name" name="name" required>
 
-        <label for="field1">Tags:</label>
-        <select id="field1" name="field1">
-            <option value="needs">Needs</option>
-            <option value="packs">Packs</option>
-            <option value="updates">Updates</option>
-            <option value="reports">Reports</option>
-        </select>
+    <label for="field1">Tags:</label>
+    <select id="field1" name="field1">
+        <option value="needs">Needs</option>
+        <option value="packs">Packs</option>
+        <option value="updates">Updates</option>
+        <option value="reports">Reports</option>
+    </select>
 
-        <label for="field2">Categories:</label>
-        <select id="field2" name="field2">
-            <option value="IT">IT</option>
-            <option value="HR">HR</option>
-            <option value="CEO">CEO</option>
-        </select>
+    <label for="field2">Categories:</label>
+    <select id="field2" name="field2">
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="CEO">CEO</option>
+    </select>
 
-        <label for="field3">Sender:</label>
-        <input type="text" id="field3" name="field3" value="{{ user['username'] }}" readonly required>
+    <label for="field3">Sender:</label>
+    <input type="text" id="field3" name="field3" value="{{ user['username'] }}" readonly required>
 
-        <label for="field4">Sender's Signature:</label>
-        <input type="text" id="field4" name="field4">
+    <label for="field4">Sender's Signature:</label>
+    <input type="text" id="field4" name="field4">
 
-        <label for="field5">Recipient:</label>
-        <select id="field5" name="field5" required>
-            <option value="" disabled selected>Select a recipient</option>
-            {% if managers %}
-                {% for manager in managers %}
-                    <option value="{{ manager }}">{{ manager }}</option>
-                {% endfor %}
-            {% else %}
-                <option value="" disabled>No managers available</option>
-            {% endif %}
-        </select>
+    <label for="field5">Recipient:</label>
+    <select id="field5" name="field5" required>
+        <option value="" disabled selected>Select a recipient</option>
+        {% if managers %}
+            {% for manager in managers %}
+                <option value="{{ manager }}">{{ manager }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="" disabled>No managers available</option>
+        {% endif %}
+    </select>
 
-        <label for="field6">Recipient's Signature:</label>
-        <input type="text" id="field6" name="field6">
+    <label for="field6">Recipient's Signature:</label>
+    <input type="text" id="field6" name="field6" readonly>
 
-        <label for="field7">Registration Number:</label>
-        <input type="text" id="field7" name="field7">
+    <label for="field7">Registration Number:</label>
+    <input type="text" id="field7" name="field7">
 
-        <label for="field8">Letter Content:</label>
-        <textarea id="field8" name="field8" rows="4" cols="50"></textarea>
+    <label for="field8">Letter Content:</label>
+    <textarea id="field8" name="field8" rows="4" cols="50"></textarea>
 
-        <label for="field9">Attachment Number (Optional):</label>
-        <input type="text" id="field9" name="field9">
+    <label for="field9">Attachment Number (Optional):</label>
+    <input type="text" id="field9" name="field9">
 
-        <label for="field11">Select Follower:</label>
-        <input type="text" id="field11" name="field11">
+    <label for="field11">Select Follower:</label>
+    <input type="text" id="field11" name="field11">
 
-        <label for="priority">Priority:</label>
-        <select id="priority" name="priority">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-        </select>
-        <input type="submit" value="Submit">
+    <label for="priority">Priority:</label>
+    <select id="priority" name="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
+    <!-- New Position Field -->
+   
+
+    <input type="submit" value="Submit">
+    <a href="{{ url_for('home') }}" style="text-decoration: none; background-color: #dc3545; color: white; padding: 10px 20px; border-radius: 4px; display: inline-block; text-align: center; cursor: pointer; float: right;">
+        Back to Home
+    </a>
+    
     </form>
 
     <script>
@@ -207,5 +214,6 @@
 
         window.onload = hideLoadingScreen;
     </script>
+    
 </body>
 </html>
