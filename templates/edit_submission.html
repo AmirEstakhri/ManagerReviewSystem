@@ -85,13 +85,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="priority" class="form-label">Priority:</label>
-                <input type="text" class="form-control" name="priority" value="{{ submission.priority }}">
+                <label for="priority">Priority:</label>
+    <select id="priority" name="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
             </div>
 
             <div class="mb-3">
                 <label for="status" class="form-label">Status:</label>
-                <input type="text" class="form-control" name="status" value="{{ submission.status }}">
+                <input type="text" class="form-control" name="status" value="{{ submission.status }}" readonly>
             </div>
 
             <button type="submit" class="btn btn-primary">Update Submission</button>

@@ -11,18 +11,30 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homev2/css/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homev2/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homev2/css/custom.css') }}">
-   
-    
+   <!-- Bootstrap 5 CDN -->
+
   
     
     
 </head>
 <body>
-    
+    {% if user %}
     {% if verification_message %}
     <div class="alert alert-info">{{ verification_message }}</div>
 {% endif %}
+{% endif %}
 
+<!-- 
+
+<div class="modal-body">
+    {% if unverified_forms %}
+        You have unverified forms that need your attention!
+    {% else %}
+        No unverified forms at the moment.
+    {% endif %}
+</div>
+
+-->
 
 
   
@@ -89,10 +101,14 @@
                                 </li>
                                  {% if user['role'] == 'admin' %}
                                    <a href="/admin_review" class="btn btn-info">Admin Review</a>
+                                   <a href="/submitted_forms" class="btn btn-info">View Submitted Forms</a>
+                                   <a href="/download_pdf" class="btn btn-info">Download PDF</a>
+                                   <a href="/search" class="btn btn-info">Search</a>
+
+
                                  {% elif user['role'] == 'manager' %}
                                   <a href="/manager_review" class="btn btn-info">Manager Review</a>
                                   <a href="/download_pdf" class="btn btn-info">Download PDF</a>
-                                  <a href="/submitted_forms" class="btn btn-info">View Submitted Forms</a>
                                  <a href="/search" class="btn btn-info">Search</a>
                                   {% endif %}
                                   

@@ -95,14 +95,17 @@ def test1():
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
-        user = users.get(username)
-        if user:
-            session['user'] = user
-            return redirect(url_for('home'))
+        user = users.get(username)  # Retrieve the user from the 'users' dictionary
+        
+        if user:  # Check if the user exists
+            session['user'] = user  # Store the user info in the session
+            return redirect(url_for('home'))  # Redirect to the home page or another page
         else:
+            # If the user doesn't exist, show an error message
             return render_template('login.html', error="Invalid Username")
+    
+    return render_template('login.html')  # Render the login page on GET request
 
-    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -200,9 +203,11 @@ def index():
     return render_template('index.html')@app.route('/manager_review', methods=['GET', 'POST'])
 @app.route('/manager_review', methods=['GET', 'POST'])
 def manager_review():
-    # Ensure the user is logged in and has the "manager" role
     if 'user' not in session or session['user']['role'] != 'manager':
         return redirect(url_for('login'))
+
+    # Get the logged-in user's username
+    logged_in_user = session.get('user', {}).get('username')
 
     # Count the number of unverified forms
     unverified_count = Submission.query.filter_by(status='Pending').count()
@@ -218,6 +223,10 @@ def manager_review():
     if selected_priority:
         query = query.filter_by(priority=selected_priority)
 
+    # Apply the filter by manager's username (field5)
+    if logged_in_user:
+        query = query.filter_by(field5=logged_in_user)
+
     # Retrieve all (or filtered) submissions
     submissions = query.all()
 
@@ -232,31 +241,28 @@ def manager_review():
 
 
 
-@app.route('/admin_review')
+
+@app.route('/admin_review', methods=['GET', 'POST'])
 def admin_review():
-    # Check if the user is logged in and has admin role
+    # Ensure the user is logged in and has the "admin" role
     if 'user' not in session or session['user']['role'] != 'admin':
         return redirect(url_for('login'))
 
-    # Fetch all submissions from the database
+    # Count the number of unverified forms (can be used in the template)
+    unverified_count = Submission.query.filter_by(status='Pending').count()
+    high_priority_count = Submission.query.filter_by(priority='High').count()
+
+    # Fetch all submissions from the database (admin has no restrictions)
     submitted_data = Submission.query.all()
-    
-    # Create a list to hold review entries
-    reviews = []
 
-    # Iterate through submissions and generate review entries
-    for i, submission in enumerate(submitted_data):
-        if submission.status == "Pending Review":
-            review_entry = {
-                'index': i + 1,
-                'status': submission.status,
-                'priority': submission.priority,
-                'id': submission.id  # Use submission id for the verification link
-            }
-            reviews.append(review_entry)
+    # Render the admin review template with all the submissions data
+    return render_template('manager_review.html', 
+                           submissions=submitted_data, 
+                           unverified_count=unverified_count, 
+                           high_priority_count=high_priority_count)
 
-    # Render the admin review template with the review entries
-    return render_template('admin_review.html', reviews=reviews)
+
+
 
 
 
@@ -349,6 +355,14 @@ def revert_form(form_id):
     form.field1 = version_data['field1']
     form.field2 = version_data['field2']
     form.field3 = version_data['field3']
+    form.field4 = version_data['field4']
+    form.field5 = version_data['field5']
+    form.field6 = version_data['field6']
+    form.field7 = version_data['field7']
+    form.field8 = version_data['field8']
+    form.field9 = version_data['field9']
+    form.field10 = version_data['field10']
+    form.field11 = version_data['field11']
 
     db.session.commit()
     return redirect(url_for('view_form', form_id=form.id))

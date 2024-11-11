@@ -2483,7 +2483,9 @@
                                   </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                    {% for submission in submissions %}
+                                  {% if submissions %}
+
+                                  {% for submission in submissions %}
                                   <tr>
                                     <td class="table-td"> {{ loop.index }}</td>
                                     <td class="table-td ">{{ submission.name }}</td>
@@ -2550,6 +2552,9 @@
 
                                 </tbody>
                                 {% endfor %}
+                                {% else %}
+                                 <p>No forms assigned to you.</p>
+                                  {% endif %}
                                                                  
                               </table>
                             </div>
