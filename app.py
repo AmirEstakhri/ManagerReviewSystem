@@ -201,6 +201,7 @@ def index():
     submissions = query.all()
 
     return render_template('index.html')@app.route('/manager_review', methods=['GET', 'POST'])
+
 @app.route('/manager_review', methods=['GET', 'POST'])
 def manager_review():
     if 'user' not in session or session['user']['role'] != 'manager':
@@ -238,6 +239,56 @@ def manager_review():
         unverified_count=unverified_count,
         high_priority_count=high_priority_count
     )
+    
+@app.route('/user_forms', methods=['GET', 'POST'])
+def user_forms():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    # Get the logged-in user's username
+    logged_in_user = session.get('user', {}).get('username')
+
+    # Count the number of unverified forms for the user
+    unverified_count = Submission.query.filter_by(status='Pending', field5=logged_in_user).count()
+
+    # Query the database and filter by the logged-in user's username in field3
+    user_forms = Submission.query.filter_by(field3=logged_in_user).all()
+
+    # Handle form submission (editing)
+    if request.method == 'POST':
+        form_id = request.form.get('form_id')  # Get the form ID from the form
+        form = Submission.query.get(form_id)   # Fetch the form from the database
+        if form and form.field5 == logged_in_user:  # Ensure the form belongs to the logged-in user
+            # Update the form fields with the new data from the form
+            form.name = request.form.get('name')
+            form.field1 = request.form.get('field1')
+            form.field2 = request.form.get('field2')
+            form.field3 = request.form.get('field3')  # Make sure this is updated if needed
+            form.field4 = request.form.get('field4')
+            form.field6 = request.form.get('field6')  # Receiver (Manager)
+            form.field7 = request.form.get('field7')
+            form.field8 = request.form.get('field8')
+            form.field9 = request.form.get('field9')
+            form.field10 = request.form.get('field10')
+            form.field11 = request.form.get('field11')
+            form.priority = request.form.get('priority')
+            form.submission_date = request.form.get('submission_date')
+            form.status = request.form.get('status')
+            form.verification_date = request.form.get('verification_date')
+            form.editing_time = db.func.now()  # Set the current time for editing
+
+            db.session.commit()  # Commit the changes to the database
+            return redirect(url_for('user_forms'))  # Redirect to refresh the page and see the changes
+
+    # Render the user_forms template with submissions
+    return render_template(
+        'user_manager_forms.html',
+        user_forms=user_forms,
+        unverified_count=unverified_count
+    )
+
+
+
 
 
 
@@ -260,11 +311,6 @@ def admin_review():
                            submissions=submitted_data, 
                            unverified_count=unverified_count, 
                            high_priority_count=high_priority_count)
-
-
-
-
-
 
 
 

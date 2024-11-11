@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Submissions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a90e2;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Form Styling */
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px 0;
+            align-items: center;
+        }
+        .form-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 calc(33.33% - 10px);
+        }
+        label {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Submissions</h1>
+
+    {% if user_forms %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Form ID</th>
+                    <th>Name</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Submission Date</th>
+                    <th>Receiver (Manager)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in user_forms %}
+                    <tr>
+                        <td>{{ submission.id }}</td>
+                        <td>{{ submission.name }}</td>
+                        <td>{{ submission.priority }}</td>
+                        <td>{{ submission.status }}</td>
+                        <td>{{ submission.submission_date }}</td>
+                        <td>{{ submission.field6 }}</td>
+                        <td>
+                            <!-- Form for viewing a submission (all fields are read-only) -->
+                            <form class="form-container">
+                                <div class="form-item">
+                                    <label>Name:</label>
+                                    <input type="text" name="name" value="{{ submission.name }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>tags :</label>
+                                    <input type="text" name="field1" value="{{ submission.field1 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Categories:</label>
+                                    <input type="text" name="field2" value="{{ submission.field2 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Sender :</label>
+                                    <input type="text" name="field3" value="{{ submission.field3 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Sender's Signature:</label>
+                                    <input type="text" name="field4" value="{{ submission.field4 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>reciver:</label>
+                                    <input type="text" name="field5" value="{{ submission.field5 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Receiver's Signature :</label>
+                                    <input type="text" name="field6" value="{{ submission.field6 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Registration Number:</label>
+                                    <input type="text" name="field7" value="{{ submission.field7 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Letter Content:</label>
+                                    <input type="text" name="field8" value="{{ submission.field8 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Attachment Number:</label>
+                                    <input type="text" name="field9" value="{{ submission.field9 }}" readonly>
+                                </div>
+                                
+                                <div class="form-item">
+                                    <label>Select Follower:</label>
+                                    <input type="text" name="field11" value="{{ submission.field11 }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Priority:</label>
+                                    <input type="text" name="priority" value="{{ submission.priority }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Submission Date:</label>
+                                    <input type="text" name="submission_date" value="{{ submission.submission_date }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Status:</label>
+                                    <input type="text" name="status" value="{{ submission.status }}" readonly>
+                                </div>
+                                <div class="form-item">
+                                    <label>Verification Date:</label>
+                                    <input type="text" name="verification_date" value="{{ submission.verification_date }}" readonly>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-submissions">You have no submissions to view.</p>
+    {% endif %}
+</body>
+</html>
