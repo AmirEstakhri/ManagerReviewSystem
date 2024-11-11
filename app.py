@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Submission ,FormVersion # Import your database and model
 import os
 from flask_login import current_user
+import json
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -282,56 +283,115 @@ def get_submission_by_id(submission_id):
 
 
 
+def get_submission_by_id(submission_id):
+    return Submission.query.get(submission_id)
+
+@app.route('/view_versions/<int:submission_id>', methods=['GET', 'POST'])
+def view_versions(submission_id):
+    submission = get_submission_by_id(submission_id)
+    if submission is None:
+        flash('Submission not found!', 'error')
+        return redirect(url_for('manager_review'))
+
+    # Fetch all versions for this submission
+    versions = FormVersion.query.filter_by(submission_id=submission_id).order_by(FormVersion.timestamp.desc()).all()
+    
+    return render_template('view_versions.html', submission=submission, versions=versions)
+
+
+
 @app.route('/edit_submission/<int:submission_id>', methods=['GET', 'POST'])
 def edit_submission(submission_id):
     submission = get_submission_by_id(submission_id)
 
     if submission is None:
         flash('Submission not found!', 'error')
-        return redirect(url_for('manager_review'))  # Adjust to the appropriate view if needed
+        return redirect(url_for('manager_review'))
 
     if request.method == 'POST':
-        print(request.form)  # Debugging line to inspect form data
+        print(request.form)  # Debugging line
 
-        # Save the current state as a version before updating
-        version_data = {field: getattr(submission, field) for field in [
-            'name', 'field1', 'field2', 'field3', 'field4',
-            'field5', 'field6', 'field7', 'field8', 'field9',
-            'field10', 'field11', 'priority', 'submission_date', 'status', 'verification_date'
-        ]}
+        # Save the current state of the submission as a version before updating it
+        version_data = {
+            field: getattr(submission, field) for field in [
+                'name', 'field1', 'field2', 'field3', 'field4', 'field5',
+                'field6', 'field7', 'field8', 'field9', 'field10', 'field11',
+                'priority', 'submission_date', 'status', 'verification_date'
+            ]
+        }
         new_version = FormVersion(submission_id=submission.id, version_data=version_data)
         db.session.add(new_version)
 
         # Update fields only if new data is provided
         for field in version_data.keys():
             new_value = request.form.get(field)
-            if new_value is not None:  # Allow empty strings to clear fields if necessary
+            if new_value is not None:
                 setattr(submission, field, new_value)
 
-        # Update editing_time to current time
-        submission.editing_time = datetime.now()
-
-        # Commit the changes to the database
-        db.session.commit()  
+        submission.editing_time = datetime.utcnow()
+        db.session.commit()
         flash('Submission updated and version saved successfully!', 'success')
-        return redirect(url_for('manager_review'))  # Adjust as needed
+        return redirect(url_for('manager_review'))
 
     return render_template('edit_submission.html', submission=submission)
 
-@app.route('/revert_submission/<int:version_id>', methods=['POST'])
-def revert_submission(version_id):
+@app.route('/revert_form/<int:form_id>', methods=['POST'])
+def revert_form(form_id):
+    form = Submission.query.get_or_404(form_id)
+    version_id = request.form.get('version_id')
     version = FormVersion.query.get_or_404(version_id)
+
+    # Load version data
+    version_data = version.version_data
+
+    # Update form with version data
+    form.name = version_data['name']
+    form.field1 = version_data['field1']
+    form.field2 = version_data['field2']
+    form.field3 = version_data['field3']
+
+    db.session.commit()
+    return redirect(url_for('view_form', form_id=form.id))
+
+@app.route('/revert_version/<int:version_id>', methods=['POST'])
+def revert_version(version_id):
+    version = FormVersion.query.get(version_id)
+
+    if version is None:
+        flash('Version not found!', 'error')
+        return redirect(url_for('manager_review'))
+
+    # Get the associated submission from the version
     submission = Submission.query.get(version.submission_id)
 
-    # Restore fields from the version data
-    for key, value in version.version_data.items():
-        setattr(submission, key, value)
+    if submission is None:
+        flash('Submission not found!', 'error')
+        return redirect(url_for('manager_review'))
 
-    submission.editing_time = datetime.utcnow()  # Update editing time to now
+    # Save the current state as a new version before reverting
+    current_version_data = {field: getattr(submission, field) for field in version.version_data.keys()}
+    new_version = FormVersion(
+        submission_id=submission.id,
+        version_data=current_version_data,
+        timestamp=datetime.utcnow()
+    )
+    db.session.add(new_version)  # Save the current state as a version
+
+    # Revert the submission to the version's data
+    for field, value in version.version_data.items():
+        setattr(submission, field, value)
+
+    # Update the editing time to now
+    submission.editing_time = datetime.utcnow()
+
+    # Commit the changes to the database
     db.session.commit()
-    
-    flash('Submission reverted to previous version!', 'success')
-    return redirect(url_for('edit_submission', submission_id=submission.id))
+
+    flash('Submission reverted to selected version and a new version was saved successfully!', 'success')
+
+    # Redirect to the version history page
+    return redirect(url_for('view_versions', submission_id=submission.id))
+
 
 
 

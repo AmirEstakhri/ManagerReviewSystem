@@ -96,8 +96,11 @@
 
             <button type="submit" class="btn btn-primary">Update Submission</button>
             <a href="{{ url_for('manager_review') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ url_for('view_versions', submission_id=submission.id) }}">View Version History</a>
+
         </form>
     </div>
+
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

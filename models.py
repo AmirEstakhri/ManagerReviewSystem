@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()  # Create the SQLAlchemy instance here
 from datetime import datetime
+db = SQLAlchemy()  # Create the SQLAlchemy instance here
 
 class Form(db.Model):
     __tablename__ = 'form'
@@ -44,38 +43,41 @@ class Form(db.Model):
         self.editing_time = editing_time
 
 
+db = SQLAlchemy()
+
 class Submission(db.Model):
+    __tablename__ = 'submission'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))    #subject
-    field1 = db.Column(db.String(100))  #Tags
-    field2 = db.Column(db.String(100))  #Categories
-    field3 = db.Column(db.String(100))  #Sender
-    field4 = db.Column(db.String(100))  #Sender's Signature<
-    field5 = db.Column(db.String(100))  #Recipient
-    field6 = db.Column(db.String(100))  #Recipient's Signature
-    field7 = db.Column(db.String(100))  #Registration Number
-    field8 = db.Column(db.Text)         #Letter Content
-    field9 = db.Column(db.String(100))  #Attachment Number
-    field10 = db.Column(db.String(100)) #Letter Content
-    field11 = db.Column(db.String(100)) #Select Follower
-    priority = db.Column(db.String(20)) #Priority
+    name = db.Column(db.String(100))
+    field1 = db.Column(db.String(100))
+    field2 = db.Column(db.String(100))
+    field3 = db.Column(db.String(100))
+    field4 = db.Column(db.String(100))
+    field5 = db.Column(db.String(100))
+    field6 = db.Column(db.String(100))
+    field7 = db.Column(db.String(100))
+    field8 = db.Column(db.Text)
+    field9 = db.Column(db.String(100))
+    field10 = db.Column(db.String(100))
+    field11 = db.Column(db.String(100))
+    priority = db.Column(db.String(20))
     submission_date = db.Column(db.String(20))
     status = db.Column(db.String(50))
     verification_date = db.Column(db.String(20), nullable=True)
-    editing_time = db.Column(db.String(20), nullable=True)
-    
-
-
+    editing_time = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
-        return f'<Submission {self.id}, Name: {self.name}, >'
+        return f'<Submission {self.id}, Name: {self.name}>'
+
 
 class FormVersion(db.Model):
+    __tablename__ = 'form_version'
     id = db.Column(db.Integer, primary_key=True)
     submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
-    version_data = db.Column(db.JSON, nullable=False)  # Stores the form data as JSON
+    version_data = db.Column(db.JSON, nullable=False)  # Store entire form state as JSON
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    
+
     submission = db.relationship('Submission', backref=db.backref('versions', lazy=True))
     
-    
+    def __repr__(self):
+        return f'<FormVersion {self.id}, Submission ID: {self.submission_id}>'

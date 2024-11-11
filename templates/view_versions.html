@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Versions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #2a9d8f;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .navbar .form-inline {
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .btn-outline-success {
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+        }
+
+        .navbar .btn-outline-success:hover {
+            background-color: #21867a;
+        }
+
+        .navbar .btn-outline-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .navbar .btn-outline-secondary:hover {
+            background-color: #5a6368;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        strong {
+            color: #555;
+        }
+
+        .version {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .version p {
+            font-weight: bold;
+            color: #2a9d8f;
+        }
+
+        .revert-link {
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #2a9d8f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .revert-link:hover {
+            background-color: #21867a;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <a href='/manager_review'>
+                <button class="btn btn-outline-success" type="button">Manager Review</button>
+            </a>
+            <a href='/'>
+                <button class="btn btn-sm btn-outline-secondary" type="button">Home</button>
+            </a>
+        </form>
+    </nav>
+
+    <div class="container">
+        <h1>Versions for Submission ID: {{ submission.id }}</h1>
+
+        <h2>Current Submission</h2>
+        <ul>
+            <li><strong>Name:</strong> {{ submission.name }}</li>
+            <li><strong>Field 1 (Tags):</strong> {{ submission.field1 }}</li>
+            <li><strong>Field 2 (Categories):</strong> {{ submission.field2 }}</li>
+            <li><strong>Field 3 (Sender):</strong> {{ submission.field3 }}</li>
+            <li><strong>Field 4 (Sender's Signature):</strong> {{ submission.field4 }}</li>
+            <li><strong>Field 5 (Recipient):</strong> {{ submission.field5 }}</li>
+            <li><strong>Field 6 (Recipient's Signature):</strong> {{ submission.field6 }}</li>
+            <li><strong>Field 7 (Registration Number):</strong> {{ submission.field7 }}</li>
+            <li><strong>Field 8 (Letter Content):</strong> {{ submission.field8 }}</li>
+            <li><strong>Field 9 (Attachment Number):</strong> {{ submission.field9 }}</li>
+            <li><strong>Field 10:</strong> {{ submission.field10 }}</li>
+            <li><strong>Field 11 (Select Follower):</strong> {{ submission.field11 }}</li>
+            <li><strong>Priority:</strong> {{ submission.priority }}</li>
+            <li><strong>Submission Date:</strong> {{ submission.submission_date }}</li>
+            <li><strong>Status:</strong> {{ submission.status }}</li>
+            <li><strong>Verification Date:</strong> {{ submission.verification_date }}</li>
+            <li><strong>Editing Time:</strong> {{ submission.editing_time }}</li>
+        </ul>
+
+        <h2>Version History</h2>
+        {% for version in versions %}
+        <div class="version">
+            <p>Version Timestamp: {{ version.timestamp }}</p>
+            <ul>
+                <li><strong>Name:</strong> {{ version.version_data['name'] }}</li>
+                <li><strong>Field 1 (Tags):</strong> {{ version.version_data['field1'] }}</li>
+                <li><strong>Field 2 (Categories):</strong> {{ version.version_data['field2'] }}</li>
+                <li><strong>Field 3 (Sender):</strong> {{ version.version_data['field3'] }}</li>
+                <li><strong>Field 4 (Sender's Signature):</strong> {{ version.version_data['field4'] }}</li>
+                <li><strong>Field 5 (Recipient):</strong> {{ version.version_data['field5'] }}</li>
+                <li><strong>Field 6 (Recipient's Signature):</strong> {{ version.version_data['field6'] }}</li>
+                <li><strong>Field 7 (Registration Number):</strong> {{ version.version_data['field7'] }}</li>
+                <li><strong>Field 8 (Letter Content):</strong> {{ version.version_data['field8'] }}</li>
+                <li><strong>Field 9 (Attachment Number):</strong> {{ version.version_data['field9'] }}</li>
+                <li><strong>Field 10:</strong> {{ version.version_data['field10'] }}</li>
+                <li><strong>Field 11 (Select Follower):</strong> {{ version.version_data['field11'] }}</li>
+                <li><strong>Priority:</strong> {{ version.version_data['priority'] }}</li>
+                <li><strong>Submission Date:</strong> {{ version.version_data['submission_date'] }}</li>
+                <li><strong>Status:</strong> {{ version.version_data['status'] }}</li>
+                <li><strong>Verification Date:</strong> {{ version.version_data['verification_date'] }}</li>
+                <li><strong>Editing Time:</strong> {{ version.version_data['editing_time'] }}</li>
+            </ul>
+            <form action="{{ url_for('revert_version', version_id=version.id) }}" method="POST">
+                <button type="submit">Revert to This Version</button>
+            </form>        
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

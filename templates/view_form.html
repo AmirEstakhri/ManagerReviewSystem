@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.name }} - Form Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #007bff;
+        }
+        .form-details {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .version-select {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        select {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 70%;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ form.name }} - Form Details</h1>
+
+    <div class="form-details">
+        <p><strong>Field 1 (Tags):</strong> {{ form.field1 }}</p>
+        <p><strong>Field 2 (Categories):</strong> {{ form.field2 }}</p>
+        <p><strong>Field 3 (Sender):</strong> {{ form.field3 }}</p>
+        <!-- Add other fields as needed -->
+    </div>
+
+    <h3>Versions:</h3>
+    <form action="{{ url_for('revert_version', version_id=version.id) }}" method="post">
+        <div class="version-select">
+            <select name="version_id">
+                {% for version in form.versions %}
+                    <option value="{{ version.id }}">
+                        {{ version.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Revert to Selected Version</button>
+        </div>
+    </form>
+    
+</body>
+</html>
