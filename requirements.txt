@@ -54,3 +54,4 @@ urllib3==2.2.3
 virtualenv==20.26.6
 wcwidth==0.2.13
 Werkzeug==3.1.1
+gunicorn==23.0.0
