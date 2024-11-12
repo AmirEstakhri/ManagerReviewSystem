@@ -55,7 +55,7 @@ def manager_forms():
         # Get the list of managers (assuming you have a User model to fetch manager info)
         managers = User.query.filter_by(role='manager').all()
 
-        return render_template('manager_forms.html', forms=assigned_forms, managers=managers)
+        return render_template('manager_.html', forms=assigned_forms, managers=managers)
     else:
         return redirect(url_for('home'))  # Or some error page
 @app.route('/send_form_to_manager/<int:form_id>', methods=['POST'])
@@ -205,7 +205,7 @@ def form():
             submission_date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             status='Pending',
         )
-            
+
         # Add the new form to the session and commit
         db.session.add(new_form)
         db.session.commit()
