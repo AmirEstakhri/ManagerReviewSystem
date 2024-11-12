@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager's Forms</title>
+    <!-- You can link your CSS files here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Forms for Managers</h1>
+        <nav>
+            <!-- Link back to dashboard or homepage -->
+            <a href="{{ url_for('home') }}">Back to Dashboard</a>
+            <!-- Add other navigation links here if necessary -->
+        </nav>
+    </header>
+
+    <section>
+        <p>Below are the forms assigned to you or shared with other managers. You can view the details and check their status.</p>
+
+        <!-- Table displaying the forms -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Form Name</th>
+                    <th>Assigned Manager</th>
+                    <th>Allow Other Managers to See</th>
+                    <th>Status</th>
+                    <th>Action</th> <!-- Optional for more actions like viewing or editing -->
+                </tr>
+            </thead>
+            <tbody>
+                {% if forms %}
+                    {% for form in forms %}
+                    <tr>
+                        <td>{{ form.name }}</td>
+                        <td>{{ form.assigned_manager.username }}</td>
+                        <td>{{ 'Yes' if form.allow_other_managers_to_see else 'No' }}</td>
+                        <td>{{ form.status if form.status else 'Pending' }}</td>
+                        <td>
+                            <!-- Example: Link to view the form details or edit (if applicable) -->
+                            <a href="{{ url_for('view_form', form_id=form.id) }}">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No forms available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>Copyright &copy; {{ current_year }}</p>
+        <!-- You can add other footer content here -->
+    </footer>
+</body>
+</html>

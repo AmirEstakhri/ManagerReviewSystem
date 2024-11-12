@@ -5,10 +5,12 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for, flash
-from models import db, Submission ,FormVersion # Import your database and model
+from models import db, Submission ,FormVersion,User
 import os
-from flask_login import current_user
+from flask_login import current_user, login_required
 import json
+from users import users, get_user
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -22,22 +24,64 @@ migrate = Migrate(app, db)
 
 # Initialize SQLAlchemy with the app
 db.init_app(app)
-with app.app_context():
-    if not os.path.exists('forms.db'):
-        db.create_all() # This creates all the tables defined by your models
+
 
 # Define the list to store submitted form data
 version_history = {}
 
 
 
-users = {
-    "manager_user": {"username": "manager_user", "role": "manager"},
-    "manager_user1": {"username": "manager_user1", "role": "manager"},  
+# users = {
+#     "manager_user": {"username": "manager_user", "role": "manager"},
+#     "manager_user1": {"username": "manager_user1", "role": "manager"},  
 
-    "admin_user": {"username": "admin_user", "role": "admin"}, 
-    "normal_user": {"username": "normal_user", "role": "normal"} 
-}
+#     "admin_user": {"username": "admin_user", "role": "admin"}, 
+#     "normal_user": {"username": "normal_user", "role": "normal"} 
+# }
+@app.route('/manager_forms')
+def manager_forms():
+    # Get the current logged-in user from the session
+    user = session.get('user')  # Assuming you store user info in session
+
+    # Check if the user is a manager
+    if user and user['role'] == 'manager':
+        # Fetch all forms assigned to this manager or that are allowed to be seen by other managers
+        assigned_forms = Submission.query.filter(
+            (Submission.assigned_manager_id == user['username']) | 
+            (Submission.second_manager_id == user['username']) |  # Added check for second manager
+            (Submission.allow_other_managers_to_see == True)
+        ).all()
+
+        # Get the list of managers (assuming you have a User model to fetch manager info)
+        managers = User.query.filter_by(role='manager').all()
+
+        return render_template('manager_forms.html', forms=assigned_forms, managers=managers)
+    else:
+        return redirect(url_for('home'))  # Or some error page
+@app.route('/send_form_to_manager/<int:form_id>', methods=['POST'])
+def send_form_to_manager(form_id):
+    # Get the selected second manager ID from the form
+    second_manager_id = request.form.get('second_manager_id')
+    
+    # Fetch the form from the database
+    form = Submission.query.get_or_404(form_id)
+    
+    # Ensure that the logged-in user is the assigned manager
+    if form.assigned_manager_id == user_info['username']:
+        # Update the second manager
+        form.second_manager_id = second_manager_id
+        
+        # Commit the changes to the database
+        db.session.commit()
+        
+        flash('Form has been sent to the selected manager', 'success')
+    else:
+        flash('You are not authorized to send this form', 'danger')
+
+    return redirect(url_for('manager_forms'))  # Redirect to the manager forms page
+
+
+
 
 field_labels = {
     "name": "Subject",
@@ -107,6 +151,7 @@ def login():
     return render_template('login.html')  # Render the login page on GET request
 
 
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
@@ -160,7 +205,7 @@ def form():
             submission_date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             status='Pending',
         )
-
+            
         # Add the new form to the session and commit
         db.session.add(new_form)
         db.session.commit()
@@ -596,11 +641,15 @@ def search():
 
 
     
+# from app import app, db  # Import the Flask app and db from your app
+
+#Create an application context manually
+# with app.app_context():
+#     db.drop_all()  # Drop all tables in the database
+#     db.create_all()  # Recreate all tables based on the models
+
 
 
   
 if __name__ == '__main__':
-    with app.app_context():
-        print("App context is active.")
-        db.create_all()  # Create all database tables
     app.run(debug=True)
