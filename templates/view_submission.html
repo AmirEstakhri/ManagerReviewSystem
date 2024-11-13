@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            padding: 15px;
+            border: 2px solid #343a40; /* Border color */
+            border-radius: 12px; /* Round corners */
+            background-color: #f8f9fa; /* Light background */
+        }
+
+        .submission-details {
+            font-size: 18px;
+            margin: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for subtle 3D effect */
+        }
+
+        .submission-details p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .submission-details strong {
+            color: #007bff; /* Highlight labels */
+        }
+
+        .submission-details .important {
+            color: #e74c3c; /* Highlight important info like status/verification */
+            font-weight: bold;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .btn-back:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="btn-back">Back to Home</a>
+    <a href="{{ url_for('search') }}" class="btn-back">Back to search</a>
+
+<h1>Submission Details</h1>
+
+<div class="submission-details">
+    <p><strong>Submission ID:</strong> {{ submission.id }}</p>
+    <p><strong>Name:</strong> {{ submission.name }}</p>
+    <p><strong>Tags:</strong> {{ submission.field1 }}</p>
+    <p><strong>Category:</strong> {{ submission.field2 }}</p>
+    <p><strong>Sender:</strong> {{ submission.field3 }}</p>
+    <p><strong>Sender's Signature:</strong> {{ submission.field4 }}</p>
+    <p><strong>Recipient:</strong> {{ submission.field5 }}</p>
+    <p><strong>Recipient's Signature:</strong> {{ submission.field6 }}</p>
+    <p><strong>Registration Number:</strong> {{ submission.field7 }}</p>
+    <p><strong>Letter Content:</strong> {{ submission.field8 }}</p>
+    <p><strong>Attachment Number:</strong> {{ submission.field9 }}</p>
+    <p><strong>Selected Follower:</strong> {{ submission.field10 }}</p>
+    <p><strong>Priority:</strong> {{ submission.priority }}</p>
+    <p><strong>Submission Date:</strong> {{ submission.submission_date }}</p>
+    <p><strong>Status:</strong> <span class="important">{{ submission.status }}</span></p>
+    <p><strong>Verification Date:</strong> {{ submission.verification_date or 'Not Verified' }}</p>
+    <p><strong>Editing Time:</strong> {{ submission.editing_time or 'Not Edited' }}</p>
+    <p><strong>Verified By:</strong> {{ submission.verifiy_by or 'Not Verified' }}</p>
+</div>
+
+<!-- Back Button -->
+
+</body>
+</html>

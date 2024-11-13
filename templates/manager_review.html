@@ -2520,12 +2520,12 @@
                                     </td>
                                     
                                     <td class="table-td ">
-                                        <a href="{{ url_for('submitted_forms') }}#submission-{{ submission.id }}" style="text-decoration: none;">
-                                            <span style="color: #007bff; font-weight: bold; margin-right: 5px;">View</span>
-                                            <button class="view-btn" type="button">
-                                                <iconify-icon icon="heroicons:eye"></iconify-icon>
-                                            </button>
-                                        </a>
+                                      <a href="{{ url_for('view_submission', submission_id=submission.id) }}" style="text-decoration: none;">
+                                        <span style="color: #007bff; font-weight: bold; margin-right: 5px;">View</span>
+                                        <button class="view-btn" type="button">
+                                            <iconify-icon icon="heroicons:eye"></iconify-icon>
+                                        </button>
+                                    </a>
                                         
 
 

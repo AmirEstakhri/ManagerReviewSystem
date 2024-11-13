@@ -509,6 +509,18 @@ def revert_version(version_id):
 
 
 
+@app.route('/view_submission/<int:submission_id>')
+def view_submission(submission_id):
+    # Retrieve the specific submission from the database using the ID
+    submission = Submission.query.get(submission_id)
+
+    # If no submission is found with that ID, return a 404 error or redirect
+    if not submission:
+        return "Submission not found", 404
+
+    # Render a template and pass the submission to it
+    return render_template('view_submission.html', submission=submission)
+
 
 
 @app.route('/version_history/<int:submission_index>')

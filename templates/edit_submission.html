@@ -31,13 +31,23 @@
 
             <div class="mb-3">
                 <label for="field1" class="form-label">Tags:</label>
-                <input type="text" class="form-control" name="field1" value="{{ submission.field1 }}">
+                <select id="field1" name="field1" class="form-control">
+                    <option value="needs" {% if submission.field1 == 'needs' %}selected{% endif %}>Needs</option>
+                    <option value="packs" {% if submission.field1 == 'packs' %}selected{% endif %}>Packs</option>
+                    <option value="updates" {% if submission.field1 == 'updates' %}selected{% endif %}>Updates</option>
+                    <option value="reports" {% if submission.field1 == 'reports' %}selected{% endif %}>Reports</option>
+                </select>
             </div>
-
+            
             <div class="mb-3">
                 <label for="field2" class="form-label">Categories:</label>
-                <input type="text" class="form-control" name="field2" value="{{ submission.field2 }}">
+                <select id="field2" name="field2" class="form-control">
+                    <option value="IT" {% if submission.field2 == 'IT' %}selected{% endif %}>IT</option>
+                    <option value="HR" {% if submission.field2 == 'HR' %}selected{% endif %}>HR</option>
+                    <option value="CEO" {% if submission.field2 == 'CEO' %}selected{% endif %}>CEO</option>
+                </select>
             </div>
+            
 
             <div class="mb-3">
                 <label for="field3" class="form-label">Sender:</label>

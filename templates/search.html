@@ -97,6 +97,22 @@
             font-size: 16px;
             color: #666;
         }
+
+        /* View button */
+        .btn-view {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #27ae60; /* Green */
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .btn-view:hover {
+            background-color: #1e8449; /* Darker green on hover */
+        }
     </style>
 </head>
 <body>
@@ -105,7 +121,7 @@
     <h1>Search Results</h1>
     
     <form method="POST" action="{{ url_for('search') }}">
-        <input type="text" name="name" placeholder="Search by name" >
+        <input type="text" name="name" placeholder="Search by name">
         <select name="tags">
             <option value="">Select Tag</option>
             <option value="needs">Needs</option>
@@ -134,6 +150,7 @@
                     <th>Recipient</th>
                     <th>Submission Date</th>
                     <th>Status</th>
+                    <th>View</th> <!-- Add a column for the View button -->
                 </tr>
             </thead>
             <tbody>
@@ -146,6 +163,7 @@
                     <td>{{ submission.field5 }}</td>
                     <td>{{ submission.submission_date }}</td>
                     <td>{{ submission.status }}</td>
+                    <td><a href="{{ url_for('view_submission', submission_id=submission.id) }}" class="btn-view">View</a></td> <!-- View button with link -->
                 </tr>
                 {% endfor %}
             </tbody>

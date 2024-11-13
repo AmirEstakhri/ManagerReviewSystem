@@ -3,27 +3,95 @@
 <html lang="zxx" dir="ltr" class="light">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <title>Dashcode - HTML Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>submited form</title>
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets1/images/logo/favicon.svg') }}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/logo/favicon.svg') }}">
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Theme CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets1/css/rt-plugins.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets1/css/app.css') }}">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/sidebar-menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/SimpleBar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/app.css') }}">
   
-  <!-- JavaScript -->
-  <script src="{{ url_for('static', filename='assets1/js/settings.js') }}" defer></script>
-</head>
+    <!-- Settings JS -->
+    <script src="{{ url_for('static', filename='assets/js/settings.js') }}" async></script>
+    <style>
+      h1 {
+          text-align: center;
+          font-size: 28px;
+          margin-bottom: 20px;
+          color: #333;
+          padding: 15px;
+          border: 2px solid #343a40; /* Border color */
+          border-radius: 12px; /* Round corners */
+          background-color: #f8f9fa; /* Light background */
+      }
 
+      /* General styling */
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f7f6;
+          margin: 0;
+          padding: 20px;
+      }
+
+      .table-wrapper {
+          max-width: 100%;
+          overflow: auto;  /* Enables both horizontal and vertical scrolling */
+          margin-top: 30px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 1200px; /* Ensures horizontal scroll when table is wide */
+      }
+
+      th, td {
+          padding: 12px;
+          text-align: center;
+          border: 1px solid #ddd;
+          font-size: 14px;
+      }
+
+      th {
+          background-color: #343a40;
+          color: white;
+          font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover {
+          background-color: #f1f1f1;
+      }
+
+      td {
+          color: #333;
+      }
+
+      .no-submissions {
+          text-align: center;
+          color: #888;
+          font-size: 18px;
+          padding: 20px;
+      }
+  </style>
+  </head>
+  
 
 <body class=" font-inter dashcode-app" id="body_class">
   <!-- [if IE]> <p class="browserupgrade"> You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security. </p> <![endif] -->
@@ -34,19 +102,14 @@
       <div id="bodyOverlay" class="w-screen h-screen fixed top-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm z-10 hidden"></div>
       <div class="logo-segment">
         <a class="flex items-center" href="/">
-          <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="BACK to Home ">
+          <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="back to home">
           <img src="assets/images/logo/logo-c-white.svg" class="white_logo" alt="logo">
-          <span class="ltr:ml-3 rtl:mr-3 text-xl font-Inter font-bold text-slate-900 dark:text-white">MRS</span>
+          <span class="ltr:ml-3 rtl:mr-3 text-xl font-Inter font-bold text-slate-900 dark:text-white">mrs</span>
         </a>
-
         <!-- Sidebar Type Button -->
         <div id="sidebar_type" class="cursor-pointer text-slate-900 dark:text-white text-lg">
-          <span class="sidebarDotIcon extend-icon cursor-pointer text-slate-900 dark:text-white text-2xl">
-        <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150 ring-2 ring-inset ring-offset-4 ring-black-900 dark:ring-slate-400 bg-slate-900 dark:bg-slate-400 dark:ring-offset-slate-700"></div>
-      </span>
-          <span class="sidebarDotIcon collapsed-icon cursor-pointer text-slate-900 dark:text-white text-2xl">
-        <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150"></div>
-      </span>
+          <iconify-icon class="sidebarDotIcon extend-icon text-slate-900 dark:text-slate-200" icon="fa-regular:dot-circle"></iconify-icon>
+          <iconify-icon class="sidebarDotIcon collapsed-icon text-slate-900 dark:text-slate-200" icon="material-symbols:circle-outline"></iconify-icon>
         </div>
         <button class="sidebarCloseIcon text-2xl">
           <iconify-icon class="text-slate-900 dark:text-slate-200" icon="clarity:window-close-line"></iconify-icon>
@@ -58,387 +121,29 @@
         <ul class="sidebar-menu">
           <li class="sidebar-menu-title">MENU</li>
           <li class="">
-            <a href="#" class="navItem">
+            <a href="/" class="navItem active">
               <span class="flex items-center">
             <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
-            <span>Dashboard</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="index.html">Analytics Dashboard</a>
-              </li>
-              <li>
-                <a href="ecommerce-dashboard.html">Ecommerce Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="project-dashboard.html">Project Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="crm-dashboard.html">CRM Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="banking-dashboard.html">Banking Dashboard
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- Apps Area -->
-          <li class="sidebar-menu-title">APPS</li>
-          <li>
-            <a href="chat.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class="nav-icon" icon="heroicons-outline:chat"></iconify-icon>
-            <span>Chat</span>
+            <span>menu</span>
               </span>
             </a>
           </li>
+          
+        </ul>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-title">download_pdf</li>
           <li class="">
-            <a href="email.html" class="navItem">
+            <a href="/download_pdf" class="navItem active">
               <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:mail"></iconify-icon>
-            <span>Email</span>
+            <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
+            <span>download_pdf</span>
               </span>
             </a>
           </li>
-          <li class="">
-            <a href="kanban.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:view-boards"></iconify-icon>
-            <span>Kanban</span>
-              </span>
-            </a>
-          </li>
-          <li class="">
-            <a href="calander.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:calendar"></iconify-icon>
-            <span>Calander</span>
-              </span>
-            </a>
-          </li>
-          <li class="">
-            <a href="todo.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:clipboard-check"></iconify-icon>
-            <span>Todo</span>
-              </span>
-            </a>
-          </li>
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:document"></iconify-icon>
-            <span>Projects</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="project.html">Projects</a>
-              </li>
-              <li>
-                <a href="project-details.html">Project Details</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Pages Area -->
-          <li class="sidebar-menu-title">PAGES</li>
-          <!-- Authentication -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:lock-closed"></iconify-icon>
-            <span>Authentication</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="signin-one.html">Signin One</a>
-              </li>
-              <li>
-                <a href="signin-two.html">Signin Two</a>
-              </li>
-              <li>
-                <a href="signin-three.html">Signin Three</a>
-              </li>
-              <li>
-                <a href="signup-one.html">Signup One</a>
-              </li>
-              <li>
-                <a href="signup-two.html">Signup Two</a>
-              </li>
-              <li>
-                <a href="signup-three.html">Signup Three</a>
-              </li>
-              <li>
-                <a href="forget-password-one.html">Forget Password One</a>
-              </li>
-              <li>
-                <a href="forget-password-two.html">Forget Password Two</a>
-              </li>
-              <li>
-                <a href="forget-password-three.html">Forget Password Three</a>
-              </li>
-              <li>
-                <a href="lock-screen-one.html">Lock Screen One</a>
-              </li>
-              <li>
-                <a href="lock-screen-two.html">Lock Screen Two</a>
-              </li>
-              <li>
-                <a href="lock-screen-three.html">Lock Screen Three</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Utility -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:view-boards"></iconify-icon>
-            <span>Utility</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="invoice.html">Invoice</a>
-              </li>
-              <li>
-                <a href="pricing.html">Pricing</a>
-              </li>
-              <li>
-                <a href="blog.html">Blog</a>
-              </li>
-              <li>
-                <a href="blank-page.html">Blank Page</a>
-              </li>
-              <li>
-                <a href="settings.html">Settings</a>
-              </li>
-              <li>
-                <a href="profile.html">Profile</a>
-              </li>
-              <li>
-                <a href="404.html">404 Page</a>
-              </li>
-              <li>
-                <a href="comming-soon.html">Coming Soon</a>
-              </li>
-              <li>
-                <a href="under-maintanance.html">Under Maintanance</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Elements Area -->
-          <li class="sidebar-menu-title">ELEMENTS</li>
-          <!-- Widgets -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:view-grid-add"></iconify-icon>
-            <span>Widgets</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="basic-widgets.html">Basic</a>
-              </li>
-              <li>
-                <a href="statistics-widgets.html">Statistic</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Components -->
-          <li>
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:collection"></iconify-icon>
-            <span>Components</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="typography.html">Typography</a>
-              </li>
-              <li>
-                <a href="colors.html">Colors</a>
-              </li>
-              <li>
-                <a href="alert.html">Alert</a>
-              </li>
-              <li>
-                <a href="buttons.html">Button</a>
-              </li>
-              <li>
-                <a href="card.html">Card</a>
-              </li>
-              <li>
-                <a href="carousel.html">Carousel</a>
-              </li>
-              <li>
-                <a href="dropdown.html">Dropdown</a>
-              </li>
-              <li>
-                <a href="image.html">Image</a>
-              </li>
-              <li>
-                <a href="modal.html">Modal</a>
-              </li>
-              <li>
-                <a href="progressbar.html">Progress bar</a>
-              </li>
-              <li>
-                <a href="placeholder.html">Placeholder</a>
-              </li>
-              <li>
-                <a href="tab-accordion.html">Tab & Accordion</a>
-              </li>
-              <li>
-                <a href="badges.html">Badges</a>
-              </li>
-              <li>
-                <a href="pagination.html">Pagination</a>
-              </li>
-              <li>
-                <a href="video.html">Video</a>
-              </li>
-              <li>
-                <a href="tooltip-popover.html">Tooltip & Popover</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Forms -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:clipboard-list"></iconify-icon>
-            <span>Forms</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="input.html">Input</a>
-              </li>
-              <li>
-                <a href="input-group.html">Input group</a>
-              </li>
-              <li>
-                <a href="input-layout.html">Input layout</a>
-              </li>
-              <li>
-                <a href="form-validation.html">Form validation</a>
-              </li>
-              <li>
-                <a href="wizard.html">Wizard</a>
-              </li>
-              <li>
-                <a href="input-mask.html">Input mask</a>
-              </li>
-              <li>
-                <a href="file-input.html">File input</a>
-              </li>
-              <li>
-                <a href="form-repeater.html">Form repeater</a>
-              </li>
-              <li>
-                <a href="textarea.html">Textarea</a>
-              </li>
-              <li>
-                <a href="checkbox.html">Checkbox</a>
-              </li>
-              <li>
-                <a href="radio.html">Radio button</a>
-              </li>
-              <li>
-                <a href="switch.html">Switch</a>
-              </li>
-              <li>
-                <a href="select.html">Select</a>
-              </li>
-              <li>
-                <a href="date-picker.html">Date time picker</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Tables -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:table"></iconify-icon>
-            <span>Tables</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="basic-table.html">Basic table</a>
-              </li>
-              <li>
-                <a href="advance-table.html">Advanced table</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Charts -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:chart-bar"></iconify-icon>
-            <span>Chart</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="apex-chart.html">Apex chart</a>
-              </li>
-              <li>
-                <a href="chartjs.html">Chart js</a>
-              </li>
-            </ul>
-          </li>
-          <!-- Map -->
-          <li class="">
-            <a href="map.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:map"></iconify-icon>
-            <span>Map</span>
-              </span>
-            </a>
-          </li>
-          <!-- Icons -->
-          <li class="">
-            <a href="icons.html" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:emoji-happy"></iconify-icon>
-            <span>Icons</span>
-              </span>
-            </a>
-          </li>
+          
         </ul>
         <!-- Upgrade Your Business Plan Card Start -->
-        <div class="bg-slate-900 mb-10 mt-24 p-4 relative text-center rounded-2xl text-white" id="sidebar_bottom_wizard">
-          <img src="assets/images/svg/rabit.svg" alt="" class="mx-auto relative -mt-[73px]">
-          <div class="max-w-[160px] mx-auto mt-6">
-            <div class="widget-title font-Inter mb-1">Unlimited Access</div>
-            <div class="text-xs font-light font-Inter">
-              Upgrade your system to business plan
-            </div>
-          </div>
-          <div class="mt-6">
-            <button class="bg-white hover:bg-opacity-80 text-slate-900 text-sm font-Inter rounded-md w-full block py-2 font-medium">
-              Upgrade
-            </button>
-          </div>
-        </div>
+        
         <!-- Upgrade Your Business Plan Card Start -->
       </div>
     </div>
@@ -589,15 +294,16 @@
                 <a href="index.html" class="mobile-logo xl:hidden inline-block">
                   <img src="assets/images/logo/logo-c.svg" class="black_logo" alt="logo">
                   <img src="assets/images/logo/logo-c-white.svg" class="white_logo" alt="logo">
-                </a>
+                </a >
                 <button class="smallDeviceMenuController hidden md:inline-block xl:hidden">
                   <iconify-icon class="leading-none bg-transparent relative text-xl top-[2px] text-slate-900 dark:text-white" icon="heroicons-outline:menu-alt-3"></iconify-icon>
                 </button>
                 <button class="flex items-center xl:text-sm text-lg xl:text-slate-400 text-slate-800 dark:text-slate-300 px-1
-        rtl:space-x-reverse search-modal" data-bs-toggle="modal" data-bs-target="#searchModal">
+        rtl:space-x-reverse search-modal" data-bs-toggle="modal" data-bs-target="#searchModal" >
                   <iconify-icon icon="heroicons-outline:search"></iconify-icon>
                   <span class="xl:inline-block hidden ml-3">Search...
-    </span>
+                    
+    </span>   
                 </button>
 
               </div>
@@ -633,7 +339,7 @@
                     <!-- has dropdown -->
 
 
-
+                 
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
@@ -731,7 +437,7 @@
 
                     <!-- has dropdown -->
 
-
+                    
 
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
@@ -1905,7 +1611,7 @@
                             <div class="h-8 w-8 bg-white dark:bg-slate-700 rounded-full relative">
                               <span class="bg-secondary-500 w-[10px] h-[10px] rounded-full border border-white dark:border-slate-700 inline-block absolute
                 right-0 top-0"></span>
-                              <img src="/assets/images/all-img/user.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
+                              <img src="assets/images/all-img/user.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
                             </div>
                           </div>
                           <div class="flex-1">
@@ -1928,7 +1634,7 @@
                             <div class="h-8 w-8 bg-white dark:bg-slate-700 rounded-full relative">
                               <span class="bg-green-500 w-[10px] h-[10px] rounded-full border border-white dark:border-slate-700 inline-block absolute
                 right-0 top-0"></span>
-                              <img src="/assets/images/all-img/user2.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
+                              <img src="assets/images/all-img/user2.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
                             </div>
                           </div>
                           <div class="flex-1">
@@ -1947,7 +1653,7 @@
                             <div class="h-8 w-8 bg-white dark:bg-slate-700 rounded-full relative">
                               <span class="bg-green-500 w-[10px] h-[10px] rounded-full border border-white dark:border-slate-700 inline-block absolute
                 right-0 top-0"></span>
-                              <img src="/assets/images/all-img/user3.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
+                              <img src="assets/images/all-img/user3.png" alt="user" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
                             </div>
                           </div>
                           <div class="flex-1">
@@ -1992,7 +1698,7 @@
                         <div class="flex ltr:text-left rtl:text-right">
                           <div class="flex-none ltr:mr-3 rtl:ml-3">
                             <div class="h-8 w-8 bg-white rounded-full">
-                              <img src="/assets/images/all-img/user.png" alt="user" class="border-white block w-full h-full object-cover rounded-full border">
+                              <img src="assets/images/all-img/user.png" alt="user" class="border-white block w-full h-full object-cover rounded-full border">
                             </div>
                           </div>
                           <div class="flex-1">
@@ -2011,7 +1717,7 @@
                         <div class="flex ltr:text-left rtl:text-right relative">
                           <div class="flex-none ltr:mr-3 rtl:ml-3">
                             <div class="h-8 w-8 bg-white rounded-full">
-                              <img src="/assets/images/all-img/user2.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
+                              <img src="assets/images/all-img/user2.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
                             </div>
                           </div>
                           <div class="flex-1">
@@ -2031,7 +1737,7 @@
                       <div class="flex ltr:text-left rtl:text-right relative">
                         <div class="flex-none ltr:mr-3 rtl:ml-3">
                           <div class="h-8 w-8 bg-white rounded-full">
-                            <img src="/assets/images/all-img/user3.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
+                            <img src="assets/images/all-img/user3.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
                           </div>
                         </div>
                         <div class="flex-1">
@@ -2047,7 +1753,7 @@
                       <div class="flex ltr:text-left rtl:text-right relative">
                         <div class="flex-none ltr:mr-3 rtl:ml-3">
                           <div class="h-8 w-8 bg-white rounded-full">
-                            <img src="/assets/images/all-img/user4.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
+                            <img src="assets/images/all-img/user4.png" alt="user" class="border-transparent block w-full h-full object-cover rounded-full border">
                           </div>
                         </div>
                         <div class="flex-1">
@@ -2070,55 +1776,47 @@
                 <div class="md:block hidden w-full">
                   <button class="text-slate-800 dark:text-white focus:ring-0 focus:outline-none font-medium rounded-lg text-sm text-center
       inline-flex items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  
+                    <div class="lg:h-8 lg:w-8 h-7 w-7 rounded-full flex-1 ltr:mr-[10px] rtl:ml-[10px]">
+                      <img src="assets/images/all-img/user.png" alt="user" class="block w-full h-full object-cover rounded-full">
+                    </div> {% if user %}
+
+                    <span class="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">{{ user['username'] }} </span>
+                     {% endif %}
+                    <svg class="w-[16px] h-[16px] dark:text-white hidden lg:inline-block text-base inline-block ml-[10px] rtl:mr-[10px]" aria-hidden="true" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                   </button>
                   <!-- Dropdown menu -->
-                  <div class="md:block hidden w-full">
-                    <button class="text-slate-800 dark:text-white focus:ring-0 focus:outline-none font-medium rounded-lg text-sm text-center
-        inline-flex items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <div class="lg:h-8 lg:w-8 h-7 w-7 rounded-full flex-1 ltr:mr-[10px] rtl:ml-[10px]">
-                        <img src="assets/images/all-img/user.png" alt="user" class="block w-full h-full object-cover rounded-full">
-                      </div> {% if user %}
-  
-                      <span class="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">{{ user['username'] }} </span>
-                       {% endif %}
-                      <svg class="w-[16px] h-[16px] dark:text-white hidden lg:inline-block text-base inline-block ml-[10px] rtl:mr-[10px]" aria-hidden="true" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                      </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                 
-                     
-                    <div class="dropdown-menu z-10 hidden bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-700 !top-[23px] rounded-md
-        overflow-hidden">
-                      <ul class="py-1 text-sm text-slate-800 dark:text-slate-200">
-                        <li>
-                          <a href="/submitted_forms" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-              dark:text-white font-normal">
-                            <iconify-icon icon="heroicons-outline:user" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                            <span class="font-Inter">View Submitted Forms</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="/download_pdf" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-              dark:text-white font-normal">
-                            <iconify-icon icon="heroicons-outline:chat" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                            <span class="font-Inter">Download PDF</span>
-                          </a>
-                        </li>
-                        
-                        <li>
-                          <a href="/logout" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-              dark:text-white font-normal">
-                            <iconify-icon icon="heroicons-outline:login" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                            <span class="font-Inter">Logout</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+               
+                   
+                  <div class="dropdown-menu z-10 hidden bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-700 !top-[23px] rounded-md
+      overflow-hidden">
+                    <ul class="py-1 text-sm text-slate-800 dark:text-slate-200">
+                      <li>
+                        <a href="/manager_review" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+            dark:text-white font-normal">
+                          <iconify-icon icon="heroicons-outline:user" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
+                          <span class="font-Inter">Manager Review</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/download_pdf" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+            dark:text-white font-normal">
+                          <iconify-icon icon="heroicons-outline:chat" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
+                          <span class="font-Inter">Download PDF</span>
+                        </a>
+                      </li>
+                      
+                      <li>
+                        <a href="/logout" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
+            dark:text-white font-normal">
+                          <iconify-icon icon="heroicons-outline:login" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
+                          <span class="font-Inter">Logout</span>
+                        </a>
+                      </li>
+                    </ul>
                   </div>
+                </div>
                 <!-- END: Header -->
                 <button class="smallDeviceMenuController md:hidden block leading-0">
                   <iconify-icon class="cursor-pointer text-slate-900 dark:text-white text-2xl" icon="heroicons-outline:menu-alt-3"></iconify-icon>
@@ -2153,444 +1851,98 @@
             <div class="transition-all duration-150 container-fluid" id="page_layout">
               <div id="content_layout">
 
-                <div>
-                  <div class="flex justify-between flex-wrap items-center mb-6">
-                    <h4 class="font-medium lg:text-2xl text-xl capitalize text-slate-900 inline-block ltr:pr-4 rtl:pl-4 mb-1 sm:mb-0">CRM</h4>
-                    <div class="flex sm:space-x-4 space-x-2 sm:justify-end items-center rtl:space-x-reverse">
-                      <button class="btn inline-flex justify-center bg-white text-slate-700 dark:bg-slate-700 !font-normal dark:text-white ">
-                        <span class="flex items-center">
-                        <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2 font-light" icon="heroicons-outline:calendar"></iconify-icon>
-                        <span>Weekly</span>
-                        </span>
-                      </button>
-                      <button class="btn inline-flex justify-center bg-white text-slate-700 dark:bg-slate-700 !font-normal dark:text-white ">
-                        <span class="flex items-center">
-                        <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2 font-light" icon="heroicons-outline:filter"></iconify-icon>
-                        <span>Select Date</span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class=" space-y-5">
-                    <div class="grid grid-cols-12 gap-5">
-                      <div class="lg:col-span-8 col-span-12 space-y-5">
-                        <div class="card p-6">
-                          <div class="grid xl:grid-cols-4 lg:grid-cols-2 col-span-1 gap-3">
-
-                            <!-- BEGIN: Group Chart4 -->
+                <h1>All Forms</h1>
 
 
-                            <div class="bg-warning-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
-                              <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="assets/images/all-img/shade-1.png" alt="" draggable="false" class="w-full h-full object-contain">
-                              </div>
-                              <span class="block mb-6 text-sm text-slate-900 dark:text-white font-medium">
-                                Unverified Forms:
-            </span>
-            <span class="block mb-6 text-2xl text-slate-900 dark:text-white font-medium">
-                 {{ unverified_count }}
-            </span>
-            
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-none text-xl  text-primary-500">
-                                  <iconify-icon icon="heroicons:arrow-trending-up"></iconify-icon>
-                                </div>
-                                <div class="flex-1 text-sm">
-                                  <span class="block mb-[2px] text-primary-500">
-                            25.67% 
-                        </span>
-                                  <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                            From last week
-                        </span>
-                                </div>
-                              </div>
-                            </div>
 
-                            <div class="bg-info-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
-                              <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="assets/images/all-img/shade-2.png" alt="" draggable="false" class="w-full h-full object-contain">
-                              </div>
-                              <span class="block mb-6 text-sm text-slate-900 dark:text-white font-medium">
-                HIGH Priority form 
-            </span>
-                              <span class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                                {{ high_priority_count }}
-            </span>
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-none text-xl  text-primary-500">
-                                  <iconify-icon icon="heroicons:arrow-trending-up"></iconify-icon>
-                                </div>
-                                <div class="flex-1 text-sm">
-                                  <span class="block mb-[2px] text-primary-500">
-                            8.67%
-                        </span>
-                                  <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                            From last week
-                        </span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="bg-primary-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
-                              <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="assets/images/all-img/shade-3.png" alt="" draggable="false" class="w-full h-full object-contain">
-                              </div>
-                              <span class="block mb-6 text-sm text-slate-900 dark:text-white font-medium">
-                Conversion
-            </span>
-                              <span class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                15%
-            </span>
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-none text-xl  text-danger-500">
-                                  <iconify-icon icon="heroicons:arrow-trending-down"></iconify-icon>
-                                </div>
-                                <div class="flex-1 text-sm">
-                                  <span class="block mb-[2px] text-danger-500">
-                            1.67%  
-                        </span>
-                                  <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                            From last week
-                        </span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="bg-success-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
-                              <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="assets/images/all-img/shade-4.png" alt="" draggable="false" class="w-full h-full object-contain">
-                              </div>
-                             
-                              <span class="block mb-6 text-sm text-slate-900 dark:text-white font-medium">
-                                 All FORMS
-                              </span>
-                              {% if submissions %}
-                                <span class="block mb-6 text-2xl text-slate-900 dark:text-white font-medium">
-                                                 {{ submissions[-1].id }}
-                                </span>
-                                {% endif %}
-
-                       
-                          
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-none text-xl  text-primary-500">
-                                  <iconify-icon icon="heroicons:arrow-trending-up"></iconify-icon>
-                                </div>
-                                <div class="flex-1 text-sm">
-                                  <span class="block mb-[2px] text-primary-500">
-                            11.67%  
-                        </span>
-                                  <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                            From last week
-                        </span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- END: Group Chart3 -->
-                          </div>
-                        </div>
-                        <div class="card p-6">
-                          <header class="md:flex md:space-y-0 space-y-4">
-                            <h6 class="flex-1 text-slate-900 dark:text-white capitalize">
-                              Deal distribution by stage
-                            </h6>
-                          </header>
-                          <div class="legend-ring">
-                            <div id="stack-bar-chart"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="lg:col-span-4 col-span-12 space-y-5">
-                        <div class="lg:col-span-4 col-span-12 space-y-5">
-                          <div class="card">
-                            <header class="card-header">
-                              <h4 class="card-title">
-                                Campaigns
-                              </h4>
-                              <div>
-                                <!-- BEGIN: Card Dropdown -->
-                                <div class="relative">
-                                  <div class="dropdown relative">
-                                    <button class="text-xl text-center block w-full " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      <span class="text-lg inline-flex h-6 w-6 flex-col items-center justify-center border border-slate-200 dark:border-slate-700
-                    rounded dark:text-slate-400">
-                <iconify-icon icon="heroicons-outline:dots-horizontal"></iconify-icon>
-            </span>
-                                    </button>
-                                    <ul class=" dropdown-menu min-w-[120px] absolute text-sm text-slate-700 dark:text-white hidden bg-white dark:bg-slate-700
-                shadow z-[2] overflow-hidden list-none text-left rounded-lg mt-1 m-0 bg-clip-padding border-none">
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last 28 Days</a>
-                                      </li>
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last Month</a>
-                                      </li>
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last Year</a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <!-- END: Card Droopdown -->
-                              </div>
-                            </header>
-                            <div class="card-body p-6">
-                              <ul class="divide-y divide-slate-100 dark:divide-slate-700">
-
-                                <li class="first:text-xs text-sm first:text-slate-600 text-slate-600 dark:text-slate-300 py-2 first:uppercase">
-                                  <div class="flex justify-between">
-                                    <span>Channel</span>
-                                    <span>roi</span>
-                                  </div>
-                                </li>
-
-                                <li class="first:text-xs text-sm first:text-slate-600 text-slate-600 dark:text-slate-300 py-2 first:uppercase">
-                                  <div class="flex justify-between">
-                                    <span>Email</span>
-                                    <span>40%</span>
-                                  </div>
-                                </li>
-
-                                <li class="first:text-xs text-sm first:text-slate-600 text-slate-600 dark:text-slate-300 py-2 first:uppercase">
-                                  <div class="flex justify-between">
-                                    <span>Website</span>
-                                    <span>28%</span>
-                                  </div>
-                                </li>
-
-                                <li class="first:text-xs text-sm first:text-slate-600 text-slate-600 dark:text-slate-300 py-2 first:uppercase">
-                                  <div class="flex justify-between">
-                                    <span>Facebook</span>
-                                    <span>34%</span>
-                                  </div>
-                                </li>
-
-                                <li class="first:text-xs text-sm first:text-slate-600 text-slate-600 dark:text-slate-300 py-2 first:uppercase">
-                                  <div class="flex justify-between">
-                                    <span>Offline</span>
-                                    <span>17%</span>
-                                  </div>
-                                </li>
-
-                              </ul>
-                            </div>
-                          </div>
-                          <div class="card">
-                            <header class="card-header">
-                              <h4 class="card-title">
-                                trends calcultation
-                              </h4>
-                              <div>
-                                <!-- BEGIN: Card Dropdown -->
-                                <div class="relative">
-                                  <div class="dropdown relative">
-                                    <button class="text-xl text-center block w-full " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      <span class="text-lg inline-flex h-6 w-6 flex-col items-center justify-center border border-slate-200 dark:border-slate-700
-                    rounded dark:text-slate-400">
-                <iconify-icon icon="heroicons-outline:dots-horizontal"></iconify-icon>
-            </span>
-                                    </button>
-                                    <ul class=" dropdown-menu min-w-[120px] absolute text-sm text-slate-700 dark:text-white hidden bg-white dark:bg-slate-700
-                shadow z-[2] overflow-hidden list-none text-left rounded-lg mt-1 m-0 bg-clip-padding border-none">
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last 28 Days</a>
-                                      </li>
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last Month</a>
-                                      </li>
-                                      <li>
-                                        <a href="#" class="text-slate-600 dark:text-white block font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600
-                        dark:hover:text-white">
-                                          Last Year</a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <!-- END: Card Droopdown -->
-                              </div>
-                            </header>
-                            <div class="card-body p-6">
-                              <div class="legend-ring3">
-                                <div id="pie-chart-cal"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- BEGIN: Advanced Table 2 -->
-
-
-                    <div class="card">
-                      <header class=" card-header noborder">
-                        <h4 class="card-title">Advanced Table Two
-                        </h4>
-                      </header>
-                      <div class="card-body px-6 pb-6">
-                        <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                          <span class=" col-span-8  hidden"></span>
-                          <span class="  col-span-4 hidden"></span>
-                          <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden ">
-                              <table class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700 data-table">
-                                <thead class=" bg-slate-200 dark:bg-slate-700">
-                                  <tr>
-
-                                    <th scope="col" class=" table-th ">
-                                      Id
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                      Name/Subject
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                        Priority
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                        Submission Date
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                        Sender
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                        Recipient/reciver
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                      Status
-                                    </th>
-
-                                    <th scope="col" class=" table-th ">
-                                      Action
-                                    </th>
-
-                                  </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                  {% if submissions %}
-
-                                  {% for submission in submissions %}
-                                  <tr>
-                                    <td class="table-td"> {{ loop.index }}</td>
-                                    <td class="table-td ">{{ submission.name }}</td>
-                                    <td class="table-td">
-                                      <span class="flex">
-                                            <span class="w-7 h-7 rounded-full ltr:mr-3 rtl:ml-3 flex-none">
-                                                <img src="assets/images/all-img/customer_1.png" alt="1" class="object-cover w-full h-full rounded-full">
-                                            </span>
-                                      <span class="text-sm text-slate-600 dark:text-slate-300 capitalize">{{ submission.priority }}</span>
-                                      </span>
-                                    </td>
-                                    <td class="table-td ">{{ submission.submission_date}}</td>
-                                    <td class="table-td ">
-                                      <div>
-                                        {{submission.field3 }}
-                                      </div>
-                                    </td>
-                                    <td class="table-td ">
-                                      <div>
-                                        {{submission.field5}}
-                                      </div>
-                                    </td>
-                                    <td class="table-td">
-                                        <div class="inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25
-                                                    {% if submission.status == 'Verified' %} 
-                                                        bg-success-500 text-success-500 
-                                                    {% else %} 
-                                                        bg-danger-500 text-danger-500 
-                                                    {% endif %}">
-                                            {{ submission.status }}
-                                        </div>
-                                    </td>
-                                    
-                                    <td class="table-td ">
-                                        <a href="{{ url_for('view_submission', submission_id=submission.id) }}" style="text-decoration: none;">
-                                            <span style="color: #007bff; font-weight: bold; margin-right: 5px;">View</span>
-                                            <button class="view-btn" type="button">
-                                                <iconify-icon icon="heroicons:eye"></iconify-icon>
-                                            </button>
-                                        </a>
-
-
-                                        <form action="{{ url_for('edit_submission', submission_id=submission.id) }}" method="get" style="display:inline;">
-                                            <button type="submit" class="btn btn-primary">
-                                                <iconify-icon icon="heroicons:pencil-square"></iconify-icon> Edit / versrion contol
-                                            </button>
-                                        </form>
-
-
-                                    <form action="{{ url_for('verify_submission', submission_id=submission.id) }}" method="post" style="display:inline;" 
-                                    onsubmit="showVerifiedPopup({{ submission.id }})">
-                                  <input type="submit" value="Verify" class="btn btn-success" >
-                                  
-                              </form>
-                                        
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  </td>
-                                    
-                                  </tr>
-
-                                </tbody>
-                                {% endfor %}
-                                {% else %}
-                                 <p>No forms assigned to you.</p>
-                                  {% endif %}
-                                                                 
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END: Advanced Table -->
-                  </div>
+                <!-- BEGIN: Breadcrumb -->
+                <div class="mb-5">
+                  <ul class="m-0 p-0 list-none">
+                    <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
+                      <a href="index.html">
+                        <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+                        <iconify-icon icon="heroicons-outline:chevron-right" class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
+                      </a>
+                    </li>
+                    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+                      Utility
+                      <iconify-icon icon="heroicons-outline:chevron-right" class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+                    </li>
+                    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
+                      Blank-Page</li>
+                  </ul>
                 </div>
+                <!-- END: BreadCrumb -->
+                <div class=" space-y-5">
+                    <!-- Submitted Forms Table -->
+        <table class="table table-bordered table-striped">
 
-              </div>
-            </div>
-          </div>
+ 
+
+    <div class="table-wrapper1"  maxlength="800" >
+      <table >
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name/Subject</th>
+                  <th>Tags</th>
+                  <th>Categories</th>
+                  <th>Sender</th>
+                  <th>Sender's Signature</th>
+                  <th>Recipient</th>
+                  <th>Recipient's Signature</th>
+                  <th>Registration Number</th>
+                  <th>Letter Content</th>
+                  <th>Attachment Number</th>
+                  <th>Letter Content</th>
+                  <th>Select Follower</th>
+                  <th>Priority</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
+                  <th>Verified Time</th>
+                  <th>Edit Time</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for submission in submissions %}
+                  <tr>
+                      <td>{{ submission.id }}</td>
+                      <td>{{ submission.name }}</td>
+                      <td>{{ submission.field1 }}</td>
+                      <td>{{ submission.field2 }}</td>
+                      <td>{{ submission.field3 }}</td>
+                      <td>{{ submission.field4 }}</td>
+                      <td>{{ submission.field5 }}</td>
+                      <td>{{ submission.field6 }}</td>
+                      <td>{{ submission.field7 }}</td>
+                      <td>{{ submission.field8 }}</td>
+                      <td>{{ submission.field9 }}</td>
+                      <td>{{ submission.field10 }}</td>
+                      <td>{{ submission.field11 }}</td>
+                      <td>{{ submission.priority }}</td>
+                      <td>{{ submission.submission_date }}</td>
+                      <td>{{ submission.status }}</td>
+                      <td>{{ submission.verification_date or 'Not Verified' }}</td>
+                      <td>{{ submission.editing_time or 'Not Edited' }}</td>
+                  </tr>
+              {% else %}
+                  <tr>
+                      <td colspan="17" class="no-submissions">No submissions found.</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+
+
+          
+          
         </div>
       </div>
 
       <!-- BEGIN: Footer For Desktop and tab -->
-      <footer class="md:block hidden" id="footer">
-        <div class="site-footer px-6 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 py-4 ltr:ml-[248px] rtl:mr-[248px]">
-          <div class="grid md:grid-cols-2 grid-cols-1 md:gap-5">
-            <div class="text-center ltr:md:text-start rtl:md:text-right text-sm">
-              COPYRIGHT ©
-              <span id="thisYear"></span>
-              DashCode, All rights Reserved
-            </div>
-            <div class="ltr:md:text-right rtl:md:text-end text-center text-sm">
-              Hand-crafted &amp; Made by
-              <a href="https://codeshaper.net" target="_blank" class="text-primary-500 font-semibold">
-                Codeshaper
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+     
       <!-- END: Footer For Desktop and tab -->
-
       <div class="bg-white bg-no-repeat custom-dropshadow footer-bg dark:bg-slate-700 flex justify-around items-center
     backdrop-filter backdrop-blur-[40px] fixed left-0 bottom-0 w-full z-[9999] bothrefm-0 py-[12px] px-4 md:hidden">
         <a href="chat.html">
@@ -2633,15 +1985,17 @@
     </div>
   </main>
   <!-- scripts -->
-  <script src="{{ url_for('static', filename='assets1/js/jquery-3.6.0.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets1/js/rt-plugins.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets1/js/app.js') }}"></script>
-  <script>
-    function showVerifiedPopup(submissionId) {
-        alert('Verified');
-        document.getElementById(`status-${submissionId}`).innerText = 'Verified';
-        document.getElementById(`status-${submissionId}`).classList.add('status-verified');
-    }
-</script>
+  <!-- Core Js -->
+  <!-- jQuery Plugins -->
+<script src="{{ url_for('static', filename='assets/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/tw-elements-1.0.0-alpha13.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/SimpleBar.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/iconify.js') }}"></script>
+
+<!-- App JS -->
+<script src="{{ url_for('static', filename='assets/js/sidebar-menu.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+
 </body>
 </html>
