@@ -86,13 +86,13 @@
 
             <div class="mb-3">
                 <label for="priority">Priority:</label>
-    <select id="priority" name="priority">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-    </select>
-
+                <select id="priority" name="priority">
+                    <option value="Low" {% if submission.priority == 'Low' %}selected{% endif %}>Low</option>
+                    <option value="Medium" {% if submission.priority == 'Medium' %}selected{% endif %}>Medium</option>
+                    <option value="High" {% if submission.priority == 'High' %}selected{% endif %}>High</option>
+                </select>
             </div>
+            
 
             <div class="mb-3">
                 <label for="status" class="form-label">Status:</label>
@@ -100,7 +100,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update Submission</button>
-            <a href="{{ url_for('manager_review') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ url_for('admin_review') }}" class="btn btn-secondary">Cancel</a>
             <a href="{{ url_for('view_versions', submission_id=submission.id) }}">View Version History</a>
 
         </form>

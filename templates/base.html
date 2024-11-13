@@ -1,86 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lavia{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        .navbar {
-            background-color: #ffcc00; /* Yellow background for the navbar */
-        }
-        .navbar-brand {
-            color: #cc0000; /* Dark red color for the brand */
-        }
-        .navbar-nav .nav-link {
-            color: #cc0000; /* Dark red color for the nav links */
-        }
-        .navbar-nav .nav-link:hover {
-            color: #a30000; /* Darker red on hover */
-        }
-        .search-bar {
-            margin-top: 10px;
-        }
-        .search-bar .form-control {
-            border: 1px solid #cc0000; /* Red border for the search input */
-        }
-        .search-bar .btn {
-            background-color: #cc0000; /* Red background for the search button */
-            color: white; /* White text for the button */
-        }
-        .search-bar .btn:hover {
-            background-color: #a30000; /* Darker red on hover */
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="nav-link" href="{{ url_for('home') }}"> <image src="{{url_for('static' , filename='image/Lavia_Logo.png')}}" alt="loging" href="/login" class="btn btn- Login" width"170" height="70" ></image> </a>
+<div style="height: 1px;" role="main" aria-expanded="false" class="navbar-collapse collapse navbar-collapse-centered" id="bs">
+    <ul class="nav navbar-nav navbar-nav-centered">
+        {% if user %}
+        <a href="/form" class="btn btn-primary">Go to Form</a>
+        <a href="/user_forms" class="btn btn-primary">view my forms status</a>
 
-
-            <div class="dropdown" style="position: absolute; left:1700px ; top:20px;">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  admin dashbord 
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/user">User profile</a></li>
-                  <li><a class="dropdown-item" href="#">Sended forms</a></li>
-                  <li><a class="dropdown-item" href="#">Verfiyed forms</a></li>
-                </ul>
-              </div>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% if user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">Logged Out</a>
-                             
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('login') }}"></a>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                    </li>
-                </ul>
-                <form class="d-flex search-bar" method="get" action="{{ url_for('search') }}">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-                    <button class="btn" type="submit">Search</button>
-                    
-                </form>
+        {% endif %} 
+        <li class="nav-item dropdown">
+            <div class="dropdown-menu custom-dropdown-menu">
+                <div class="dropdown-items-holder">
+                    <div class="items-with-icon">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="wordpresshosting.html" class="link-with-icon">
+                                    <span class="icon"><img src="images/server4.svg" alt=""></span>
+                                    <span class="text">Wordpress Hosting</span>
+                                </a>
+                                <a href="dedicatedhosting.html" class="link-with-icon">
+                                    <span class="icon"><img src="images/server5.svg" alt=""></span>
+                                    <span class="text">Dedicated Hosting</span>
+                                </a>
+                                <a href="domains.html" class="link-with-icon">
+                                    <span class="icon"><img src="images/server6.svg" alt=""></span>
+                                    <span class="text">Domain Names</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="link">Hustbee Features</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="link">Website builder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </li>
+         {% if user['role'] == 'admin' %}
+           <a href="/admin_review" class="btn btn-info">Admin Review</a>
+           <a href="/submitted_forms" class="btn btn-info">View Submitted Forms</a>
+           <a href="/download_pdf" class="btn btn-info">Download PDF</a>
+           <a href="/search" class="btn btn-info">Search</a>
 
-    <div class="container mt-4">
-        {% block content %}
-        <!-- Main content will be inserted here -->
-        {% endblock %}
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+         {% elif user['role'] == 'manager' %}
+          <a href="/manager_review" class="btn btn-info">Manager Review</a>
+          <a href="/download_pdf" class="btn btn-info">Download PDF</a>
+         <a href="/search" class="btn btn-info">Search</a>
+          {% endif %}
+          
+       
+        <li class="nav-item dropdown">
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="about.html">About</a></li>
+                <li><a class="dropdown-item" href="blog.html">Blog</a></li>
+                <li><a class="dropdown-item" href="privacy.html">Privacy</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right other-navbar">
+        <li class="nav-item">
+            {% if user %}
+            <a class="nav-link btn-client-area" href="{{ url_for('logout') }}"><img src="images/lock.svg" alt="">Logout</a>
+            {% else %}
+            <a class="nav-link btn-client-area" href="{{ url_for('login') }}"><img src="images/lock.svg" alt="">login</a>
+            {% endif %}
+
+            {% if user %}
+            <h5 style="font-size: 1.5em; color: #333; font-weight: bold; 
+            background-color: #f0f8ff; padding: 10px 15px; 
+            border-radius: 8px; display: inline-block; 
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+     Hi, {{ user['username'] }}!
+ </h5>
+ 
+                {% if verification_message %}
+                <p class="alert alert-info">{{ verification_message }}</p>
+                {% endif %}
+            {% endif %}
+            
+        </li>
+        
+    </ul>
+</div>

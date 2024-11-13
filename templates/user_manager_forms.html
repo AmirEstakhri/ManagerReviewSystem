@@ -6,168 +6,263 @@
     <title>Your Submissions</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        /* General Styling */
+        /* Global styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f7f6;
             color: #333;
-            margin: 0;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
             color: #4a90e2;
+            margin-bottom: 20px;
         }
 
-        /* Table Styling */
+        /* Back button styles */
+        .back-button {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 200px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #357ab7;
+        }
+
+        /* Container for form content */
+        .form-container-wrapper {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         th, td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #4a90e2;
             color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
 
-        /* Form Styling */
-        .form-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 15px 0;
-            align-items: center;
-        }
+        /* Form item styles */
         .form-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            flex: 1 1 calc(33.33% - 10px);
+            gap: 10px;
+            margin-bottom: 15px;
         }
+
         label {
             font-weight: bold;
-            white-space: nowrap;
+            width: 200px;
+            text-align: right;
         }
-        input[type="text"] {
+
+        input[type="text"], input[type="date"], select {
             width: 100%;
-            padding: 6px;
-            border: 1px solid #ccc;
+            padding: 8px;
             border-radius: 4px;
-            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+
+        /* Disabled fields */
+        .disabled-message {
+            text-align: center;
+            color: #ff0000;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Save button styles */
+        button[type="submit"] {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #357ab7;
+        }
+
+        button[type="submit"]:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* View-only fields */
+        .form-item input[readonly], .form-item select[disabled] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        /* Message styles */
+        .message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+
+    <!-- Back to Home Button -->
+    <a href="{{ url_for('home') }}">
+        <button class="back-button">Back to Home</button>
+    </a>
+
     <h1>Your Submissions</h1>
 
-    {% if user_forms %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Form ID</th>
-                    <th>Name</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Submission Date</th>
-                    <th>Receiver (Manager)</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for submission in user_forms %}
+    <div class="form-container-wrapper">
+        {% if user_forms %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ submission.id }}</td>
-                        <td>{{ submission.name }}</td>
-                        <td>{{ submission.priority }}</td>
-                        <td>{{ submission.status }}</td>
-                        <td>{{ submission.submission_date }}</td>
-                        <td>{{ submission.field6 }}</td>
-                        <td>
-                            <!-- Form for viewing a submission (all fields are read-only) -->
-                            <form class="form-container">
-                                <div class="form-item">
-                                    <label>Name:</label>
-                                    <input type="text" name="name" value="{{ submission.name }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>tags :</label>
-                                    <input type="text" name="field1" value="{{ submission.field1 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Categories:</label>
-                                    <input type="text" name="field2" value="{{ submission.field2 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Sender :</label>
-                                    <input type="text" name="field3" value="{{ submission.field3 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Sender's Signature:</label>
-                                    <input type="text" name="field4" value="{{ submission.field4 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>reciver:</label>
-                                    <input type="text" name="field5" value="{{ submission.field5 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Receiver's Signature :</label>
-                                    <input type="text" name="field6" value="{{ submission.field6 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Registration Number:</label>
-                                    <input type="text" name="field7" value="{{ submission.field7 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Letter Content:</label>
-                                    <input type="text" name="field8" value="{{ submission.field8 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Attachment Number:</label>
-                                    <input type="text" name="field9" value="{{ submission.field9 }}" readonly>
-                                </div>
-                                
-                                <div class="form-item">
-                                    <label>Select Follower:</label>
-                                    <input type="text" name="field11" value="{{ submission.field11 }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Priority:</label>
-                                    <input type="text" name="priority" value="{{ submission.priority }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Submission Date:</label>
-                                    <input type="text" name="submission_date" value="{{ submission.submission_date }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Status:</label>
-                                    <input type="text" name="status" value="{{ submission.status }}" readonly>
-                                </div>
-                                <div class="form-item">
-                                    <label>Verification Date:</label>
-                                    <input type="text" name="verification_date" value="{{ submission.verification_date }}" readonly>
-                                </div>
-                            </form>
-                        </td>
+                        <th>Form ID</th>
+                        <th>Name</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Submission Date</th>
+                        <th>Receiver (Manager)</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p class="no-submissions">You have no submissions to view.</p>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for submission in user_forms %}
+                        <tr>
+                            <td>{{ submission.id }}</td>
+                            <td>{{ submission.name }}</td>
+                            <td>{{ submission.priority }}</td>
+                            <td>{{ submission.status }}</td>
+                            <td>{{ submission.submission_date }}</td>
+                            <td>{{ submission.field6 }}</td>
+                            <td>
+                                <!-- Check if the form is verified -->
+                                {% if submission.status == 'Verified' %}
+                                    <p class="disabled-message">Editing is disabled because this form is verified.</p>
+                                {% endif %}
+
+                                <form action="{{ url_for('user_forms') }}" method="post">
+                                    <input type="hidden" name="form_id" value="{{ submission.id }}">
+
+                                    <div class="form-container">
+                                        <!-- Editable fields -->
+                                        <div class="form-item">
+                                            <label>Subject:</label>
+                                            <input type="text" name="field1" value="{{ submission.field1 }}" 
+                                                   {% if submission.status == 'Verified' %}readonly{% endif %}>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Sender's Signature:</label>
+                                            <input type="text" name="field4" value="{{ submission.field4 }}" 
+                                                   {% if submission.status == 'Verified' %}readonly{% endif %}>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Receiver:</label>
+                                            <select id="field5" name="field5" required {% if submission.status == 'Verified' %}disabled{% endif %}>
+                                                <option value="" disabled selected>Select a recipient</option>
+                                                {% if managers %}
+                                                    {% for manager in managers %}
+                                                        <option value="{{ manager }}" {% if submission.field5 == manager %}selected{% endif %}>{{ manager }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <option value="" disabled>No managers available</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Letter Content:</label>
+                                            <input type="text" name="field8" value="{{ submission.field8 }}" 
+                                                   {% if submission.status == 'Verified' %}readonly{% endif %}>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Priority:</label>
+                                            <select id="priority" name="priority">
+                                                <option value="Low" {% if submission.priority == 'Low' %}selected{% endif %}>Low</option>
+                                                <option value="Medium" {% if submission.priority == 'Medium' %}selected{% endif %}>Medium</option>
+                                                <option value="High" {% if submission.priority == 'High' %}selected{% endif %}>High</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- View-only fields -->
+                                        <div class="form-item">
+                                            <label>Categories:</label>
+                                            <input type="text" value="{{ submission.field2 }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Sender:</label>
+                                            <input type="text" value="{{ submission.field3 }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Registration Number:</label>
+                                            <input type="text" value="{{ submission.field7 }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Attachment Number:</label>
+                                            <input type="text" value="{{ submission.field9 }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Select Follower:</label>
+                                            <input type="text" value="{{ submission.field11 }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Submission Date:</label>
+                                            <input type="text" value="{{ submission.submission_date }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Status:</label>
+                                            <input type="text" value="{{ submission.status }}" readonly>
+                                        </div>
+                                        <div class="form-item">
+                                            <label>Verification Date:</label>
+                                            <input type="text" value="{{ submission.verification_date }}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <!-- Disable the Save button if the form is verified -->
+                                    <button type="submit" {% if submission.status == 'Verified' %}disabled{% endif %}>Save Changes</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="message">You have no submissions to view.</p>
+        {% endif %}
+    </div>
+
 </body>
 </html>

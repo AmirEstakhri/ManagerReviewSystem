@@ -37,17 +37,17 @@ class Submission(db.Model):
     editing_time = db.Column(db.DateTime, nullable=True)
     verifiy_by = db.Column(db.String(50), nullable=True)
 
-    # Foreign key to the user assigned to the form (assigned_manager)
-    assigned_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    assigned_manager = db.relationship('User', backref='assigned_forms', foreign_keys=[assigned_manager_id])
+    # # Foreign key to the user assigned to the form (assigned_manager)
+    # assigned_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # assigned_manager = db.relationship('User', backref='assigned_forms', foreign_keys=[assigned_manager_id])
 
-    # Foreign key for second manager (optional)
-    second_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    second_manager = db.relationship('User', foreign_keys=[second_manager_id], backref='second_manager_forms')
+    # # Foreign key for second manager (optional)
+    # second_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    # second_manager = db.relationship('User', foreign_keys=[second_manager_id], backref='second_manager_forms')
 
-    # Many-to-many relationship for users who can view the form (admins, managers)
-    allowed_users = db.relationship('User', secondary='submission_user', backref='viewable_forms')
-    allow_other_managers_to_see = db.Column(db.Boolean, default=False)
+    # # Many-to-many relationship for users who can view the form (admins, managers)
+    # allowed_users = db.relationship('User', secondary='submission_user', backref='viewable_forms')
+    # allow_other_managers_to_see = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f'<Submission {self.id}, Name: {self.name}>'

@@ -23,6 +23,73 @@
   
     <!-- Settings JS -->
     <script src="{{ url_for('static', filename='assets/js/settings.js') }}" async></script>
+    <style>
+      h1 {
+          text-align: center;
+          font-size: 28px;
+          margin-bottom: 20px;
+          color: #333;
+          padding: 15px;
+          border: 2px solid #343a40; /* Border color */
+          border-radius: 12px; /* Round corners */
+          background-color: #f8f9fa; /* Light background */
+      }
+
+      /* General styling */
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f7f6;
+          margin: 0;
+          padding: 20px;
+      }
+
+      .table-wrapper {
+          max-width: 100%;
+          overflow: auto;  /* Enables both horizontal and vertical scrolling */
+          margin-top: 30px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 1200px; /* Ensures horizontal scroll when table is wide */
+      }
+
+      th, td {
+          padding: 12px;
+          text-align: center;
+          border: 1px solid #ddd;
+          font-size: 14px;
+      }
+
+      th {
+          background-color: #343a40;
+          color: white;
+          font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover {
+          background-color: #f1f1f1;
+      }
+
+      td {
+          color: #333;
+      }
+
+      .no-submissions {
+          text-align: center;
+          color: #888;
+          font-size: 18px;
+          padding: 20px;
+      }
+  </style>
   </head>
   
 
@@ -54,13 +121,26 @@
         <ul class="sidebar-menu">
           <li class="sidebar-menu-title">MENU</li>
           <li class="">
-            <a href="#" class="navItem active">
+            <a href="/" class="navItem active">
               <span class="flex items-center">
             <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
             <span>menu</span>
               </span>
             </a>
           </li>
+          
+        </ul>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-title">download_pdf</li>
+          <li class="">
+            <a href="/download_pdf" class="navItem active">
+              <span class="flex items-center">
+            <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
+            <span>download_pdf</span>
+              </span>
+            </a>
+          </li>
+          
         </ul>
         <!-- Upgrade Your Business Plan Card Start -->
         
@@ -1771,6 +1851,7 @@
             <div class="transition-all duration-150 container-fluid" id="page_layout">
               <div id="content_layout">
 
+                <h1>All Forms</h1>
 
 
 
@@ -1795,90 +1876,72 @@
                 <div class=" space-y-5">
                     <!-- Submitted Forms Table -->
         <table class="table table-bordered table-striped">
-            <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
-                <thead>
-                    <tr style="background-color: #343a40; color: white; text-align: center;">
-                        <th style="padding: 10px; border: 1px solid #ddd;">ID</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Name/Subject</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Tags</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Categories</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Sender</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Sender's Signature</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Recipient</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Recipient's Signature</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Registration Number</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Letter Content</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Attachment Number</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Letter Content</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Select Follower</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Priority</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">Submission Date</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">  Status </th >
-                        <th style="padding: 10px; border: 1px solid #ddd;">verfied Time</th>
-                        <th style="padding: 10px; border: 1px solid #ddd;">edit Time</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for submission in submissions %}
-                    <tr style="text-align: center; border: 1px solid #ddd;">
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.id }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.name }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field1 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field2 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field3 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field4 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field5 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field6 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field7 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field8 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field9 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field10 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.field11 }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.priority }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.submission_date }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.status }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.verification_date or 'Not Verified' }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ submission.editing_time or 'Not Edited' }}</td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="17" style="text-align: center; padding: 10px; color: #888;">
-                            No submissions found.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            
-            
+ 
 
-                </div>
+    <div class="table-wrapper">
+      <table>
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name/Subject</th>
+                  <th>Tags</th>
+                  <th>Categories</th>
+                  <th>Sender</th>
+                  <th>Sender's Signature</th>
+                  <th>Recipient</th>
+                  <th>Recipient's Signature</th>
+                  <th>Registration Number</th>
+                  <th>Letter Content</th>
+                  <th>Attachment Number</th>
+                  <th>Letter Content</th>
+                  <th>Select Follower</th>
+                  <th>Priority</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
+                  <th>Verified Time</th>
+                  <th>Edit Time</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for submission in submissions %}
+                  <tr>
+                      <td>{{ submission.id }}</td>
+                      <td>{{ submission.name }}</td>
+                      <td>{{ submission.field1 }}</td>
+                      <td>{{ submission.field2 }}</td>
+                      <td>{{ submission.field3 }}</td>
+                      <td>{{ submission.field4 }}</td>
+                      <td>{{ submission.field5 }}</td>
+                      <td>{{ submission.field6 }}</td>
+                      <td>{{ submission.field7 }}</td>
+                      <td>{{ submission.field8 }}</td>
+                      <td>{{ submission.field9 }}</td>
+                      <td>{{ submission.field10 }}</td>
+                      <td>{{ submission.field11 }}</td>
+                      <td>{{ submission.priority }}</td>
+                      <td>{{ submission.submission_date }}</td>
+                      <td>{{ submission.status }}</td>
+                      <td>{{ submission.verification_date or 'Not Verified' }}</td>
+                      <td>{{ submission.editing_time or 'Not Edited' }}</td>
+                  </tr>
+              {% else %}
+                  <tr>
+                      <td colspan="17" class="no-submissions">No submissions found.</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
 
-              </div>
-            </div>
-          </div>
+
+          
+          
         </div>
       </div>
 
       <!-- BEGIN: Footer For Desktop and tab -->
-      <footer class="md:block hidden" id="footer">
-        <div class="site-footer px-6 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 py-4 ltr:ml-[248px] rtl:mr-[248px]">
-          <div class="grid md:grid-cols-2 grid-cols-1 md:gap-5">
-            <div class="text-center ltr:md:text-start rtl:md:text-right text-sm">
-              COPYRIGHT ©
-              <span id="thisYear"></span>
-              DashCode, All rights Reserved
-            </div>
-            <div class="ltr:md:text-right rtl:md:text-end text-center text-sm">
-              Hand-crafted &amp; Made by
-              <a href="https://codeshaper.net" target="_blank" class="text-primary-500 font-semibold">
-                Codeshaper
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+     
       <!-- END: Footer For Desktop and tab -->
       <div class="bg-white bg-no-repeat custom-dropshadow footer-bg dark:bg-slate-700 flex justify-around items-center
     backdrop-filter backdrop-blur-[40px] fixed left-0 bottom-0 w-full z-[9999] bothrefm-0 py-[12px] px-4 md:hidden">

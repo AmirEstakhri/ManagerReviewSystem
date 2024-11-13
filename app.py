@@ -11,6 +11,8 @@ from flask_login import current_user, login_required
 import json
 from users import users, get_user
 
+import time
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -287,6 +289,9 @@ def manager_review():
     
 @app.route('/user_forms', methods=['GET', 'POST'])
 def user_forms():
+    # Get the list of manager usernames
+    managers = [manager['username'] for manager in users.values() if manager['role'] == 'manager']
+
     if 'user' not in session:
         return redirect(url_for('login'))
 
@@ -308,13 +313,13 @@ def user_forms():
             form.name = request.form.get('name')
             form.field1 = request.form.get('field1')
             form.field2 = request.form.get('field2')
-            form.field3 = request.form.get('field3')  # Make sure this is updated if needed
+            form.field3 = request.form.get('field3')
             form.field4 = request.form.get('field4')
-            form.field6 = request.form.get('field6')  # Receiver (Manager)
+            form.field5 = request.form.get('field5')
+            form.field6 = request.form.get('field6')
             form.field7 = request.form.get('field7')
             form.field8 = request.form.get('field8')
             form.field9 = request.form.get('field9')
-            form.field10 = request.form.get('field10')
             form.field11 = request.form.get('field11')
             form.priority = request.form.get('priority')
             form.submission_date = request.form.get('submission_date')
@@ -325,11 +330,12 @@ def user_forms():
             db.session.commit()  # Commit the changes to the database
             return redirect(url_for('user_forms'))  # Redirect to refresh the page and see the changes
 
-    # Render the user_forms template with submissions
+    # Render the user_forms template with submissions and managers list
     return render_template(
         'user_manager_forms.html',
         user_forms=user_forms,
-        unverified_count=unverified_count
+        unverified_count=unverified_count,
+        managers=managers
     )
 
 
@@ -352,7 +358,7 @@ def admin_review():
     submitted_data = Submission.query.all()
 
     # Render the admin review template with all the submissions data
-    return render_template('manager_review.html', 
+    return render_template('admin_review.html', 
                            submissions=submitted_data, 
                            unverified_count=unverified_count, 
                            high_priority_count=high_priority_count)
@@ -403,7 +409,9 @@ def edit_submission(submission_id):
 
     if submission is None:
         flash('Submission not found!', 'error')
-        return redirect(url_for('manager_review'))
+        time.sleep(3) # Sleep for 3 seconds
+
+        return redirect(url_for('admin_review'))
 
     if request.method == 'POST':
         print(request.form)  # Debugging line
@@ -428,7 +436,9 @@ def edit_submission(submission_id):
         submission.editing_time = datetime.utcnow()
         db.session.commit()
         flash('Submission updated and version saved successfully!', 'success')
-        return redirect(url_for('manager_review'))
+        time.sleep(3) # Sleep for 3 seconds
+
+        return redirect(url_for('admin_review'))
 
     return render_template('edit_submission.html', submission=submission)
 
